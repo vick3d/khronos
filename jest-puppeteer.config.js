@@ -16,7 +16,7 @@ module.exports = {
 	browserContext: 'default',
 
 	server: {
-		command: `BROWSER=none npm run start`,
+		command: `BROWSER=none yarn run start`,
 		port: 3001,
 		launchTimeout: 4000,
 	},
