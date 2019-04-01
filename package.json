@@ -5,22 +5,25 @@
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.86.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
+		"eject": "react-scripts eject",
 		"features": "jest -c jest.config.js",
-		"cypress:open": "cypress open",
+		"cy:open": "cypress open",
+    "cy:run": "cypress run",
 		"cy:ci": "start --silent & yarn cy:run"
-  },
+	},
   "eslintConfig": {
-		"extends": "react-app",
-		"globals": {
-			"cy": "cy"
-		}
+    "extends": "react-app",
+    "globals": {
+      "cy": "cy"
+    }
   },
   "browserslist": [
     ">0.2%",
