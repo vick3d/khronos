@@ -17,7 +17,7 @@ module.exports = {
 
 	server: {
 		command: `BROWSER=none yarn run start`,
-		port: 3001,
+		port: 3000,
 		launchTimeout: 4000,
 	},
  }
