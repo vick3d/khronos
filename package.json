@@ -13,10 +13,13 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
 		"features": "jest -c jest.config.js",
-		"cypress": "cypress open"
+		"cypress:open": "cypress open"
   },
   "eslintConfig": {
-    "extends": "react-app"
+		"extends": "react-app",
+		"globals": {
+			"cy": "cy"
+		}
   },
   "browserslist": [
     ">0.2%",
