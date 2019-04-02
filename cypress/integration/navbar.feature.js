@@ -6,7 +6,6 @@ describe('Display Navbar', () => {
 		cy.get('.sign-in').should('be.visible');
 		cy.get('.sign-out').should('be.visible');
 		cy.get('.play').should('be.visible');
-		cy.get('.pause').should('be.visible');
 		cy.get('.stop').should('be.visible');
 		cy.get('.help').should('be.visible');
 		cy.get('.calendar').should('be.visible');

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Container, Grid, Image, Divider } from 'semantic-ui-react'
-import dummy from './img/dummy_image.jpg'
+import dummy from '../img/dummy_image.jpg'
 
 class LandingPage extends Component {
 	render() {

@@ -23,9 +23,6 @@ class Navbar extends Component {
 						<Icon disabled name='play'size='big'/>
 					</Menu.Item>
 					<Menu.Item >
-						<Icon disabled name='pause'size='big'/>
-					</Menu.Item>
-					<Menu.Item >
 						<Icon disabled name='stop'size='big'/>
 					</Menu.Item>
 					<Menu.Item>
