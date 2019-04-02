@@ -13,9 +13,14 @@ export class TimeTrackingTable extends Component  {
 			activity: '',
 			description: '',
 			fixedRate: '',
-			hourlyRate: ''
+			hourlyRate: '',
+			entrySaved: false
     }
-  }
+	}
+
+	entryHandler(e) {
+		this.setState({ entrySaved: true })
+	}
 
 	async saveTimeData() {
 		const values = {
@@ -30,7 +35,8 @@ export class TimeTrackingTable extends Component  {
 		}
     try {
 			debugger;
-      await saveData(values);
+			await saveData(values);
+			this.entryHandler();
     } catch(error) {
       console.log(error);
     }
@@ -49,6 +55,8 @@ export class TimeTrackingTable extends Component  {
 	}
 
 	render() {
+		let saveButton;
+
 		const customerOptions = [
 			{ text: "Company 1", value: "1" },
 			{ text: "Company 2", value: "2" },
@@ -67,6 +75,20 @@ export class TimeTrackingTable extends Component  {
 			{ text: "Task 3", value: "3" },
 			{ text: "Task 4", value: "4" }
 		]
+
+		if (this.state.entrySaved === false) {
+			saveButton = (
+				<>
+					<Button onClick={this.saveTimeData.bind(this)}>Save</Button>
+				</>
+			)
+		} else if (this.state.entrySaved === true) {
+			saveButton = (
+				<>
+					<p>Your time was saved</p>
+				</>
+			)
+		}
 
 		return(
 			<Table celled>
@@ -90,14 +112,14 @@ export class TimeTrackingTable extends Component  {
 							<Input
 								id='begin'
 								placeholder='YYYY-MM-DD HH:MM'
-								onChange={(e) => this.setState({ begin: e.target.value})}
+								onChange={(e) => this.setState({ begin: e.target.value, entrySaved: false})}
 							/>
 						</Table.Cell>
 						<Table.Cell>
 							<Input
 								id='end'
 								placeholder='YYYY-MM-DD HH:MM'
-								onChange={(e) => this.setState({ end: e.target.value})}
+								onChange={(e) => this.setState({ end: e.target.value, entrySaved: false})}
 							/>
 						</Table.Cell>
 						<Table.Cell>
@@ -107,7 +129,7 @@ export class TimeTrackingTable extends Component  {
 							<Input
 								id='hourlyRate'
 								placeholder='$'
-								onChange={(e) => this.setState({ hourlyRate: e.target.value})}
+								onChange={(e) => this.setState({ hourlyRate: e.target.value, entrySaved: false})}
 							/>
 						</Table.Cell>
 						<Table.Cell>
@@ -138,9 +160,7 @@ export class TimeTrackingTable extends Component  {
 							/>
 						</Table.Cell>
 						<Table.Cell>
-							<Button onClick={this.saveTimeData.bind(this)}>
-								Save
-							</Button>
+							{saveButton}
 						</Table.Cell>
 					</Table.Row>
 				</Table.Body>
