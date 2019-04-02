@@ -1,4 +1,3 @@
-
 describe('Display landing page', () => {
 	it('when user visits the page', () => {
 		cy.visit('http://localhost:3000')

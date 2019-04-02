@@ -1,28 +1,29 @@
 import React, { Component } from 'react';
 import { Button, Container, Grid, Image, Divider } from 'semantic-ui-react'
 import dummy from './img/dummy_image.jpg'
-import Navbar from './components/navbar'
 
 class LandingPage extends Component {
 	render() {
     return (
 			<>
-				<Navbar />
 				<Divider section />
 
 				<Container textAlign='center' name="text">
-					<p>Are you a freelancer?</p>
-					<p>Are you looking for solutions to keep track of your progress?</p>
-					<p>Are you looking for an easy way to keep your projects organised?</p>
-					<p>Are you looking for an easy platform for invoicing your customers?</p>
-					<p>Then you are in the write place!</p>
+					<h1>Are you a freelancer?</h1>
+					<h3>Are you looking for solutions to keep track of your progress?</h3>
+					<h3>Are you looking for an easy way to keep your projects organised?</h3>
+					<h3>Are you looking for an easy platform for invoicing your customers?</h3>
+					<h2>Then you are in the write place!</h2>
 				</Container>
+
 				<Divider hidden />
+
 				<Container textAlign='center' >
 					<Button basic color='green' name="button">
   			    Get started here!
-  			  </Button>	
-				</Container>				
+  			  </Button>
+				</Container>
+
 				<Divider section />
 
 				<Container name="images">
@@ -40,6 +41,7 @@ class LandingPage extends Component {
 						</Grid.Row>
 					</Grid>
 				</Container>
+
 				<Divider hidden />
 			</>
 		)}

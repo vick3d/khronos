@@ -1,18 +1,43 @@
 import React, { Component } from 'react';
-import logo from '../img/logo.png'
-import { Segment, Image} from 'semantic-ui-react'
+import logo from '../img/khronos2.png'
+import { Image, Icon, Menu } from 'semantic-ui-react'
 
 class Navbar extends Component {
-  render() {
-    return(
-      <>
-      
-        <Segment inverted color='orange' textAlign='left' name="logo">
-					<Image src={logo}/>
-				</Segment>
-      </>
-    )
-  }  
+	render() {
+		return (
+			<>
+				<Menu inverted color='green'>
+					<Menu.Item link name='logo'>
+						<Image src={logo} id='logo' size='small' />
+					</Menu.Item>
+					<Menu.Item >
+						<Icon link name='user'size='big'/>
+					</Menu.Item>
+					<Menu.Item >
+						<Icon link name='sign-in'size='big'/>
+					</Menu.Item>
+					<Menu.Item >
+						<Icon disabled name='sign-out'size='big'/>
+					</Menu.Item>
+					<Menu.Item >
+						<Icon disabled name='play'size='big'/>
+					</Menu.Item>
+					<Menu.Item >
+						<Icon disabled name='pause'size='big'/>
+					</Menu.Item>
+					<Menu.Item >
+						<Icon disabled name='stop'size='big'/>
+					</Menu.Item>
+					<Menu.Item>
+						<Icon link name='help'size='big'/>
+					</Menu.Item>
+					<Menu.Item position='right'>
+						<Icon link name='calendar alternate outline'size='big' />
+					</Menu.Item>
+				</Menu>
+			</>
+		)
+	}
 }
 
 export default Navbar;
