@@ -14,7 +14,6 @@
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"features": "jest -c jest.config.js",
 		"cy:open": "cypress open",
 		"cy:run": "cypress run",
 		"ci:cy": "start --silent & yarn cy:run"
@@ -34,8 +33,6 @@
 	"devDependencies": {
 		"cypress": "^3.2.0",
 		"enzyme": "^3.9.0",
-		"enzyme-adapter-react-16": "^1.11.2",
-		"jest": "^24.6.0",
-		"jest-dev-server": "^4.0.0"
+		"enzyme-adapter-react-16": "^1.11.2"
 	}
 }
