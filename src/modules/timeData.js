@@ -19,6 +19,8 @@ const saveData = (values) => {
 										"X-AUTH-TOKEN": password
 	}
 
+	debugger;
+
 	if(process.env.NODE_ENV === "development") {
 			apiUrl = proxyUrl + 'http://demo.kimai.org/api/'
 	} else {

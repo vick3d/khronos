@@ -4,25 +4,48 @@ import { saveData } from '../modules/timeData'
 
 export class TimeTrackingTable extends Component  {
 	constructor(props) {
-    super(props)
+		super(props)
+		this.state = {
+			begin: '',
+			end: '',
+			customer: '',
+			project: '',
+			activity: '',
+			description: '',
+			fixedRate: '',
+			hourlyRate: ''
+    }
   }
 
 	async saveTimeData() {
 		const values = {
-			begin: this.props.begin,
-  		end: this.props.end,
-			customer: this.props.customer,
-			project: this.props.project,
-			activity: this.props.activity,
-			description: this.props.description,
-			fixedRate: this.props.fixedRate,
-			hourlyRate: this.props.hourlyRate
+			begin: this.state.begin,
+  		end: this.state.end,
+			customer: this.state.customer,
+			project: this.state.project,
+			activity: this.state.activity,
+			description: "description",
+			fixedRate: "Unknown Type: float",
+			hourlyRate: this.state.hourlyRate
 		}
     try {
+			debugger;
       await saveData(values);
     } catch(error) {
       console.log(error);
     }
+	}
+
+	handleCustomerChange(value) {
+		this.setState({ customer: value})
+	}
+
+	handleProjectChange(value) {
+		this.setState({ project: value})
+	}
+
+	handleActivityChange(value) {
+		this.setState({ activity: value})
 	}
 
 	render() {
@@ -45,7 +68,6 @@ export class TimeTrackingTable extends Component  {
 			{ text: "Task 4", value: "4" }
 		]
 
-
 		return(
 			<Table celled>
 				<Table.Header name="tableHeader">
@@ -65,34 +87,55 @@ export class TimeTrackingTable extends Component  {
 				<Table.Body>
 					<Table.Row>
 						<Table.Cell>
-							<Input placeholder='YYYY-MM-DD HH:MM' />
+							<Input
+								id='begin'
+								placeholder='YYYY-MM-DD HH:MM'
+								onChange={(e) => this.setState({ begin: e.target.value})}
+							/>
 						</Table.Cell>
 						<Table.Cell>
-							<Input placeholder='YYYY-MM-DD HH:MM' />
+							<Input
+								id='end'
+								placeholder='YYYY-MM-DD HH:MM'
+								onChange={(e) => this.setState({ end: e.target.value})}
+							/>
 						</Table.Cell>
 						<Table.Cell>
 
 						</Table.Cell>
 						<Table.Cell>
-							<Input placeholder='$' />
+							<Input
+								id='hourlyRate'
+								placeholder='$'
+								onChange={(e) => this.setState({ hourlyRate: e.target.value})}
+							/>
 						</Table.Cell>
 						<Table.Cell>
 							<Dropdown
+								id='customer'
 								selection
 								defaultValue=''
-								options={customerOptions} />
+								options={customerOptions}
+								onChange={(e,{value}) => this.handleCustomerChange(value)}
+							/>
 						</Table.Cell>
 						<Table.Cell>
-						<Dropdown
+							<Dropdown
+								id='project'
 								selection
 								defaultValue=''
-								options={projectOptions} />
+								options={projectOptions}
+								onChange={(e,{value}) => this.handleProjectChange(value)}
+							/>
 						</Table.Cell>
 						<Table.Cell>
-						<Dropdown
+							<Dropdown
+								id='activity'
 								selection
 								defaultValue=''
-								options={taskOptions} />
+								options={taskOptions}
+								onChange={(e,{value}) => this.handleActivityChange(value)}
+							/>
 						</Table.Cell>
 						<Table.Cell>
 							<Button onClick={this.saveTimeData.bind(this)}>
