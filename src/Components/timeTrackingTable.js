@@ -24,7 +24,7 @@ export class TimeTrackingTable extends Component  {
 			customer: this.state.customer,
 			project: this.state.project,
 			activity: this.state.activity,
-			description: "description",
+			description: "DO YOU BELIVE ME KNOW?",
 			fixedRate: "0.0",
 			hourlyRate: this.state.hourlyRate
 		}
