@@ -25,7 +25,7 @@ export class TimeTrackingTable extends Component  {
 			project: this.state.project,
 			activity: this.state.activity,
 			description: "description",
-			fixedRate: "Unknown Type: float",
+			fixedRate: "0.0",
 			hourlyRate: this.state.hourlyRate
 		}
     try {
