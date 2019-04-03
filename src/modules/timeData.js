@@ -29,14 +29,14 @@ const saveData = (values) => {
 
   return new Promise((resolve, reject) => {
         axios.post(apiUrl + 'timesheets', {
-                    "begin": begin,
-                    "end": end,
-                    "customer": customer,
-                    "project": project,
-                    "activity": activity,
-                    "description": description,
-                    "fixedRate": fixedRate,
-                    "hourlyRate": hourlyRate
+                    begin: begin,
+                    end: end,
+                    customer: customer,
+                    project: project,
+                    activity: activity,
+                    description: description,
+                    fixedRate: fixedRate,
+                    hourlyRate: hourlyRate
                 },
           {
           headers: headers
