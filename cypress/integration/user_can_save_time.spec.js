@@ -1,5 +1,5 @@
 describe('User can save time', () => {
-	it('User logs in and input time', () => {
+	it('User can save time', () => {
 
 		cy.server();
 		cy.route({
