@@ -3,6 +3,7 @@ import { TimeTrackingTable } from './Components/timeTrackingTable';
 import { Segment, Header} from 'semantic-ui-react';
 import LandingPage from './components/landingPage';
 import Navbar from './components/navbar'
+import Footer from './components/footer';
 
 class App extends Component {
 
@@ -12,6 +13,7 @@ class App extends Component {
       <>
 				<Navbar />
 				<LandingPage />
+				<Footer />
       </>
 				<Segment name="timetracking">
 					<Header as='h1'textAlign='center'>
