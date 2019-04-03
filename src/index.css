@@ -16,3 +16,10 @@ code {
 .ui.menu {
   background-color: #00D82B;
 }
+
+.ui.vertical.segment {
+	background-color: #00D82B;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}
