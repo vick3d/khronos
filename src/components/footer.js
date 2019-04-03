@@ -6,7 +6,7 @@ class Footer extends Component {
 	render() {
 		return (
 			<>
-				<Segment vertical>
+				<Segment name="footer" vertical>
 					<Container textAlign='center'>
 						<Divider hidden />
 						<List horizontal divided link size='medium'>
