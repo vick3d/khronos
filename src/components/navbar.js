@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import logo from '../img/khronos2.png'
+import logo from '../img/image.png'
 import { Image, Icon, Menu } from 'semantic-ui-react'
 
 class Navbar extends Component {
 	render() {
 		return (
 			<>
-				<Menu inverted color='green'>
+				<Menu className="menu_color">
 					<Menu.Item link name='logo'>
 						<Image src={logo} id='logo' size='small' />
 					</Menu.Item>

@@ -13,7 +13,7 @@ class LandingPage extends Component {
 					<h3>Are you looking for solutions to keep track of your progress?</h3>
 					<h3>Are you looking for an easy way to keep your projects organised?</h3>
 					<h3>Are you looking for an easy platform for invoicing your customers?</h3>
-					<h2>Then you are in the write place!</h2>
+					<h2>Then you are in the right place!</h2>
 				</Container>
 
 				<Divider hidden />
