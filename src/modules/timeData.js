@@ -23,8 +23,10 @@ const saveData = (values) => {
 
 	if(process.env.NODE_ENV === "development") {
 			apiUrl = proxyUrl + 'http://demo.kimai.org/api/'
+			console.log(process.env.NODE_ENV)
 	} else {
 			apiUrl = 'https://demo.kimai.org/api/'
+			console.log(process.env.NODE_ENV)
 	}
 
   return new Promise((resolve, reject) => {
