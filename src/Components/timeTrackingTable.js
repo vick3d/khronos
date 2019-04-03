@@ -58,19 +58,19 @@ export class TimeTrackingTable extends Component  {
 
 		const customerOptions = [
 			{ text: "Company 1", value: "1" },
-			{ text: "Company 2", value: "2" },
+			{ text: "Company 2", value: "1" },
 			{ text: "Company 3", value: "3" },
 			{ text: "Company 4", value: "4" }
 		]
 		const projectOptions = [
 			{ text: "Project 1", value: "1" },
-			{ text: "Project 2", value: "2" },
+			{ text: "Project 2", value: "1" },
 			{ text: "Project 3", value: "3" },
 			{ text: "Project 4", value: "4" }
 		]
 		const taskOptions = [
 			{ text: "Task 1", value: "1" },
-			{ text: "Task 2", value: "2" },
+			{ text: "Task 2", value: "1" },
 			{ text: "Task 3", value: "3" },
 			{ text: "Task 4", value: "4" }
 		]
