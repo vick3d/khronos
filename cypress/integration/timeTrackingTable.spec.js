@@ -1,4 +1,4 @@
-describe('Display list of employees', () => {
+describe('Display time tracking table', () => {
 
   it('when user visits the page', () => {
 		cy.visit('http://localhost:3000')

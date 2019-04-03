@@ -37,7 +37,8 @@ export class TimeTrackingTable extends Component  {
 			await saveData(values);
 			this.entryHandler();
     } catch(error) {
-      console.log(error);
+			console.log(error);
+			console.log("Something went really wrong");
     }
 	}
 

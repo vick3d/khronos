@@ -12,8 +12,6 @@ describe('User can save time', () => {
 			}
 		})
 
-
-			cy.visit('http://localhost:3000')
 			cy.get('input[id="begin"]').type('2019-03-28 12:00');
 			cy.get('input[id="end"]').type('2019-03-28 14:00');
 			cy.get('input[id="hourlyRate"]').type('100.0');
@@ -24,5 +22,21 @@ describe('User can save time', () => {
 			cy.get('.activity > .dropdown').click();
 			cy.contains("Task 2").click();
 			cy.contains("Save").click();
+			cy.contains("Your time was saved")
 	})
+
+	it('User cannot save time with invalid details', () => {
+		cy.get('input[id="begin"]').type('starttid');
+		cy.get('input[id="end"]').type('2019-03-28 14:00');
+		cy.get('input[id="hourlyRate"]').type('100.0');
+		cy.get(".customer > .dropdown").click();
+		cy.contains("Company 2").click();
+		cy.get('.project > .dropdown').click();
+		cy.contains("Project 2").click();
+		cy.get('.activity > .dropdown').click();
+		cy.contains("Task 2").click();
+		cy.contains("Save").click();
+		cy.contains("Save")
+	})
+
 })
