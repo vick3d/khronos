@@ -6,7 +6,7 @@ class Navbar extends Component {
 	render() {
 		return (
 			<>
-				<Menu className="menu_color">
+				<Menu>
 					<Menu.Item link name='logo'>
 						<Image src={logo} id='logo' size='small' />
 					</Menu.Item>
