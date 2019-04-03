@@ -134,6 +134,7 @@ export class TimeTrackingTable extends Component  {
 						<Table.Cell>
 							<Dropdown
 								id='customer'
+								className = 'customer'
 								selection
 								defaultValue=''
 								options={customerOptions}
@@ -143,6 +144,7 @@ export class TimeTrackingTable extends Component  {
 						<Table.Cell>
 							<Dropdown
 								id='project'
+								className= 'project'
 								selection
 								defaultValue=''
 								options={projectOptions}
@@ -152,6 +154,7 @@ export class TimeTrackingTable extends Component  {
 						<Table.Cell>
 							<Dropdown
 								id='activity'
+								className= 'activity'
 								selection
 								defaultValue=''
 								options={taskOptions}
