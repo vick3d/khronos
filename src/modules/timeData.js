@@ -2,8 +2,7 @@ import axios from 'axios'
 
 
 const saveData = (values) => {
-	let apiUrl = ''
-	const proxyUrl = "https://cors-anywhere.herokuapp.com/"
+	const apiUrl = 'https://demo.kimai.org/api/'
 	const username = "susan_super"
 	const password = "api_kitten"
 	const { begin,
@@ -19,33 +18,26 @@ const saveData = (values) => {
 										"X-AUTH-TOKEN": password
 	}
 
-	debugger;
-
-	if(process.env.NODE_ENV === "development") {
-			apiUrl = proxyUrl + 'http://demo.kimai.org/api/'
-	} else {
-			apiUrl = 'https://demo.kimai.org/api/'
-	}
-
-  return new Promise((resolve, reject) => {
-        axios.post(apiUrl + 'timesheets', {
-                    begin: begin,
-                    end: end,
-                    customer: customer,
-                    project: project,
-                    activity: activity,
-                    description: description,
-                    fixedRate: fixedRate,
-                    hourlyRate: hourlyRate
-                },
-          {
-          headers: headers
-            })
-    .then(response => {
-            debugger;
-      resolve(response.data);
-    });
-  });
+	return new Promise((resolve, reject) => {
+		axios.post(apiUrl + 'timesheets', {
+								begin: begin,
+								end: end,
+								customer: customer,
+								project: project,
+								activity: activity,
+								description: description,
+								fixedRate: fixedRate,
+								hourlyRate: hourlyRate
+						},{
+								headers: headers,
+								mode: "cors",
+							})
+		.then(response => {
+			console.log(response.data)
+			resolve(response.data);
+		});
+	});
 };
 
-export { saveData }
+export {saveData}
+

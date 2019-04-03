@@ -34,7 +34,6 @@ export class TimeTrackingTable extends Component  {
 			hourlyRate: this.state.hourlyRate
 		}
     try {
-			debugger;
 			await saveData(values);
 			this.entryHandler();
     } catch(error) {
