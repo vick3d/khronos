@@ -3,6 +3,7 @@ import { Button, Container, Grid, Image, Divider } from 'semantic-ui-react'
 import dummy from '../img/dummy_image.jpg'
 
 class LandingPage extends Component {
+
 	render() {
     return (
 			<>
@@ -19,7 +20,7 @@ class LandingPage extends Component {
 				<Divider hidden />
 
 				<Container textAlign='center' >
-					<Button basic color='green' name="button">
+					<Button basic color='green' name="button" onClick={ () => this.props.renderLoginForm()}>
   			    Get started here!
   			  </Button>
 				</Container>
