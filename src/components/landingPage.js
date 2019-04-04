@@ -5,6 +5,21 @@ import dummy from '../img/dummy_image.jpg'
 class LandingPage extends Component {
 
 	render() {
+		let authorizedUser = this.props.authorizedUser
+		let button
+
+		if (authorizedUser){
+			button =
+				<Button basic color='green' name="button" onClick={() => alert('You are already logged in!')}>
+					Get started here!
+				</Button>
+		} else {
+			button =
+				<Button basic color='green' name="button" onClick={ () => this.props.renderLoginForm()}>
+					Get started here!
+				</Button>
+		}
+
     return (
 			<>
 				<Divider section />
@@ -20,9 +35,9 @@ class LandingPage extends Component {
 				<Divider hidden />
 
 				<Container textAlign='center' >
-					<Button basic color='green' name="button" onClick={ () => this.props.renderLoginForm()}>
-  			    Get started here!
-  			  </Button>
+
+				{button}
+
 				</Container>
 
 				<Divider section />
