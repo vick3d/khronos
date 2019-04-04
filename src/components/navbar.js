@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from '../img/image.png'
-import { Image, Icon, Menu } from 'semantic-ui-react'
+import { Image, Icon, Menu, Divider } from 'semantic-ui-react'
 
 class Navbar extends Component {
 	render() {
@@ -22,10 +22,9 @@ class Navbar extends Component {
 					<Menu.Item >
 						<Icon disabled={!this.props.isLoggedIn} name='stop'size='big'/>
 					</Menu.Item>
-					<Menu.Item>
-						<Icon link name='help'size='big'/>
-					</Menu.Item>
 					<Menu.Item position='right'>
+						<Icon link name='help'size='big'/>
+						<Divider vertical />						
 						<Icon link name='calendar alternate outline'size='big' />
 					</Menu.Item>
 				</Menu>

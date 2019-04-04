@@ -17,12 +17,16 @@ class App extends Component {
 	}
 
   authorizeUser(userName, userPassword){
-		login(userName, userPassword).then( () => {
-			this.setState({
-				authorizedUser: true,
-				userName: userName,
-				userPassword: userPassword
-			})
+		login(userName, userPassword).then( (response) => {
+			if (response.message === "Successfull"){
+				this.setState({
+					authorizedUser: true,
+					userName: userName,
+					userPassword: userPassword
+				})	
+			} else {
+				alert(response.message)				
+			}
 		})
 	}
 

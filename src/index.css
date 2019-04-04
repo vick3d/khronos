@@ -15,13 +15,22 @@ code {
 
 .ui.menu {
   background-color: #00D82B;
-  height: 120px;
+  height: 12vh;
 }
 
 .ui.vertical.segment {
 	background-color: #00D82B;
-	position: fixed;
-	bottom: 0;
+  position: fixed;
+  bottom: 0px;
   width: 100%;
   height: 100px;
+}
+
+.login-form {
+  height: 80vh;
+  margin: 0px;
+}
+
+.right-item {
+  margin: 0px;
 }

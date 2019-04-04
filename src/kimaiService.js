@@ -13,7 +13,10 @@ export const login = async (userName, userPassword) => {
         headers: headers
       })
       .then(response => {
-				resolve(response);
-      });
+				resolve({message: "Successfull"});
+      })
+      .catch(error => {
+        resolve(error.response.data)
+      })
   });
 };
