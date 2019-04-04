@@ -6,7 +6,6 @@ import Navbar from './components/navbar'
 import Footer from './components/footer';
 
 class App extends Component {
-
   render() {
     return (
       <div className="App">
@@ -17,8 +16,7 @@ class App extends Component {
 					<Header as='h1'textAlign='center'>
 						Time Tracking
 					</Header>
-					<TimeTrackingTable
-					/>
+					<TimeTrackingTable />
 				</Segment>
 			</div>
     );
