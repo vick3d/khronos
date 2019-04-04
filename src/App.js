@@ -10,11 +10,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      <>
 				<Navbar />
 				<LandingPage />
 				<Footer />
-      </>
 				<Segment name="timetracking">
 					<Header as='h1'textAlign='center'>
 						Time Tracking

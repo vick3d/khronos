@@ -4,3 +4,4 @@ node_modules/
 dist
 /cypress/integration/examples
 /cypress/fixtures/example.json
+/build
