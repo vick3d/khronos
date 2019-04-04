@@ -1,6 +1,5 @@
 describe("Display Navbar", () => {
 	it("when user navigates the site", () => {
-		cy.visit("http://localhost:3000");
 		cy.get("#logo").should("be.visible");
 		cy.get(".sign-in").should("be.visible");
 		cy.get(".sign-out").should("not.be.visible");
@@ -21,9 +20,7 @@ describe("Display Navbar", () => {
 				"X-AUTH-TOKEN": "api_kitten"
 			}
 		})
-
-		cy.visit('http://localhost:3000')
-      .get('button').contains('Get started here!').click()
+			.get('button').contains('Get started here!').click()
 			.get(':nth-child(1) > .ui > input').type('susan_super')
 			.get(':nth-child(2) > .ui > input').type('api_kitten')
 			.get('button').contains("Login").click()
