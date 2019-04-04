@@ -8,7 +8,7 @@ describe('Display time tracking table', () => {
 		cy.get('thead[name="tableHeader"').within(() => {
 			cy.get('tr').within(() => {
 			cy.get('th')
-				.should('have.length', 8)
+				.should('have.length', 7)
 			})
 		})
 	})
