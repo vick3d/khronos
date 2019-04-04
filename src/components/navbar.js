@@ -36,8 +36,7 @@ class Navbar extends Component {
 						<Icon link inverted color='white' name='sign-in' size='big' onClick={ () => this.props.renderLoginForm()} />
 					</Menu.Item>
 					<Menu.Item position='right'>
-						<Icon link name='help' size='big' />
-						<Divider vertical />
+						<Icon link inverted color='white' name='help' size='big' />
 					</Menu.Item>
 				</Menu>
 			)
