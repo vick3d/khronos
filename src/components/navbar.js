@@ -4,32 +4,43 @@ import { Image, Icon, Menu, Divider } from 'semantic-ui-react'
 
 class Navbar extends Component {
 	render() {
-		return (
-			<>
+		if (this.props.isLoggedIn) {
+			return (
 				<Menu>
 					<Menu.Item link name='logo'>
 						<Image src={logo} id='logo' size='small' />
 					</Menu.Item>
 					<Menu.Item >
-						<Icon link disabled={this.props.isLoggedIn} name='sign-in'size='big'/>
+						<Icon link name='sign-out' size='big' />
 					</Menu.Item>
 					<Menu.Item >
-						<Icon disabled={!this.props.isLoggedIn} name='sign-out'size='big'/>
+						<Icon link name='play' size='big' />
 					</Menu.Item>
 					<Menu.Item >
-						<Icon disabled={!this.props.isLoggedIn} name='play'size='big'/>
-					</Menu.Item>
-					<Menu.Item >
-						<Icon disabled={!this.props.isLoggedIn} name='stop'size='big'/>
+						<Icon link name='stop' size='big' />
 					</Menu.Item>
 					<Menu.Item position='right'>
-						<Icon link name='help'size='big'/>
-						<Divider vertical />						
-						<Icon link name='calendar alternate outline'size='big' />
+						<Icon link name='help' size='big' />
+						<Divider vertical />
+						<Icon link name='calendar alternate outline' size='big' />
+					</Menu.Item>
+				</Menu>)
+		} else {
+			return (
+				<Menu>
+					<Menu.Item link name='logo'>
+						<Image src={logo} id='logo' size='small' />
+					</Menu.Item>
+					<Menu.Item >
+						<Icon link name='sign-in' size='big' />
+					</Menu.Item>
+					<Menu.Item position='right'>
+						<Icon link name='help' size='big' />
+						<Divider vertical />
 					</Menu.Item>
 				</Menu>
-			</>
-		)
+			)
+		}
 	}
 }
 
