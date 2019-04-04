@@ -11,18 +11,36 @@ class App extends Component {
     this.state = {
 			renderLoginForm: false,
 			authorizedUser: false,
-			userName: null,
-			userPassword: null
+			userName: localStorage.getItem("Name"),
+			userPassword: localStorage.getItem("Password")
     }
+	}
+	
+	componentDidMount(){
+		this.checkIfUser()	
+	}
+
+	checkIfUser(){
+		if (this.state.userName != null && this.state.userPassword != null) {
+			this.setState({
+				authorizedUser: true
+			})
+		} else {
+			this.setState({
+				authorizedUser: false
+			})
+		}
 	}
 
   authorizeUser(userName, userPassword){
 		login(userName, userPassword).then( (response) => {
 			if (response.message === "Successfull"){
+				localStorage.setItem("Name", userName)
+				localStorage.setItem("Password", userPassword)
 				this.setState({
 					authorizedUser: true,
-					userName: userName,
-					userPassword: userPassword
+					userName: localStorage.getItem("Name"),
+					userPassword: localStorage.getItem("Password")
 				})	
 			} else {
 				alert(response.message)				
