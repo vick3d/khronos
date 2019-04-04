@@ -105,7 +105,6 @@ export class TimeTrackingTable extends Component  {
 						<Table.HeaderCell>Project</Table.HeaderCell>
 						<Table.HeaderCell>Task</Table.HeaderCell>
 						<Table.HeaderCell> </Table.HeaderCell>
-
 					</Table.Row>
 				</Table.Header>
 

@@ -1,6 +1,5 @@
 describe('User can save time', () => {
 	it('User can save time', () => {
-
 		cy.server();
 		cy.route({
 			method: 'POST',
@@ -40,7 +39,6 @@ describe('User can save time', () => {
 
 		const stub = cy.stub()
 		cy.on ('window:alert', stub)
-
 		cy.get('input[id="begin"]').type('starttime');
 		cy.get('input[id="end"]').type('2019-03-28 14:00');
 		cy.get('input[id="hourlyRate"]').type('100.0');
