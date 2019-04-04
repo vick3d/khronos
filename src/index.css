@@ -14,7 +14,7 @@ code {
 }
 
 .ui.menu {
-  background-color: #00D82B;
+	background-color: #00D82B;
 }
 
 .ui.vertical.segment {
@@ -22,4 +22,19 @@ code {
 	position: fixed;
 	bottom: 0;
 	width: 100%;
+}
+
+.ui.table thead th {
+	background-color: rgb(197, 197, 197);
+	color: black;
+}
+
+.ui.table tfoot th {
+	background-color: rgb(197, 197, 197);
+	color: black;
+}
+
+.ui.button {
+	background-color: #00D82B;
+	color: white;
 }

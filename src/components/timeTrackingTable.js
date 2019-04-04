@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Menu, Table, Input, Dropdown, Button } from 'semantic-ui-react'
+import { Table, Input, Dropdown, Button } from 'semantic-ui-react'
 import { saveData } from '../modules/timeData'
 
 export class TimeTrackingTable extends Component  {
@@ -34,11 +34,15 @@ export class TimeTrackingTable extends Component  {
 			hourlyRate: this.state.hourlyRate
 		}
     try {
-			await saveData(values);
-			this.entryHandler();
+			await saveData(values).then( response => {
+				if (response.message === "Entry saved"){
+					this.entryHandler();
+				} else {
+					alert(response.message)
+				}
+			});
     } catch(error) {
 			console.log(error);
-			console.log("Something went really wrong");
     }
 	}
 
@@ -59,19 +63,19 @@ export class TimeTrackingTable extends Component  {
 
 		const customerOptions = [
 			{ text: "Company 1", value: "1" },
-			{ text: "Company 2", value: "1" },
+			{ text: "Company 2", value: "2" },
 			{ text: "Company 3", value: "3" },
 			{ text: "Company 4", value: "4" }
 		]
 		const projectOptions = [
 			{ text: "Project 1", value: "1" },
-			{ text: "Project 2", value: "1" },
+			{ text: "Project 2", value: "2" },
 			{ text: "Project 3", value: "3" },
 			{ text: "Project 4", value: "4" }
 		]
 		const taskOptions = [
 			{ text: "Task 1", value: "1" },
-			{ text: "Task 2", value: "1" },
+			{ text: "Task 2", value: "2" },
 			{ text: "Task 3", value: "3" },
 			{ text: "Task 4", value: "4" }
 		]
@@ -96,7 +100,6 @@ export class TimeTrackingTable extends Component  {
 					<Table.Row name="tableRow">
 						<Table.HeaderCell>Start Time</Table.HeaderCell>
 						<Table.HeaderCell>End Time</Table.HeaderCell>
-						<Table.HeaderCell>Duration</Table.HeaderCell>
 						<Table.HeaderCell>Rate</Table.HeaderCell>
 						<Table.HeaderCell>Customer</Table.HeaderCell>
 						<Table.HeaderCell>Project</Table.HeaderCell>
@@ -121,9 +124,6 @@ export class TimeTrackingTable extends Component  {
 								placeholder='YYYY-MM-DD HH:MM'
 								onChange={(e) => this.setState({ end: e.target.value, entrySaved: false})}
 							/>
-						</Table.Cell>
-						<Table.Cell>
-
 						</Table.Cell>
 						<Table.Cell>
 							<Input
@@ -170,19 +170,7 @@ export class TimeTrackingTable extends Component  {
 
 				<Table.Footer>
 					<Table.Row>
-						<Table.HeaderCell textAlign='center' colSpan='8'>
-							<Menu pagination>
-								<Menu.Item as='a' icon>
-									<Icon name='chevron left' />
-								</Menu.Item>
-								<Menu.Item as='a'>1</Menu.Item>
-								<Menu.Item as='a'>2</Menu.Item>
-								<Menu.Item as='a'>3</Menu.Item>
-								<Menu.Item as='a'>4</Menu.Item>
-								<Menu.Item as='a' icon>
-									<Icon name='chevron right' />
-								</Menu.Item>
-							</Menu>
+						<Table.HeaderCell textAlign='center' colSpan='7'>
 						</Table.HeaderCell>
 					</Table.Row>
 				</Table.Footer>
