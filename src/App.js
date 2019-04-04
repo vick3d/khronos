@@ -15,9 +15,9 @@ class App extends Component {
 			userPassword: localStorage.getItem("Password")
     }
 	}
-	
+
 	componentDidMount(){
-		this.checkIfUser()	
+		this.checkIfUser()
 	}
 
 	checkIfUser(){
@@ -39,11 +39,11 @@ class App extends Component {
 				localStorage.setItem("Password", userPassword)
 				this.setState({
 					authorizedUser: true,
-					userName: localStorage.getItem("Name"),
-					userPassword: localStorage.getItem("Password")
-				})	
+					userName: userName,
+					userPassword: userPassword
+				})
 			} else {
-				alert(response.message)				
+				alert(response.message)
 			}
 		})
 	}

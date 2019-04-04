@@ -2,6 +2,16 @@ describe('Login form', () => {
 	it('when user logs in', () => {
 		const stub = cy.stub()
 		cy.on ('window:alert', stub)
+		cy.server();
+		cy.route({
+			method: "GET",
+			url: "https://demo.kimai.org/api/version",
+			response: "fixture:login.json",
+			headers: {
+				"X-AUTH-USER": "susan_super",
+				"X-AUTH-TOKEN": "api_kitten"
+			}
+		})
 
     cy.visit('http://localhost:3000')
       .get('button').contains('Get started here!').click()
@@ -17,6 +27,17 @@ describe('Login form', () => {
 	it('user enters wrong credentials', () => {
 		const stub = cy.stub()
 		cy.on ('window:alert', stub)
+		cy.server();
+		cy.route({
+			method: "GET",
+			url: "https://demo.kimai.org/api/version",
+			status: 403,
+			response: {message: "Invalid credentials"},
+			headers: {
+				"X-AUTH-USER": "susan_bad",
+				"X-AUTH-TOKEN": "api_kitten"
+			}
+		})
 
     cy.visit('http://localhost:3000')
       .get('button').contains('Get started here!').click()

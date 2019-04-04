@@ -13,9 +13,11 @@ export const login = async (userName, userPassword) => {
         headers: headers
       })
       .then(response => {
+				console.log(response.data)
 				resolve({message: "Successfull"});
       })
       .catch(error => {
+				debugger
         resolve(error.response.data)
       })
   });
