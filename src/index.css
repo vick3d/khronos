@@ -1,36 +1,54 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	margin: 0;
+	padding: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+		monospace;
 }
 
 .ui.menu {
-  background-color: #00D82B;
-  height: 12vh;
+	background-color: #00d82b;
+	height: 12vh;
 }
 
 .ui.vertical.segment {
-	background-color: #00D82B;
-  position: fixed;
-  bottom: 0px;
-  width: 100%;
-  height: 100px;
+	background-color: #00d82b;
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	height: 100px;
 }
 
 .login-form {
-  height: 80vh;
-  margin: 0px;
+	height: 80vh;
+	margin: 0px;
 }
 
 .right-item {
-  margin: 0px;
+	margin: 0px;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}
+
+.ui.table thead th {
+	background-color: rgb(197, 197, 197);
+	color: black;
+}
+
+.ui.table tfoot th {
+	background-color: rgb(197, 197, 197);
+	color: black;
+}
+
+.ui.button {
+	background-color: #00d82b;
+	color: white;
 }

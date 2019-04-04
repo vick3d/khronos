@@ -1,0 +1,16 @@
+{
+	"data": {
+		"activity": 1,
+		"begin": "2019-03-28T11:00:00+00:00",
+		"description": "description",
+		"duration": 7200,
+		"end": "2019-03-28T13:00:00+00:00",
+		"exported": false,
+		"fixed_rate": 0,
+		"hourly_rate": 100,
+		"id": 1795,
+		"project": 1,
+		"rate": 0,
+		"user": 6
+	}
+}
