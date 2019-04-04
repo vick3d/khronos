@@ -10,12 +10,15 @@ import { login } from "./kimaiService";
 class App extends Component {
 	constructor(props) {
 		super(props);
+		const userName = localStorage.getItem("Name")
+		const userPassword = localStorage.getItem("Password")
+
 		this.state = {
 			renderLoginForm: false,
-			authorizedUser: false,
-			userName: localStorage.getItem("Name"),
-			userPassword: localStorage.getItem("Password"),
-			message: ""
+			authorizedUser: userName && userPassword,
+			userName: userName,
+			userPassword: userPassword,
+			message: userName && userPassword ? `Welcome, ${userName}!` : ""
 		};
 	}
 

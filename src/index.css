@@ -52,3 +52,10 @@ code {
 	background-color: #00d82b;
 	color: white;
 }
+
+.ui.message {
+	background-color: #00d82b;
+	color: white;
+	box-shadow: none;
+	line-height: 2.5em;
+}

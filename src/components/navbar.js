@@ -19,7 +19,7 @@ class Navbar extends Component {
 					<Menu.Item >
 						<Icon link inverted color='white' name='stop' size='big' />
 					</Menu.Item>
-					<Message visible>{this.props.message}</Message>
+					<Message background='green' size='big'>{this.props.message}</Message>
 					<Menu.Item position='right'>
 						<Icon link inverted color='white' name='help' size='big' />
 						<Divider vertical />
@@ -33,7 +33,7 @@ class Navbar extends Component {
 						<Image src={logo} id='logo' size='small' />
 					</Menu.Item>
 					<Menu.Item >
-						<Icon link name='sign-in' size='big' onClick={ () => this.props.renderLoginForm()} />
+						<Icon link inverted color='white' name='sign-in' size='big' onClick={ () => this.props.renderLoginForm()} />
 					</Menu.Item>
 					<Menu.Item position='right'>
 						<Icon link name='help' size='big' />
