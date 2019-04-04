@@ -11,19 +11,16 @@ class Navbar extends Component {
 						<Image src={logo} id='logo' size='small' />
 					</Menu.Item>
 					<Menu.Item >
-						<Icon link name='user'size='big'/>
+						<Icon link disabled={this.props.isLoggedIn} name='sign-in'size='big'/>
 					</Menu.Item>
 					<Menu.Item >
-						<Icon link name='sign-in'size='big'/>
+						<Icon disabled={!this.props.isLoggedIn} name='sign-out'size='big'/>
 					</Menu.Item>
 					<Menu.Item >
-						<Icon disabled name='sign-out'size='big'/>
+						<Icon disabled={!this.props.isLoggedIn} name='play'size='big'/>
 					</Menu.Item>
 					<Menu.Item >
-						<Icon disabled name='play'size='big'/>
-					</Menu.Item>
-					<Menu.Item >
-						<Icon disabled name='stop'size='big'/>
+						<Icon disabled={!this.props.isLoggedIn} name='stop'size='big'/>
 					</Menu.Item>
 					<Menu.Item>
 						<Icon link name='help'size='big'/>
