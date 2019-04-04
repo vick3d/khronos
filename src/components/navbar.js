@@ -11,19 +11,19 @@ class Navbar extends Component {
 						<Image src={logo} id='logo' size='small' />
 					</Menu.Item>
 					<Menu.Item >
-						<Icon link name='sign-out' size='big' />
+						<Icon link inverted color='white' name='sign-out' size='big' />
 					</Menu.Item>
 					<Menu.Item >
-						<Icon link name='play' size='big' />
+						<Icon link inverted color='white' name='play' size='big' />
 					</Menu.Item>
 					<Menu.Item >
-						<Icon link name='stop' size='big' />
+						<Icon link inverted color='white' name='stop' size='big' />
 					</Menu.Item>
-					<Message>{this.props.message}</Message>
+					<Message visible>{this.props.message}</Message>
 					<Menu.Item position='right'>
-						<Icon link name='help' size='big' />
+						<Icon link inverted color='white' name='help' size='big' />
 						<Divider vertical />
-						<Icon link name='calendar alternate outline' size='big' />
+						<Icon link inverted color='white' name='calendar alternate outline' size='big' />
 					</Menu.Item>
 				</Menu>)
 		} else {
@@ -33,7 +33,7 @@ class Navbar extends Component {
 						<Image src={logo} id='logo' size='small' />
 					</Menu.Item>
 					<Menu.Item >
-						<Icon link name='sign-in' size='big' />
+						<Icon link name='sign-in' size='big' onClick={ () => this.props.renderLoginForm()} />
 					</Menu.Item>
 					<Menu.Item position='right'>
 						<Icon link name='help' size='big' />

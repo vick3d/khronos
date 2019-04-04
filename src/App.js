@@ -80,7 +80,7 @@ class App extends Component {
 
 		return (
 			<div className="App">
-				<Navbar isLoggedIn={this.state.authorizedUser} message={this.state.message} />
+				<Navbar isLoggedIn={this.state.authorizedUser} message={this.state.message} renderLoginForm={this.renderLoginForm.bind(this)} />
 				{renderComponent}
 				<Footer />
 			</div>
