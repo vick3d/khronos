@@ -35,7 +35,6 @@ const saveData = (values) => {
 			resolve({message: "Entry saved"});
 		})
 		.catch(error => {
-			debugger;
 			console.log(error)
 			resolve({message: "Couldn't save. Did you fill in the details with the correct formatting?"})
 		});
