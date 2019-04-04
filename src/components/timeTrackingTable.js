@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Table, Input, Dropdown, Button } from 'semantic-ui-react'
-import { saveData } from '../modules/timeData'
+import { saveData } from '../modules/kimaiSaveTimeData'
 
 export class TimeTrackingTable extends Component  {
 	constructor(props) {

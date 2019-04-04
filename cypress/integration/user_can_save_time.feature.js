@@ -26,6 +26,18 @@ describe('User can save time', () => {
 	})
 
 	it('User cannot save time with invalid details', () => {
+		cy.server();
+		cy.route({
+			method: 'POST',
+			url: 'https://demo.kimai.org/api/timesheets',
+			status: '400',
+			response: {message: 'Validation Failed'},
+			headers: {
+				"X-AUTH-USER": "susan_super",
+				"X-AUTH-TOKEN": "api_kitten"
+			}
+		})
+
 		const stub = cy.stub()
 		cy.on ('window:alert', stub)
 
