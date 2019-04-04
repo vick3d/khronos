@@ -14,7 +14,8 @@ class App extends Component {
 			renderLoginForm: false,
 			authorizedUser: false,
 			userName: localStorage.getItem("Name"),
-			userPassword: localStorage.getItem("Password")
+			userPassword: localStorage.getItem("Password"),
+			message: ""
 		};
 	}
 
@@ -42,7 +43,8 @@ class App extends Component {
 				this.setState({
 					authorizedUser: true,
 					userName: userName,
-					userPassword: userPassword
+					userPassword: userPassword,
+					message: `Welcome, ${userName}!`
 				});
 			} else {
 				alert(response.message);
@@ -78,7 +80,7 @@ class App extends Component {
 
 		return (
 			<div className="App">
-				<Navbar isLoggedIn={this.state.authorizedUser} />
+				<Navbar isLoggedIn={this.state.authorizedUser} message={this.state.message} />
 				{renderComponent}
 				<Footer />
 			</div>

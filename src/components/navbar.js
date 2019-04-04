@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from '../img/image.png'
-import { Image, Icon, Menu, Divider } from 'semantic-ui-react'
+import { Image, Icon, Menu, Divider, Message } from 'semantic-ui-react'
 
 class Navbar extends Component {
 	render() {
@@ -19,6 +19,7 @@ class Navbar extends Component {
 					<Menu.Item >
 						<Icon link name='stop' size='big' />
 					</Menu.Item>
+					<Message>{this.props.message}</Message>
 					<Menu.Item position='right'>
 						<Icon link name='help' size='big' />
 						<Divider vertical />
