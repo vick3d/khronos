@@ -38,13 +38,12 @@ export class TimeTrackingTable extends Component {
 					{
 						let responseArray = response.data;
 						let companyArray = responseArray.map(company => {
-							let rCompany = [];
-							rCompany[company.name] = company.id;
+							let rCompany = {};
+							rCompany["text"] = company.name;
+							rCompany["value"] = company.id;
 							return rCompany;
 						});
-
 						this.setState({ fetchedCustomers: companyArray });
-						debugger;
 					}
 				}
 			});
