@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Table, Input, Dropdown, Button } from 'semantic-ui-react'
 import { saveData } from '../modules/kimaiSaveTimeData'
 import SavedTimesList from './savedTimesList';
+import { getTimeData } from '../modules/kimaiGetTimeData';
 
 export class TimeTrackingTable extends Component  {
 	constructor(props) {
@@ -21,6 +22,13 @@ export class TimeTrackingTable extends Component  {
 
 	entryHandler(e) {
 		this.setState({ entrySaved: true })
+		debugger
+		getTimeData().then(response => {
+			if (response.message === "Successfull") {
+				debugger
+			}
+		}
+
 	}
 
 	async saveTimeData() {

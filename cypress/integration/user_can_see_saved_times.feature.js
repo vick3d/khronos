@@ -14,7 +14,7 @@ describe('User can see saved times', () => {
     .get('button').contains('Get started here!').click()
     .get(':nth-child(1) > .ui > input').type('susan_super')
     .get(':nth-child(2) > .ui > input').type('api_kitten')
-    .get('button').contains('Login').click()  
+    .get('button').contains('Login').click()
 	})
 	it('User can see saved times', () => {
 		cy.server();
@@ -39,11 +39,22 @@ describe('User can see saved times', () => {
 		cy.contains("Task 2").click()
 		cy.contains("Save").click()
 		cy.contains("Your time was saved")
-		cy.get('section[name="savedTimes"]')
+
+		cy.route({
+			method: 'GET',
+			url: 'https://demo.kimai.org/api/timesheets',
+			response: 'fixture:save_data.json',
+			headers: {
+				"X-AUTH-USER": "susan_super",
+				"X-AUTH-TOKEN": "api_kitten"
+			}
+		})
+
+		cy.get('table[name="savedTimes"]')
 			.should('contain', '2019-03-28 12:00')
       .should('contain', '2019-03-28 14:00')
       .should('contain', 'Company 2')
       .should('contain', 'Project 2')
-      .should('contain', 'Task 2') 
+      .should('contain', 'Task 2')
 	})
 })
