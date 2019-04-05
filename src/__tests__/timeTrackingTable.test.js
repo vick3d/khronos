@@ -4,7 +4,7 @@ import { TimeTrackingTable } from "../components/timeTrackingTable";
 const kimaiSaveTimeData = require("../modules/kimaiSaveTimeData");
 
 describe("<TimeTrackingTable />", () => {
-	it("saveTimeData gives positive response with correct values set", () => {
+	it("saveTimeData gives positive response with correct values set", async () => {
 		const expected_call = {
 			begin: "2019-03-03 13:00",
 			end: "2019-03-03 14:00",
@@ -26,8 +26,12 @@ describe("<TimeTrackingTable />", () => {
 			hourlyRate: 100
 		});
 		let spy = jest.spyOn(kimaiSaveTimeData, "saveData");
+		spy.mockResolvedValue({ message: "Entry saved" });
+
 		let spy2 = jest.spyOn(component.instance(), "entryHandler");
-		component.instance().saveTimeData();
+
+		await component.instance().saveTimeData();
+
 		expect(spy).toHaveBeenCalledWith(expected_call);
 		expect(spy2).toHaveBeenCalled();
 	});
