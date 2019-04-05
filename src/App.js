@@ -5,7 +5,7 @@ import LandingPage from "./components/landingPage";
 import Navbar from "./components/navbar";
 import LoginForm from "./components/loginForm";
 import Footer from "./components/footer";
-import { login } from "./kimaiService";
+import { login } from "../src/modules/kimaiService";
 
 class App extends Component {
 	constructor(props) {

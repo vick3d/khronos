@@ -17,7 +17,6 @@ export const login = async (userName, userPassword) => {
 				resolve({message: "Successfull"});
       })
       .catch(error => {
-				debugger
         resolve(error.response.data)
       })
   });

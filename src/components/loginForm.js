@@ -22,7 +22,6 @@ const LoginForm = (props) => {
 								placeholder='Password'
 								type='password'
 							/>
-
 							<Button color='green' fluid size='large' onClick={ () => props.onLogin(userName, password) }>
 								Login
             	</Button>
