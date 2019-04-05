@@ -1,61 +1,61 @@
-import React, { Component } from 'react';
-import { Table, Input, Dropdown, Button } from 'semantic-ui-react'
-import { saveData } from '../modules/kimaiSaveTimeData'
+import React, { Component } from "react";
+import { Table, Input, Dropdown, Button } from "semantic-ui-react";
+import { saveData } from "../modules/kimaiSaveTimeData";
 
-export class TimeTrackingTable extends Component  {
+export class TimeTrackingTable extends Component {
 	constructor(props) {
-		super(props)
+		super(props);
 		this.state = {
-			begin: '',
-			end: '',
-			customer: '',
-			project: '',
-			activity: '',
-			description: '',
-			fixedRate: '',
-			hourlyRate: '',
+			begin: "",
+			end: "",
+			customer: "",
+			project: "",
+			activity: "",
+			description: "",
+			fixedRate: "",
+			hourlyRate: "",
 			entrySaved: false
-    }
+		};
 	}
 
 	entryHandler(e) {
-		this.setState({ entrySaved: true })
+		this.setState({ entrySaved: true });
 	}
 
 	async saveTimeData() {
 		const values = {
 			begin: this.state.begin,
-  		end: this.state.end,
+			end: this.state.end,
 			customer: this.state.customer,
 			project: this.state.project,
 			activity: this.state.activity,
 			description: "description",
 			fixedRate: "0.0",
 			hourlyRate: this.state.hourlyRate
-		}
-    try {
-			await saveData(values).then( response => {
-				if (response.message === "Entry saved"){
+		};
+		try {
+			await saveData(values).then(response => {
+				if (response.message === "Entry saved") {
 					this.entryHandler();
 				} else {
-					alert(response.message)
+					alert(response.message);
 				}
 			});
-    } catch(error) {
+		} catch (error) {
 			console.log(error);
-    }
+		}
 	}
 
 	handleCustomerChange(value) {
-		this.setState({ customer: value})
+		this.setState({ customer: value });
 	}
 
 	handleProjectChange(value) {
-		this.setState({ project: value})
+		this.setState({ project: value });
 	}
 
 	handleActivityChange(value) {
-		this.setState({ activity: value})
+		this.setState({ activity: value });
 	}
 
 	render() {
@@ -66,35 +66,35 @@ export class TimeTrackingTable extends Component  {
 			{ text: "Company 2", value: "2" },
 			{ text: "Company 3", value: "3" },
 			{ text: "Company 4", value: "4" }
-		]
+		];
 		const projectOptions = [
 			{ text: "Project 1", value: "1" },
 			{ text: "Project 2", value: "2" },
 			{ text: "Project 3", value: "3" },
 			{ text: "Project 4", value: "4" }
-		]
+		];
 		const taskOptions = [
 			{ text: "Task 1", value: "1" },
 			{ text: "Task 2", value: "2" },
 			{ text: "Task 3", value: "3" },
 			{ text: "Task 4", value: "4" }
-		]
+		];
 
 		if (this.state.entrySaved === false) {
 			saveButton = (
 				<>
 					<Button onClick={this.saveTimeData.bind(this)}>Save</Button>
 				</>
-			)
+			);
 		} else if (this.state.entrySaved === true) {
 			saveButton = (
 				<>
 					<p>Your time was saved</p>
 				</>
-			)
+			);
 		}
 
-		return(
+		return (
 			<Table celled>
 				<Table.Header name="tableHeader">
 					<Table.Row name="tableRow">
@@ -112,68 +112,74 @@ export class TimeTrackingTable extends Component  {
 					<Table.Row>
 						<Table.Cell>
 							<Input
-								id='begin'
-								placeholder='YYYY-MM-DD HH:MM'
-								onChange={(e) => this.setState({ begin: e.target.value, entrySaved: false})}
+								id="begin"
+								placeholder="YYYY-MM-DD HH:MM"
+								onChange={e =>
+									this.setState({ begin: e.target.value, entrySaved: false })
+								}
 							/>
 						</Table.Cell>
 						<Table.Cell>
 							<Input
-								id='end'
-								placeholder='YYYY-MM-DD HH:MM'
-								onChange={(e) => this.setState({ end: e.target.value, entrySaved: false})}
+								id="end"
+								placeholder="YYYY-MM-DD HH:MM"
+								onChange={e =>
+									this.setState({ end: e.target.value, entrySaved: false })
+								}
 							/>
 						</Table.Cell>
 						<Table.Cell>
 							<Input
-								id='hourlyRate'
-								placeholder='$'
-								onChange={(e) => this.setState({ hourlyRate: e.target.value, entrySaved: false})}
+								id="hourlyRate"
+								placeholder="$"
+								onChange={e =>
+									this.setState({
+										hourlyRate: e.target.value,
+										entrySaved: false
+									})
+								}
 							/>
 						</Table.Cell>
 						<Table.Cell>
 							<Dropdown
-								id='customer'
-								className = 'customer'
+								id="customer"
+								className="customer"
 								selection
-								defaultValue=''
+								defaultValue=""
 								options={customerOptions}
-								onChange={(e,{value}) => this.handleCustomerChange(value)}
+								onChange={(e, { value }) => this.handleCustomerChange(value)}
 							/>
 						</Table.Cell>
 						<Table.Cell>
 							<Dropdown
-								id='project'
-								className= 'project'
+								id="project"
+								className="project"
 								selection
-								defaultValue=''
+								defaultValue=""
 								options={projectOptions}
-								onChange={(e,{value}) => this.handleProjectChange(value)}
+								onChange={(e, { value }) => this.handleProjectChange(value)}
 							/>
 						</Table.Cell>
 						<Table.Cell>
 							<Dropdown
-								id='activity'
-								className= 'activity'
+								id="activity"
+								className="activity"
 								selection
-								defaultValue=''
+								defaultValue=""
 								options={taskOptions}
-								onChange={(e,{value}) => this.handleActivityChange(value)}
+								onChange={(e, { value }) => this.handleActivityChange(value)}
 							/>
 						</Table.Cell>
-						<Table.Cell>
-							{saveButton}
-						</Table.Cell>
+						<Table.Cell>{saveButton}</Table.Cell>
 					</Table.Row>
 				</Table.Body>
 
 				<Table.Footer>
 					<Table.Row>
-						<Table.HeaderCell textAlign='center' colSpan='7'>
-						</Table.HeaderCell>
+						<Table.HeaderCell textAlign="center" colSpan="7" />
 					</Table.Row>
 				</Table.Footer>
 			</Table>
-		)
+		);
 	}
 }
