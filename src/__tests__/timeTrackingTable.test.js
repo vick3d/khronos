@@ -35,4 +35,38 @@ describe("<TimeTrackingTable />", () => {
 		expect(spy).toHaveBeenCalledWith(expected_call);
 		expect(spy2).toHaveBeenCalled();
 	});
+
+	it("saveTimeData gives negative response with incorrect values set", async () => {
+		const expected_call = {
+			begin: "start time",
+			end: "2019-03-03 14:00",
+			customer: 1,
+			project: 1,
+			activity: 1,
+			description: "description",
+			fixedRate: "0.0",
+			hourlyRate: 100
+		};
+
+		const component = shallow(<TimeTrackingTable />);
+		component.setState({
+			begin: "start time",
+			end: "2019-03-03 14:00",
+			customer: 1,
+			project: 1,
+			activity: 1,
+			hourlyRate: 100
+		});
+		let spy = jest.spyOn(kimaiSaveTimeData, "saveData");
+		jest.spyOn(window, 'alert').mockImplementation(() => {});
+		spy.mockResolvedValue({ message: "Couldn't save. Did you fill in the details with the correct formatting?" });
+
+		let spy2 = jest.spyOn(component.instance(), "entryHandler");
+
+		await component.instance().saveTimeData();
+
+		expect(spy).toHaveBeenCalledWith(expected_call);
+		expect(spy2).not.toHaveBeenCalled();
+		expect(window.alert).toBeCalledWith("Couldn't save. Did you fill in the details with the correct formatting?");
+	});
 });

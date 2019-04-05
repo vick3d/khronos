@@ -33,6 +33,7 @@ export class TimeTrackingTable extends Component {
 			fixedRate: "0.0",
 			hourlyRate: this.state.hourlyRate
 		};
+		console.log(values)
 		try {
 			await saveData(values).then(response => {
 				if (response.message === "Entry saved") {
