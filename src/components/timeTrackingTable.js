@@ -5,6 +5,7 @@ import SavedTimesList from './savedTimesList';
 import { getTimeData } from '../modules/kimaiGetTimeData';
 
 export class TimeTrackingTable extends Component  {
+
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -16,19 +17,65 @@ export class TimeTrackingTable extends Component  {
 			description: '',
 			fixedRate: '',
 			hourlyRate: '',
-			entrySaved: false
+			entrySaved: false,
+			timeData: []
     }
+	}
+
+	componentDidMount(){
+		getTimeData().then( (response) => {
+				this.setState({
+					timeData: response
+				});
+			},
+			(reason) => {
+				console.log("something went wrong")
+			}		
+		)
+	}
+
+	renderTimeSheet(){
+		const timeData = this.state.timeData;
+		return timeData.map((entry)=> {
+			return (
+				<Table.Row>
+
+				<Table.Cell>
+					{entry.begin}
+				</Table.Cell>
+				<Table.Cell>
+					{entry.end}
+				</Table.Cell>
+				<Table.Cell>
+					{entry.rate}
+				</Table.Cell>
+				<Table.Cell>
+					{entry.customer}
+				</Table.Cell>
+				<Table.Cell>
+					{entry.project}
+				</Table.Cell>
+				<Table.Cell>
+					{entry.activity}
+				</Table.Cell>
+
+
+				</Table.Row>
+
+		)
+		})
 	}
 
 	entryHandler(e) {
 		this.setState({ entrySaved: true })
-		debugger
-		getTimeData().then(response => {
-			if (response.message === "Successfull") {
-				debugger
-			}
-		}
+	}
 
+	updateTimeDataHandler(data){
+		let timeData = this.state.timeData;
+		timeData.push(data);
+		this.setState({
+			timeData: timeData
+		})
 	}
 
 	async saveTimeData() {
@@ -46,6 +93,7 @@ export class TimeTrackingTable extends Component  {
 			await saveData(values).then( response => {
 				if (response.message === "Entry saved"){
 					this.entryHandler();
+					this.updateTimeDataHandler(response.data);
 				} else {
 					alert(response.message)
 				}
@@ -96,12 +144,14 @@ export class TimeTrackingTable extends Component  {
 				</>
 			)
 		} else if (this.state.entrySaved === true) {
-			saveButton = (
-				<>
-					<p>Your time was saved</p>
-				</>
-			)
+			// saveButton = (
+			// 	<>
+			// 		<p>Your time was saved</p>
+			// 	</>
+			// )
 		}
+
+		let listEntries =	this.renderTimeSheet();
 
 		return(
 			<>
@@ -175,6 +225,8 @@ export class TimeTrackingTable extends Component  {
 							{saveButton}
 						</Table.Cell>
 					</Table.Row>
+					{listEntries}
+
 				</Table.Body>
 
 				<Table.Footer>
@@ -185,7 +237,6 @@ export class TimeTrackingTable extends Component  {
 				</Table.Footer>
 			</Table>
 
-			<SavedTimesList/>
 			</>
 		)
 	}
