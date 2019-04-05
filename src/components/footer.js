@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import logo from '../img/image.png'
-import { Segment, Container, Grid, List, Header, Divider, Image } from 'semantic-ui-react'
+import { Segment, Container, List, Divider } from 'semantic-ui-react'
 
 class Footer extends Component {
 	render() {
@@ -29,5 +28,3 @@ class Footer extends Component {
 }
 
 export default Footer;
-
-{/* <Image src={logo} centered size='small' /> */}
