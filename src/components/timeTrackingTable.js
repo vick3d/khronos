@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Input, Dropdown, Button } from 'semantic-ui-react'
 import { saveData } from '../modules/kimaiSaveTimeData'
+import SavedTimesList from './savedTimesList';
 
 export class TimeTrackingTable extends Component  {
 	constructor(props) {
@@ -95,6 +96,7 @@ export class TimeTrackingTable extends Component  {
 		}
 
 		return(
+			<>
 			<Table celled>
 				<Table.Header name="tableHeader">
 					<Table.Row name="tableRow">
@@ -174,6 +176,9 @@ export class TimeTrackingTable extends Component  {
 					</Table.Row>
 				</Table.Footer>
 			</Table>
+
+			<SavedTimesList/>
+			</>
 		)
 	}
 }
