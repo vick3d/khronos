@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Table, Input, Dropdown, Button } from "semantic-ui-react";
 import { saveData } from "../modules/kimaiSaveTimeData";
+import { getData } from "../modules/kimaiGetCustomerData";
 
 export class TimeTrackingTable extends Component {
 	constructor(props) {
@@ -14,12 +15,42 @@ export class TimeTrackingTable extends Component {
 			description: "",
 			fixedRate: "",
 			hourlyRate: "",
-			entrySaved: false
+			entrySaved: false,
+			fetchedCustomers: []
 		};
 	}
 
+	componentDidMount() {
+		this.getCustomerData();
+	}
 	entryHandler(e) {
 		this.setState({ entrySaved: true });
+	}
+
+	async getCustomerData() {
+		try {
+			await getData().then(response => {
+				if (
+					response.message === "Could not fetch customer data at this time."
+				) {
+					console.log(response.message);
+				} else {
+					{
+						let responseArray = response.data;
+						let companyArray = responseArray.map(company => {
+							let rCompany = [];
+							rCompany[company.name] = company.id;
+							return rCompany;
+						});
+
+						this.setState({ fetchedCustomers: companyArray });
+						debugger;
+					}
+				}
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	async saveTimeData() {
@@ -61,12 +92,7 @@ export class TimeTrackingTable extends Component {
 	render() {
 		let saveButton;
 
-		const customerOptions = [
-			{ text: "Company 1", value: "1" },
-			{ text: "Company 2", value: "2" },
-			{ text: "Company 3", value: "3" },
-			{ text: "Company 4", value: "4" }
-		];
+		const customerOptions = this.state.fetchedCustomers;
 		const projectOptions = [
 			{ text: "Project 1", value: "1" },
 			{ text: "Project 2", value: "2" },
