@@ -18,7 +18,8 @@
 		"cy:open": "cypress open",
 		"cy:run": "cypress run",
 		"ci:cy": "start --silent & yarn cy:run",
-		"coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
+		"coverage": "react-scripts test --env=jsdom --coverage",
+		"coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
 	},
 	"eslintConfig": {
 		"extends": "react-app",

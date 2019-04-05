@@ -1,25 +1,29 @@
 Arguments: 
-  /usr/local/Cellar/node/11.13.0/bin/node /usr/local/Cellar/yarn/1.15.2/libexec/bin/yarn.js add coveralls-react
+  /usr/local/bin/node /home/vick3d/.yarn/bin/yarn.js run test --coverage
 
 PATH: 
-  /Users/amandagibson/.rvm/gems/ruby-2.5.1/bin:/Users/amandagibson/.rvm/gems/ruby-2.5.1@global/bin:/Users/amandagibson/.rvm/rubies/ruby-2.5.1/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/amandagibson/.rvm/bin
+  /home/vick3d/.yarn/bin:/home/vick3d/.config/yarn/global/node_modules/.bin:/usr/local/bin:/usr/local/sbin:/home/vick3d/.npm-global/bin:/home/vick3d/.rvm/gems/ruby-2.5.1/bin:/home/vick3d/.rvm/gems/ruby-2.5.1@global/bin:/home/vick3d/.rvm/rubies/ruby-2.5.1/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/home/vick3d/.rvm/bin:/home/vick3d/Android/Sdk/emulator:/home/vick3d/Android/Sdk/tools:/home/vick3d/Android/Sdk/tools/bin:/home/vick3d/Android/Sdk/platform-tools
 
 Yarn version: 
   1.15.2
 
 Node version: 
-  11.13.0
+  10.2.0
 
 Platform: 
-  darwin x64
+  linux x64
 
 Trace: 
-  SyntaxError: /Users/amandagibson/Desktop/CA/khronos/package.json: Unexpected token } in JSON at position 572
+  SyntaxError: /home/vick3d/craft_academy/senior_projects/khronos/package.json: Unexpected token } in JSON at position 553
       at JSON.parse (<anonymous>)
-      at /usr/local/Cellar/yarn/1.15.2/libexec/lib/cli.js:1625:59
+      at /home/vick3d/.yarn/lib/cli.js:1625:59
       at Generator.next (<anonymous>)
-      at step (/usr/local/Cellar/yarn/1.15.2/libexec/lib/cli.js:304:30)
-      at /usr/local/Cellar/yarn/1.15.2/libexec/lib/cli.js:315:13
+      at step (/home/vick3d/.yarn/lib/cli.js:304:30)
+      at /home/vick3d/.yarn/lib/cli.js:315:13
+      at run (/home/vick3d/.yarn/lib/cli.js:104859:22)
+      at /home/vick3d/.yarn/lib/cli.js:104876:30
+      at flush (/home/vick3d/.yarn/lib/cli.js:104360:9)
+      at process._tickCallback (internal/process/next_tick.js:61:11)
 
 npm manifest: 
   {
@@ -42,7 +46,7 @@ npm manifest:
   		"cy:open": "cypress open",
   		"cy:run": "cypress run",
   		"ci:cy": "start --silent & yarn cy:run",
-  		"coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
+  		"coverage": "react-scripts test --env=jsdom --coverage",
   	},
   	"eslintConfig": {
   		"extends": "react-app",
