@@ -3,6 +3,16 @@ import logo from '../img/image.png'
 import { Image, Icon, Menu, Divider, Message } from 'semantic-ui-react'
 
 class Navbar extends Component {
+	start = () => {
+		localStorage.setItem('startedActivity', new Date().toISOString())
+	}
+
+	stop = () => {
+		const begin = localStorage.getItem('startedActivity')
+		const end = new Date().toISOString()
+		this.props.onStop({begin: begin, end: end})
+	}
+
 	render() {
 		if (this.props.isLoggedIn) {
 			return (
@@ -14,10 +24,10 @@ class Navbar extends Component {
 						<Icon link inverted color='white' name='sign-out' size='big' />
 					</Menu.Item>
 					<Menu.Item >
-						<Icon link inverted color='white' name='play' size='big' />
+						<Icon link inverted color='white' name='play' size='big' onClick={() => this.start()} />
 					</Menu.Item>
 					<Menu.Item >
-						<Icon link inverted color='white' name='stop' size='big' />
+						<Icon link inverted color='white' name='stop' size='big' onClick={() => this.stop()}/>
 					</Menu.Item>
 					<Message background='green' size='big'>{this.props.message}</Message>
 					<Menu.Item position='right'>
