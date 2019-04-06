@@ -7,7 +7,7 @@ import moment from 'moment-timezone'
 export class TimeTrackingTable extends Component {
 
 	constructor(props) {
-		super(props)
+		super(props);
 		this.state = {
 			begin: '',
 			end: '',
@@ -63,7 +63,7 @@ export class TimeTrackingTable extends Component {
 	}
 
 	entryHandler(e) {
-		this.setState({ entrySaved: true })
+		this.setState({ entrySaved: true });
 	}
 
 	updateTimeDataHandler(data) {
@@ -98,7 +98,7 @@ export class TimeTrackingTable extends Component {
 						});
 					}.bind(this), 1000)
 				} else {
-					alert(response.message)
+					alert(response.message);
 				}
 			});
 		} catch (error) {
@@ -107,15 +107,15 @@ export class TimeTrackingTable extends Component {
 	}
 
 	handleCustomerChange(value) {
-		this.setState({ customer: value })
+		this.setState({ customer: value });
 	}
 
 	handleProjectChange(value) {
-		this.setState({ project: value })
+		this.setState({ project: value });
 	}
 
 	handleActivityChange(value) {
-		this.setState({ activity: value })
+		this.setState({ activity: value });
 	}
 
 	render() {
@@ -126,32 +126,32 @@ export class TimeTrackingTable extends Component {
 			{ text: "Company 2", value: "2" },
 			{ text: "Company 3", value: "3" },
 			{ text: "Company 4", value: "4" }
-		]
+		];
 		const projectOptions = [
 			{ text: "Project 1", value: "1" },
 			{ text: "Project 2", value: "2" },
 			{ text: "Project 3", value: "3" },
 			{ text: "Project 4", value: "4" }
-		]
+		];
 		const taskOptions = [
 			{ text: "Task 1", value: "1" },
 			{ text: "Task 2", value: "2" },
 			{ text: "Task 3", value: "3" },
 			{ text: "Task 4", value: "4" }
-		]
+		];
 
 		if (this.state.entrySaved === false) {
 			saveButton = (
 				<>
 					<Button onClick={this.saveTimeData.bind(this)}>Save</Button>
 				</>
-			)
+			);
 		} else if (this.state.entrySaved === true) {
 			saveButton = (
 				<>
 					<p>Your time was saved</p>
 				</>
-			)
+			);
 		}
 
 		let listEntries = this.renderTimeSheet();

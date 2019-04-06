@@ -18,7 +18,9 @@
 		"eject": "react-scripts eject",
 		"cy:open": "cypress open",
 		"cy:run": "cypress run",
-		"ci:cy": "start --silent & yarn cy:run"
+		"ci:cy": "start --silent & yarn cy:run",
+		"coverage": "react-scripts test --env=jsdom --coverage",
+		"coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
 	},
 	"eslintConfig": {
 		"extends": "react-app",
@@ -33,6 +35,7 @@
 		"not op_mini all"
 	],
 	"devDependencies": {
+		"coveralls": "^3.0.3",
 		"cypress": "^3.2.0",
 		"enzyme": "^3.9.0",
 		"enzyme-adapter-react-16": "^1.11.2"
