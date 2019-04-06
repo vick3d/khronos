@@ -83,14 +83,20 @@ export class TimeTrackingTable extends Component {
 			project: this.state.project,
 			activity: this.state.activity,
 			description: "description",
-			fixedRate: "0.0",
+			fixedRate: "",
 			hourlyRate: this.state.hourlyRate
 		}
 		try {
 			await saveData(values).then(response => {
 				if (response.message === "Entry saved") {
 					this.entryHandler();
-					this.updateTimeDataHandler(response.data);
+					setTimeout(function() {
+						getTimeData().then((response) => {
+							this.setState({
+								timeData: response
+							});
+						});
+					}.bind(this), 1000)
 				} else {
 					alert(response.message)
 				}
