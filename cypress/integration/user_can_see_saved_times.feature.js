@@ -58,11 +58,10 @@ describe('User can see saved times', () => {
 				"X-AUTH-TOKEN": "api_kitten"
 			}
 		})
-		cy.wait(2000)
+		cy.wait(1000)
 		cy.get(':nth-child(2) > #beginSave').should('contain', '2019-03-28 11:00')
-      // .should('contain', '2019-03-28 14:00')
-      // .should('contain', 'Company 2')
-      // .should('contain', 'Project 2')
-      // .should('contain', 'Task 2')
+		cy.get(':nth-child(2) > #endSave').should('contain', '2019-03-28 13:00')
+		cy.get('tbody > :nth-child(2) > :nth-child(5)').should('contain', '1')
+		cy.get('tbody > :nth-child(2) > :nth-child(6)').should('contain', '1')
 	})
 })
