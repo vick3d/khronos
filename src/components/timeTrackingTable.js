@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Table, Input, Dropdown, Button } from 'semantic-ui-react'
 import { saveData } from '../modules/kimaiSaveTimeData'
 import { getTimeData } from '../modules/kimaiGetTimeData';
+import moment from 'moment-timezone'
 
 export class TimeTrackingTable extends Component {
 
@@ -38,11 +39,11 @@ export class TimeTrackingTable extends Component {
 		return timeData.map((entry) => {
 			return (
 				<Table.Row>
-					<Table.Cell>
-						{entry.begin}
+					<Table.Cell id='beginSave'>
+						{ moment(entry.begin).tz("Europe/Stockholm").format('YYYY-MM-DD HH:mm') }
 					</Table.Cell>
-					<Table.Cell>
-						{entry.end}
+					<Table.Cell id='endSave'>
+						{ moment(entry.end).tz("Europe/Stockholm").format('YYYY-MM-DD HH:mm') }
 					</Table.Cell>
 					<Table.Cell>
 						{entry.rate}
