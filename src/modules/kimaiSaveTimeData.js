@@ -32,7 +32,7 @@ const saveData = (values) => {
 			mode: "cors",
 		})
 		.then(response => {
-			resolve({message: "Entry saved"});
+			resolve({message: "Entry saved", data: response.data});
 		})
 		.catch(error => {
 			resolve({message: "Couldn't save. Did you fill in the details with the correct formatting?"})

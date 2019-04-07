@@ -1,0 +1,44 @@
+[
+  {
+      "id": 1795,
+      "begin": "2019-03-28T11:00:00+01:00",
+      "end": "2019-03-28T13:00:00+01:00",
+      "duration": 7200,
+      "rate": 100,
+      "description": "description",
+      "fixed_rate": 0,
+      "hourly_rate": 0,
+      "exported": true,
+      "activity": 1,
+      "project": 1,
+      "user": 6
+  },
+  {
+      "id": 1794,
+      "begin": "2019-03-26T11:00:00+01:00",
+      "end": "2019-03-26T13:00:00+01:00",
+      "duration": 7200,
+      "rate": 100,
+      "description": "description",
+      "fixed_rate": 0,
+      "hourly_rate": 0,
+      "exported": true,
+      "activity": 1,
+      "project": 1,
+      "user": 6
+  },
+  {
+      "id": 1793,
+      "begin": "2019-03-24T11:00:00+01:00",
+      "end": "2019-03-24T13:00:00+01:00",
+      "duration": 7200,
+      "rate": 100,
+      "description": "description",
+      "fixed_rate": 0,
+      "hourly_rate": 0,
+      "exported": true,
+      "activity": 1,
+      "project": 1,
+      "user": 6
+  }
+]
