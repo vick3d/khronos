@@ -19,17 +19,6 @@ describe('User can save time from navbar', () => {
 			.get('button').contains('Login').click()
 	})
 
-	it('when user visits the page and logs in', () => {
-		cy.get('div[name="timetracking"]')
-			.should('contain', 'Time Tracking')
-		cy.get('thead[name="tableHeader"').within(() => {
-			cy.get('tr').within(() => {
-				cy.get('th')
-					.should('have.length', 7)
-			})
-		})
-	})
-
 	it('User can save time from navbar', () => {
 		cy.server();
 		cy.route({
@@ -51,7 +40,6 @@ describe('User can save time from navbar', () => {
 		cy.then(() => {
 			expect(stub.getCall(0)).to.be.calledWith("Started recording");
 		})
-		// 1000 = 1 second
 		cy.tick(1000 * 60 * 60 * 2)
 		cy.get('#stop').click()
 		cy.then(() => {
