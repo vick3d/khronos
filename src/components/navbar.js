@@ -1,8 +1,22 @@
 import React, { Component } from 'react';
 import logo from '../img/image.png'
 import { Image, Icon, Menu, Divider, Message } from 'semantic-ui-react'
+import moment from "moment-timezone"
 
 class Navbar extends Component {
+	start = () => {
+		const begin = moment().tz("Europe/Stockholm").format('YYYY-MM-DD HH:mm')
+		localStorage.setItem('begin', begin)
+		alert("Started recording")
+	}
+
+	stop = () => {
+		const begin = localStorage.getItem('begin')
+		const end = moment().tz("Europe/Stockholm").format('YYYY-MM-DD HH:mm')
+		this.props.onStop({begin: begin, end: end})
+		alert("Stopped recording.\nPlease add work details before submission.")
+	}
+
 	render() {
 		if (this.props.isLoggedIn) {
 			return (
@@ -14,10 +28,10 @@ class Navbar extends Component {
 						<Icon link inverted color='white' name='sign-out' size='big' />
 					</Menu.Item>
 					<Menu.Item >
-						<Icon link inverted color='white' name='play' size='big' />
+						<Icon link inverted color='white' name='play' id='play' size='big' onClick={() => this.start()} />
 					</Menu.Item>
 					<Menu.Item >
-						<Icon link inverted color='white' name='stop' size='big' />
+						<Icon link inverted color='white' name='stop' id='stop' size='big' onClick={() => this.stop()}/>
 					</Menu.Item>
 					<Message background='green' size='big'>{this.props.message}</Message>
 					<Menu.Item position='right'>

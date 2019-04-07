@@ -53,15 +53,22 @@ export class TimeTrackingTable extends Component {
 		this.setState({ activity: value });
 	}
 
+	componentDidUpdate(oldProps) {
+		if(oldProps.begin !== this.props.begin && oldProps.end !== this.props.end) {
+			this.setState({begin: this.props.begin, end: this.props.end })
+		}
+	}
+
 	renderTimeSheet() {
 		const timeData = this.state.timeData;
 		return timeData.map(entry => {
 			return (
 				<Table.Row>
-					<Table.Cell id="beginSave">
-						{moment(entry.begin)
-							.tz("Europe/Stockholm")
-							.format("YYYY-MM-DD HH:mm")}
+					<Table.Cell id='beginSave'>
+						{moment(entry.begin).tz("Europe/Stockholm").format('YYYY-MM-DD HH:mm')}
+					</Table.Cell>
+					<Table.Cell id='endSave'>
+						{moment(entry.end).tz("Europe/Stockholm").format('YYYY-MM-DD HH:mm')}
 					</Table.Cell>
 					<Table.Cell id="endSave">
 						{moment(entry.end)
@@ -197,20 +204,18 @@ export class TimeTrackingTable extends Component {
 						<Table.Row>
 							<Table.Cell>
 								<Input
-									id="begin"
-									placeholder="YYYY-MM-DD HH:MM"
-									onChange={e =>
-										this.setState({ begin: e.target.value, entrySaved: false })
-									}
+									id='begin'
+									placeholder='YYYY-MM-DD HH:MM'
+									onChange={(e) => this.setState({ begin: e.target.value, entrySaved: false })}
+									value={this.state.begin}
 								/>
 							</Table.Cell>
 							<Table.Cell>
 								<Input
-									id="end"
-									placeholder="YYYY-MM-DD HH:MM"
-									onChange={e =>
-										this.setState({ end: e.target.value, entrySaved: false })
-									}
+									id='end'
+									placeholder='YYYY-MM-DD HH:MM'
+									onChange={(e) => this.setState({ end: e.target.value, entrySaved: false })}
+									value={this.state.end}
 								/>
 							</Table.Cell>
 							<Table.Cell>
