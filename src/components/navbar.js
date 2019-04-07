@@ -7,12 +7,14 @@ class Navbar extends Component {
 	start = () => {
 		const begin = moment().tz("Europe/Stockholm").format('YYYY-MM-DD HH:mm')
 		localStorage.setItem('begin', begin)
+		alert("Started recording")
 	}
 
 	stop = () => {
 		const begin = localStorage.getItem('begin')
 		const end = moment().tz("Europe/Stockholm").format('YYYY-MM-DD HH:mm')
 		this.props.onStop({begin: begin, end: end})
+		alert("Stopped recording.\nPlease add work details before submission.")
 	}
 
 	render() {
