@@ -18,7 +18,9 @@ class App extends Component {
 			authorizedUser: userName && userPassword,
 			userName: userName,
 			userPassword: userPassword,
-			message: userName && userPassword ? `Welcome, ${userName}!` : ""
+			message: userName && userPassword ? `Welcome, ${userName}!` : "",
+			begin: '',
+			end: ''
 		};
 	}
 
@@ -61,6 +63,10 @@ class App extends Component {
 		});
 	}
 
+	onStop(info) {
+		this.setState({ begin: info.begin, end: info.end })
+	}
+
 	render() {
 		let renderComponent;
 
@@ -70,7 +76,10 @@ class App extends Component {
 					<Header as="h1" textAlign="center">
 						Time Tracking
 					</Header>
-					<TimeTrackingTable />
+					<TimeTrackingTable
+						begin={this.state.begin}
+						end={this.state.end}
+					/>
 				</Segment>
 			);
 		} else if (this.state.renderLoginForm) {
@@ -83,7 +92,12 @@ class App extends Component {
 
 		return (
 			<div className="App">
-				<Navbar isLoggedIn={this.state.authorizedUser} message={this.state.message} renderLoginForm={this.renderLoginForm.bind(this)} />
+				<Navbar
+					isLoggedIn={this.state.authorizedUser}
+					message={this.state.message}
+					renderLoginForm={this.renderLoginForm.bind(this)}
+					onStop={this.onStop.bind(this)}
+				/>
 				{renderComponent}
 				<Footer />
 			</div>

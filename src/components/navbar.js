@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import logo from '../img/image.png'
 import { Image, Icon, Menu, Divider, Message } from 'semantic-ui-react'
+import moment from "moment-timezone"
 
 class Navbar extends Component {
 	start = () => {
-		localStorage.setItem('startedActivity', new Date().toISOString())
+		const begin = moment().tz("Europe/Stockholm").format('YYYY-MM-DD HH:mm')
+		localStorage.setItem('begin', begin)
 	}
 
 	stop = () => {
-		const begin = localStorage.getItem('startedActivity')
-		const end = new Date().toISOString()
+		const begin = localStorage.getItem('begin')
+		const end = moment().tz("Europe/Stockholm").format('YYYY-MM-DD HH:mm')
 		this.props.onStop({begin: begin, end: end})
 	}
 
@@ -24,10 +26,10 @@ class Navbar extends Component {
 						<Icon link inverted color='white' name='sign-out' size='big' />
 					</Menu.Item>
 					<Menu.Item >
-						<Icon link inverted color='white' name='play' size='big' onClick={() => this.start()} />
+						<Icon link inverted color='white' name='play' id='play' size='big' onClick={() => this.start()} />
 					</Menu.Item>
 					<Menu.Item >
-						<Icon link inverted color='white' name='stop' size='big' onClick={() => this.stop()}/>
+						<Icon link inverted color='white' name='stop' id='stop' size='big' onClick={() => this.stop()}/>
 					</Menu.Item>
 					<Message background='green' size='big'>{this.props.message}</Message>
 					<Menu.Item position='right'>
