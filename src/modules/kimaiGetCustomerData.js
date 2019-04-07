@@ -15,10 +15,11 @@ const getData = () => {
 				headers: headers
 			})
 			.then(response => {
+				debugger;
 				resolve(response);
 			})
 			.catch(errors => {
-				resolve({ message: "Could not fetch customer data at this time."});
+				resolve({ message: "Could not fetch customer data at this time." });
 			});
 	});
 };
