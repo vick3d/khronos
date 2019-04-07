@@ -12,7 +12,7 @@ describe("<TimeTrackingTable />", () => {
 			project: 1,
 			activity: 1,
 			description: "description",
-			fixedRate: "0.0",
+			fixedRate: "",
 			hourlyRate: 100
 		};
 
@@ -44,7 +44,7 @@ describe("<TimeTrackingTable />", () => {
 			project: 1,
 			activity: 1,
 			description: "description",
-			fixedRate: "0.0",
+			fixedRate: "",
 			hourlyRate: 100
 		};
 

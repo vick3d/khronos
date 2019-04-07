@@ -15,7 +15,6 @@ const getData = () => {
 				headers: headers
 			})
 			.then(response => {
-				debugger;
 				resolve(response);
 			})
 			.catch(errors => {
