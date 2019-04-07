@@ -10,16 +10,7 @@ describe("Display Navbar", () => {
 	});
 
 	it("when user logs in", () => {
-		cy.server()
-		cy.route({
-			method: 'GET',
-			url: 'https://demo.kimai.org/api/version',
-			response: 'fixture:login.json',
-			headers: {
-				"X-AUTH-USER": "susan_super",
-				"X-AUTH-TOKEN": "api_kitten"
-			}
-		})
+		cy
 			.get('button').contains('Get started here!').click()
 			.get(':nth-child(1) > .ui > input').type('susan_super')
 			.get(':nth-child(2) > .ui > input').type('api_kitten')
