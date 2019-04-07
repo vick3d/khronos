@@ -9,6 +9,7 @@
 		"fixed_rate": 0,
 		"hourly_rate": 100,
 		"id": 1795,
+		"customer": 1,
 		"project": 1,
 		"rate": 0,
 		"user": 6

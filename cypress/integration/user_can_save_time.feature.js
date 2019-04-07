@@ -3,14 +3,14 @@ describe('User can save time', () => {
 	beforeEach(function () {
 		cy.server();
 		cy.route({
-			method: "GET",
-			url: "https://demo.kimai.org/api/version",
-			response: "fixture:login.json",
-			headers: {
-				"X-AUTH-USER": "susan_super",
-				"X-AUTH-TOKEN": "api_kitten"
-			}
-		})
+				method: "GET",
+				url: "https://demo.kimai.org/api/version",
+				response: "fixture:login.json",
+				headers: {
+					"X-AUTH-USER": "susan_super",
+					"X-AUTH-TOKEN": "api_kitten"
+				}
+			})
 			.get('button').contains('Get started here!').click()
 			.get(':nth-child(1) > .ui > input').type('susan_super')
 			.get(':nth-child(2) > .ui > input').type('api_kitten')
@@ -39,7 +39,7 @@ describe('User can save time', () => {
 				"X-AUTH-TOKEN": "api_kitten"
 			}
 		})
-		
+
 		cy.get('input[id="begin"]').type('2019-03-28 12:00');
 		cy.get('input[id="end"]').type('2019-03-28 14:00');
 		cy.get('input[id="hourlyRate"]').type('100.0');
@@ -59,7 +59,9 @@ describe('User can save time', () => {
 			method: 'POST',
 			url: 'https://demo.kimai.org/api/timesheets',
 			status: '400',
-			response: { message: 'Validation Failed' },
+			response: {
+				message: 'Validation Failed'
+			},
 			headers: {
 				"X-AUTH-USER": "susan_super",
 				"X-AUTH-TOKEN": "api_kitten"
