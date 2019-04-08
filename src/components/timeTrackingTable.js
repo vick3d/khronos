@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Table, Input, Dropdown, Button } from "semantic-ui-react";
 import { saveData } from "../modules/kimaiSaveTimeData";
 import { getData } from "../modules/kimaiGetCustomerData";
+import { getProjectData } from "../modules/kimaiGetProjectData";
 import { getTimeData } from "../modules/kimaiGetTimeData";
 import moment from "moment-timezone";
 
@@ -19,7 +20,8 @@ export class TimeTrackingTable extends Component {
 			hourlyRate: "",
 			entrySaved: false,
 			fetchedCustomers: [],
-			timeData: []
+			timeData: [],
+			fetchedProjects: []
 		};
 	}
 
@@ -43,6 +45,7 @@ export class TimeTrackingTable extends Component {
 
 	handleCustomerChange(value) {
 		this.setState({ customer: value });
+		this.getProjects(value)
 	}
 
 	handleProjectChange(value) {
@@ -112,6 +115,32 @@ export class TimeTrackingTable extends Component {
 		}
 	}
 
+	async getProjects(value) {
+		const customerId = value
+		try {
+			await getProjectData(customerId).then(response => {
+				if (
+					response.message === "Could not fetch project data at this time."
+				) {
+					console.log(response.message);
+				} else {
+					{
+						let responseArray = response.data;
+						let projectsArray = responseArray.map(project => {
+							let rProject = {};
+							rProject["text"] = project.name;
+							rProject["value"] = project.id;
+							return rProject;
+						});
+						this.setState({ fetchedProjects: projectsArray });
+					}
+				}
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
 	updateTimeDataHandler(data) {
 		debugger;
 		let timeData = this.state.timeData;
@@ -161,12 +190,7 @@ export class TimeTrackingTable extends Component {
 		let saveButton;
 
 		const customerOptions = this.state.fetchedCustomers;
-		const projectOptions = [
-			{ text: "Project 1", value: "1" },
-			{ text: "Project 2", value: "2" },
-			{ text: "Project 3", value: "3" },
-			{ text: "Project 4", value: "4" }
-		];
+		const projectOptions = this.state.fetchedProjects;
 		const taskOptions = [
 			{ text: "Task 1", value: "1" },
 			{ text: "Task 2", value: "2" },
