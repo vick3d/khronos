@@ -3,6 +3,7 @@ import { Table, Input, Dropdown, Button } from "semantic-ui-react";
 import { saveData } from "../modules/kimaiSaveTimeData";
 import { getData } from "../modules/kimaiGetCustomerData";
 import { getProjectData } from "../modules/kimaiGetProjectData";
+import { getProjectActivities } from "../modules/kimaiGetProjectActivities";
 import { getTimeData } from "../modules/kimaiGetTimeData";
 import moment from "moment-timezone";
 
@@ -21,7 +22,8 @@ export class TimeTrackingTable extends Component {
 			entrySaved: false,
 			fetchedCustomers: [],
 			timeData: [],
-			fetchedProjects: []
+			fetchedProjects: [],
+			fetchedActivities: []
 		};
 	}
 
@@ -50,6 +52,7 @@ export class TimeTrackingTable extends Component {
 
 	handleProjectChange(value) {
 		this.setState({ project: value });
+		this.getActivities(value);
 	}
 
 	handleActivityChange(value) {
@@ -141,6 +144,33 @@ export class TimeTrackingTable extends Component {
 		}
 	}
 
+	async getActivities(value) {
+		const projectId = value
+		try {
+			await getProjectActivities(projectId).then(response => {
+				if (
+					response.message === "Could not fetch activity data at this time."
+				) {
+					alert(response.message);
+				} else {
+					{
+						let responseArray = response.data;
+						let activitiesArray = responseArray.map(activity => {
+							let rActivity = {};
+							rActivity["text"] = activity.name;
+							rActivity["value"] = activity.id;
+							return rActivity;
+						});
+						this.setState({ fetchedActivities: activitiesArray });
+					}
+				}
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+
 	updateTimeDataHandler(data) {
 		let timeData = this.state.timeData;
 		timeData.push(data);
@@ -190,12 +220,7 @@ export class TimeTrackingTable extends Component {
 
 		const customerOptions = this.state.fetchedCustomers;
 		const projectOptions = this.state.fetchedProjects;
-		const taskOptions = [
-			{ text: "Task 1", value: "1" },
-			{ text: "Task 2", value: "2" },
-			{ text: "Task 3", value: "3" },
-			{ text: "Task 4", value: "4" }
-		];
+		const taskOptions = this.state.fetchedActivities;
 
 		if (this.state.entrySaved === false) {
 			saveButton = (

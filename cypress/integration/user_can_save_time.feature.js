@@ -27,7 +27,7 @@ describe('User can save time', () => {
 		cy.get('.project > .dropdown').click();
 		cy.contains("Cloned systematic groupware").click();
 		cy.get('.activity > .dropdown').click();
-		cy.contains("Task 2").click();
+		cy.contains("engineer best-of-breed synergies").click();
 		cy.contains("Save").click();
 		cy.contains("Your time was saved")
 	})
@@ -57,7 +57,7 @@ describe('User can save time', () => {
 		cy.get('.project > .dropdown').click();
 		cy.contains("Cloned systematic groupware").click();
 		cy.get('.activity > .dropdown').click();
-		cy.contains("Task 2").click();
+		cy.contains("engineer best-of-breed synergies").click();
 		cy.contains("Save").click()
 			.wait(1000)
 			.then(() => {
