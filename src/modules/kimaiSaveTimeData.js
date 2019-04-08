@@ -38,7 +38,6 @@ const saveData = values => {
 				resolve({ message: "Entry saved", data: response.data });
 			})
 			.catch(error => {
-				debugger;
 				resolve({
 					message:
 						"Couldn't save. Did you fill in the details with the correct formatting?"
