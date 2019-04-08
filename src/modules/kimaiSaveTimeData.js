@@ -1,4 +1,5 @@
 import axios from "axios";
+
 const saveData = values => {
 	const apiUrl = "https://demo.kimai.org/api/";
 	const username = "susan_super";
@@ -38,7 +39,6 @@ const saveData = values => {
 				resolve({ message: "Entry saved", data: response.data });
 			})
 			.catch(error => {
-				debugger;
 				resolve({
 					message:
 						"Couldn't save. Did you fill in the details with the correct formatting?"

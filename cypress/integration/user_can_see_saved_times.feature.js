@@ -1,5 +1,4 @@
 describe('User can see saved times', () => {
-
 	beforeEach(function () {
 		cy
     .get('button').contains('Get started here!').click()

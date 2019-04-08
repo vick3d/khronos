@@ -1,5 +1,4 @@
 describe('User can save time', () => {
-
 	beforeEach(function () {
 		cy
 			.get('button').contains('Get started here!').click()
