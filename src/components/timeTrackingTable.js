@@ -142,7 +142,6 @@ export class TimeTrackingTable extends Component {
 	}
 
 	updateTimeDataHandler(data) {
-		debugger;
 		let timeData = this.state.timeData;
 		timeData.push(data);
 		const newTimeData = [data, ...timeData];
