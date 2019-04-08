@@ -30,12 +30,12 @@ beforeEach(function () {
 		}
 	})
 	cy.route({
-		method: 'GET',
-		url: 'https://demo.kimai.org/api/timesheets',
-		response: 'fixture:get_data_plus.json',
+		method: "GET",
+		url: "https://demo.kimai.org/api/timesheets",
+		response: "fixture:get_data.json",
 		headers: {
 			"X-AUTH-USER": "susan_super",
 			"X-AUTH-TOKEN": "api_kitten"
 		}
 	})
- })
+})

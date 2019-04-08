@@ -61,7 +61,7 @@ export class TimeTrackingTable extends Component {
 
 	renderTimeSheet() {
 		const timeData = this.state.timeData;
-		return timeData.map(entry => {
+		return timeData.map((entry) => {
 			return (
 				<Table.Row>
 					<Table.Cell id='beginSave'>
@@ -70,18 +70,21 @@ export class TimeTrackingTable extends Component {
 					<Table.Cell id='endSave'>
 						{moment(entry.end).tz("Europe/Stockholm").format('YYYY-MM-DD HH:mm')}
 					</Table.Cell>
-					<Table.Cell id="endSave">
-						{moment(entry.end)
-							.tz("Europe/Stockholm")
-							.format("YYYY-MM-DD HH:mm")}
+					<Table.Cell>
+						{entry.rate}
 					</Table.Cell>
-					<Table.Cell>{entry.rate}</Table.Cell>
-					<Table.Cell>{entry.customer}</Table.Cell>
-					<Table.Cell>{entry.project}</Table.Cell>
-					<Table.Cell>{entry.activity}</Table.Cell>
+					<Table.Cell>
+						{entry.customer}
+					</Table.Cell>
+					<Table.Cell>
+						{entry.project}
+					</Table.Cell>
+					<Table.Cell>
+						{entry.activity}
+					</Table.Cell>
 				</Table.Row>
-			);
-		});
+			)
+		})
 	}
 
 	async getCustomerData() {
@@ -110,6 +113,7 @@ export class TimeTrackingTable extends Component {
 	}
 
 	updateTimeDataHandler(data) {
+		debugger;
 		let timeData = this.state.timeData;
 		timeData.push(data);
 		const newTimeData = [data, ...timeData];
@@ -136,6 +140,7 @@ export class TimeTrackingTable extends Component {
 					setTimeout(
 						function() {
 							getTimeData().then(response => {
+								debugger;
 								this.setState({
 									timeData: response
 								});

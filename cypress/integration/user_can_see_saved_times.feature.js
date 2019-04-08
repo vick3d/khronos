@@ -8,6 +8,15 @@ describe('User can see saved times', () => {
     .get('button').contains('Login').click()
 	})
 	it('User can see saved times', () => {
+		cy.route({
+			method: 'GET',
+			url: 'https://demo.kimai.org/api/timesheets',
+			response: 'fixture:get_data_plus.json',
+			headers: {
+				"X-AUTH-USER": "susan_super",
+				"X-AUTH-TOKEN": "api_kitten"
+			}
+		})
 		cy.get('input[id="begin"]').type('2019-03-28 11:00')
 		cy.get('input[id="end"]').type('2019-03-28 13:00')
 		cy.get('input[id="hourlyRate"]').type('100.0')
