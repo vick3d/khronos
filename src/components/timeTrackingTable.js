@@ -1,37 +1,56 @@
-import React, { Component } from 'react';
-import { Table, Input, Dropdown, Button } from 'semantic-ui-react'
-import { saveData } from '../modules/kimaiSaveTimeData'
-import { getTimeData } from '../modules/kimaiGetTimeData';
-import moment from 'moment-timezone'
+import React, { Component } from "react";
+import { Table, Input, Dropdown, Button } from "semantic-ui-react";
+import { saveData } from "../modules/kimaiSaveTimeData";
+import { getData } from "../modules/kimaiGetCustomerData";
+import { getTimeData } from "../modules/kimaiGetTimeData";
+import moment from "moment-timezone";
 
 export class TimeTrackingTable extends Component {
-
 	constructor(props) {
 		super(props);
 		this.state = {
-			begin: '',
-			end: '',
-			customer: '',
-			project: '',
-			activity: '',
-			description: '',
-			fixedRate: '',
-			hourlyRate: '',
+			begin: "",
+			end: "",
+			customer: "",
+			project: "",
+			activity: "",
+			description: "",
+			fixedRate: "",
+			hourlyRate: "",
 			entrySaved: false,
+			fetchedCustomers: [],
 			timeData: []
-		}
+		};
 	}
 
 	componentDidMount() {
-		getTimeData().then((response) => {
-			this.setState({
-				timeData: response
-			});
-		},
-			(reason) => {
-				console.log("something went wrong")
+		this.getCustomerData();
+		getTimeData().then(
+			response => {
+				this.setState({
+					timeData: response
+				});
+			},
+			reason => {
+				console.log("something went wrong");
 			}
-		)
+		);
+	}
+
+	entryHandler(e) {
+		this.setState({ entrySaved: true });
+	}
+
+	handleCustomerChange(value) {
+		this.setState({ customer: value });
+	}
+
+	handleProjectChange(value) {
+		this.setState({ project: value });
+	}
+
+	handleActivityChange(value) {
+		this.setState({ activity: value });
 	}
 
 	componentDidUpdate(oldProps) {
@@ -68,17 +87,39 @@ export class TimeTrackingTable extends Component {
 		})
 	}
 
-	entryHandler(e) {
-		this.setState({ entrySaved: true });
+	async getCustomerData() {
+		try {
+			await getData().then(response => {
+				if (
+					response.message === "Could not fetch customer data at this time."
+				) {
+					console.log(response.message);
+				} else {
+					{
+						let responseArray = response.data;
+						let companyArray = responseArray.map(company => {
+							let rCompany = {};
+							rCompany["text"] = company.name;
+							rCompany["value"] = company.id;
+							return rCompany;
+						});
+						this.setState({ fetchedCustomers: companyArray });
+					}
+				}
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	updateTimeDataHandler(data) {
+		debugger;
 		let timeData = this.state.timeData;
 		timeData.push(data);
-		const newTimeData = [data, ...timeData]
+		const newTimeData = [data, ...timeData];
 		this.setState({
 			timeData: newTimeData
-		})
+		});
 	}
 
 	async saveTimeData() {
@@ -91,18 +132,22 @@ export class TimeTrackingTable extends Component {
 			description: "description",
 			fixedRate: "",
 			hourlyRate: this.state.hourlyRate
-		}
+		};
 		try {
 			await saveData(values).then(response => {
 				if (response.message === "Entry saved") {
 					this.entryHandler();
-					setTimeout(function () {
-						getTimeData().then((response) => {
-							this.setState({
-								timeData: response
+					setTimeout(
+						function() {
+							getTimeData().then(response => {
+								debugger;
+								this.setState({
+									timeData: response
+								});
 							});
-						});
-					}.bind(this), 1000)
+						}.bind(this),
+						1000
+					);
 				} else {
 					alert(response.message);
 				}
@@ -112,27 +157,10 @@ export class TimeTrackingTable extends Component {
 		}
 	}
 
-	handleCustomerChange(value) {
-		this.setState({ customer: value });
-	}
-
-	handleProjectChange(value) {
-		this.setState({ project: value });
-	}
-
-	handleActivityChange(value) {
-		this.setState({ activity: value });
-	}
-
 	render() {
 		let saveButton;
 
-		const customerOptions = [
-			{ text: "Company 1", value: "1" },
-			{ text: "Company 2", value: "2" },
-			{ text: "Company 3", value: "3" },
-			{ text: "Company 4", value: "4" }
-		];
+		const customerOptions = this.state.fetchedCustomers;
 		const projectOptions = [
 			{ text: "Project 1", value: "1" },
 			{ text: "Project 2", value: "2" },
@@ -197,58 +225,58 @@ export class TimeTrackingTable extends Component {
 							</Table.Cell>
 							<Table.Cell>
 								<Input
-									id='hourlyRate'
-									placeholder='$'
-									onChange={(e) => this.setState({ hourlyRate: e.target.value, entrySaved: false })}
+									id="hourlyRate"
+									placeholder="$"
+									onChange={e =>
+										this.setState({
+											hourlyRate: e.target.value,
+											entrySaved: false
+										})
+									}
 								/>
 							</Table.Cell>
 							<Table.Cell>
 								<Dropdown
-									id='customer'
-									className='customer'
+									id="customer"
+									className="customer"
 									selection
-									defaultValue=''
+									defaultValue=""
 									options={customerOptions}
 									onChange={(e, { value }) => this.handleCustomerChange(value)}
 								/>
 							</Table.Cell>
 							<Table.Cell>
 								<Dropdown
-									id='project'
-									className='project'
+									id="project"
+									className="project"
 									selection
-									defaultValue=''
+									defaultValue=""
 									options={projectOptions}
 									onChange={(e, { value }) => this.handleProjectChange(value)}
 								/>
 							</Table.Cell>
 							<Table.Cell>
 								<Dropdown
-									id='activity'
-									className='activity'
+									id="activity"
+									className="activity"
 									selection
-									defaultValue=''
+									defaultValue=""
 									options={taskOptions}
 									onChange={(e, { value }) => this.handleActivityChange(value)}
 								/>
 							</Table.Cell>
-							<Table.Cell>
-								{saveButton}
-							</Table.Cell>
+							<Table.Cell>{saveButton}</Table.Cell>
 						</Table.Row>
 						{listEntries}
-
 					</Table.Body>
 
 					<Table.Footer>
 						<Table.Row>
-							<Table.HeaderCell textAlign='center' colSpan='7'>
-							</Table.HeaderCell>
+							<Table.HeaderCell textAlign="center" colSpan="7" />
 						</Table.Row>
 					</Table.Footer>
 				</Table>
-
 			</>
-		)
+		);
 	}
 }
