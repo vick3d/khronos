@@ -1,4 +1,4 @@
-describe("User can fetch project data", () => {
+describe("User can fetch project activities data", () => {
 	beforeEach(function() {
 		cy
 			.get("button")
@@ -13,7 +13,7 @@ describe("User can fetch project data", () => {
 			.click();
 	});
 
-	it("User can fetch project data", () => {
+	it("User can fetch project activities data", () => {
 		cy.get(".customer > .dropdown").click();
 		cy.contains("Beer and Sons").click();
 		cy.get(".project > .dropdown").click();
