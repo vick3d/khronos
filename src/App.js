@@ -6,6 +6,8 @@ import Navbar from "./components/navbar";
 import LoginForm from "./components/loginForm";
 import Footer from "./components/footer";
 import { login } from "../src/modules/kimaiService";
+import Chart from "./components/chart";
+
 
 class App extends Component {
 	constructor(props) {
@@ -15,6 +17,7 @@ class App extends Component {
 
 		this.state = {
 			renderLoginForm: false,
+			renderCharts: false,
 			authorizedUser: userName && userPassword,
 			userName: userName,
 			userPassword: userPassword,
@@ -63,6 +66,12 @@ class App extends Component {
 		});
 	}
 
+	renderCharts() {
+		this.setState({
+			renderCharts: true
+		})
+	}
+
 	onStop(info) {
 		this.setState({ begin: info.begin, end: info.end })
 	}
@@ -70,7 +79,7 @@ class App extends Component {
 	render() {
 		let renderComponent;
 
-		if (this.state.authorizedUser) {
+		if (this.state.authorizedUser && this.state.renderCharts === false) {
 			renderComponent = (
 				<Segment name="timetracking">
 					<Header as="h1" textAlign="center">
@@ -99,7 +108,8 @@ class App extends Component {
 					onStop={this.onStop.bind(this)}
 				/>
 				{renderComponent}
-				<Footer />
+				{/* <Footer /> */}
+				<Chart />
 			</div>
 		);
 	}

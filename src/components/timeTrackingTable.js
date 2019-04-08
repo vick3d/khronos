@@ -37,6 +37,12 @@ export class TimeTrackingTable extends Component {
 		);
 	}
 
+	componentDidUpdate(oldProps) {
+		if(oldProps.begin !== this.props.begin && oldProps.end !== this.props.end) {
+			this.setState({begin: this.props.begin, end: this.props.end })
+		}
+	}
+
 	entryHandler(e) {
 		this.setState({ entrySaved: true });
 	}
@@ -51,12 +57,6 @@ export class TimeTrackingTable extends Component {
 
 	handleActivityChange(value) {
 		this.setState({ activity: value });
-	}
-
-	componentDidUpdate(oldProps) {
-		if(oldProps.begin !== this.props.begin && oldProps.end !== this.props.end) {
-			this.setState({begin: this.props.begin, end: this.props.end })
-		}
 	}
 
 	renderTimeSheet() {
