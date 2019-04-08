@@ -88,9 +88,12 @@ class App extends Component {
 					<TimeTrackingTable
 						begin={this.state.begin}
 						end={this.state.end}
+						renderCharts={this.renderCharts.bind(this)}
 					/>
 				</Segment>
 			);
+		} else if (this.state.renderCharts) {
+			renderComponent = <Chart />;
 		} else if (this.state.renderLoginForm) {
 			renderComponent = <LoginForm onLogin={this.authorizeUser.bind(this)} />;
 		} else {
@@ -109,7 +112,6 @@ class App extends Component {
 				/>
 				{renderComponent}
 				{/* <Footer /> */}
-				<Chart />
 			</div>
 		);
 	}

@@ -42,8 +42,8 @@ export class TimeTrackingTable extends Component {
 	}
 
 	componentDidUpdate(oldProps) {
-		if(oldProps.begin !== this.props.begin && oldProps.end !== this.props.end) {
-			this.setState({begin: this.props.begin, end: this.props.end })
+		if (oldProps.begin !== this.props.begin && oldProps.end !== this.props.end) {
+			this.setState({ begin: this.props.begin, end: this.props.end })
 		}
 	}
 
@@ -196,7 +196,7 @@ export class TimeTrackingTable extends Component {
 				if (response.message === "Entry saved") {
 					this.entryHandler();
 					setTimeout(
-						function() {
+						function () {
 							getTimeData().then(response => {
 								debugger;
 								this.setState({
@@ -240,6 +240,7 @@ export class TimeTrackingTable extends Component {
 
 		return (
 			<>
+				<Button onClick={this.props.renderCharts}>Show Charts</Button>
 				<Table celled>
 					<Table.Header name="tableHeader">
 						<Table.Row name="tableRow">
