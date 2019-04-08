@@ -29,11 +29,11 @@ describe('User can save time from navbar', () => {
 		cy.get('input[id="end"]').should('have.value', '2019-03-28 14:00');
 		cy.get('input[id="hourlyRate"]').type('100.0');
 		cy.get(".customer > .dropdown").click();
-		cy.contains("Bernier Group").click();
+		cy.contains("Beer and Sons").click();
 		cy.get('.project > .dropdown').click();
-		cy.contains("Project 2").click();
+		cy.contains("Cloned systematic groupware").click();
 		cy.get('.activity > .dropdown').click();
-		cy.contains("Task 2").click();
+		cy.contains("engineer best-of-breed synergies").click();
 		cy.contains("Save").click();
 		cy.contains("Your time was saved")
 	})

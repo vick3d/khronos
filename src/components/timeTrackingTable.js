@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Table, Input, Dropdown, Button } from "semantic-ui-react";
 import { saveData } from "../modules/kimaiSaveTimeData";
 import { getData } from "../modules/kimaiGetCustomerData";
+import { getProjectData } from "../modules/kimaiGetProjectData";
+import { getProjectActivities } from "../modules/kimaiGetProjectActivities";
 import { getTimeData } from "../modules/kimaiGetTimeData";
 import moment from "moment-timezone";
 
@@ -19,7 +21,9 @@ export class TimeTrackingTable extends Component {
 			hourlyRate: "",
 			entrySaved: false,
 			fetchedCustomers: [],
-			timeData: []
+			timeData: [],
+			fetchedProjects: [],
+			fetchedActivities: []
 		};
 	}
 
@@ -49,10 +53,12 @@ export class TimeTrackingTable extends Component {
 
 	handleCustomerChange(value) {
 		this.setState({ customer: value });
+		this.getProjects(value)
 	}
 
 	handleProjectChange(value) {
 		this.setState({ project: value });
+		this.getActivities(value);
 	}
 
 	handleActivityChange(value) {
@@ -93,7 +99,7 @@ export class TimeTrackingTable extends Component {
 				if (
 					response.message === "Could not fetch customer data at this time."
 				) {
-					console.log(response.message);
+					alert(response.message);
 				} else {
 					{
 						let responseArray = response.data;
@@ -112,8 +118,60 @@ export class TimeTrackingTable extends Component {
 		}
 	}
 
+	async getProjects(value) {
+		const customerId = value
+		try {
+			await getProjectData(customerId).then(response => {
+				if (
+					response.message === "Could not fetch project data at this time."
+				) {
+					alert(response.message);
+				} else {
+					{
+						let responseArray = response.data;
+						let projectsArray = responseArray.map(project => {
+							let rProject = {};
+							rProject["text"] = project.name;
+							rProject["value"] = project.id;
+							return rProject;
+						});
+						this.setState({ fetchedProjects: projectsArray });
+					}
+				}
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	async getActivities(value) {
+		const projectId = value
+		try {
+			await getProjectActivities(projectId).then(response => {
+				if (
+					response.message === "Could not fetch activity data at this time."
+				) {
+					alert(response.message);
+				} else {
+					{
+						let responseArray = response.data;
+						let activitiesArray = responseArray.map(activity => {
+							let rActivity = {};
+							rActivity["text"] = activity.name;
+							rActivity["value"] = activity.id;
+							return rActivity;
+						});
+						this.setState({ fetchedActivities: activitiesArray });
+					}
+				}
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+
 	updateTimeDataHandler(data) {
-		debugger;
 		let timeData = this.state.timeData;
 		timeData.push(data);
 		const newTimeData = [data, ...timeData];
@@ -161,18 +219,8 @@ export class TimeTrackingTable extends Component {
 		let saveButton;
 
 		const customerOptions = this.state.fetchedCustomers;
-		const projectOptions = [
-			{ text: "Project 1", value: "1" },
-			{ text: "Project 2", value: "2" },
-			{ text: "Project 3", value: "3" },
-			{ text: "Project 4", value: "4" }
-		];
-		const taskOptions = [
-			{ text: "Task 1", value: "1" },
-			{ text: "Task 2", value: "2" },
-			{ text: "Task 3", value: "3" },
-			{ text: "Task 4", value: "4" }
-		];
+		const projectOptions = this.state.fetchedProjects;
+		const taskOptions = this.state.fetchedActivities;
 
 		if (this.state.entrySaved === false) {
 			saveButton = (

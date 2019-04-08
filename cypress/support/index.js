@@ -39,4 +39,22 @@ beforeEach(function () {
 			"X-AUTH-TOKEN": "api_kitten"
 		}
 	})
+	cy.route({
+		method: "GET",
+		url: "https://demo.kimai.org/api/projects?customer=8",
+		response: "fixture:fetchProjects.json",
+		headers: {
+			"X-AUTH-USER": "susan_super",
+			"X-AUTH-TOKEN": "api_kitten"
+		}
+	})
+	cy.route({
+		method: "GET",
+		url: "https://demo.kimai.org/api/activities?project=28",
+		response: "fixture:fetchActivities.json",
+		headers: {
+			"X-AUTH-USER": "susan_super",
+			"X-AUTH-TOKEN": "api_kitten"
+		}
+	})
 })
