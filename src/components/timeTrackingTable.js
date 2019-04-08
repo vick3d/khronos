@@ -96,7 +96,7 @@ export class TimeTrackingTable extends Component {
 				if (
 					response.message === "Could not fetch customer data at this time."
 				) {
-					console.log(response.message);
+					alert(response.message);
 				} else {
 					{
 						let responseArray = response.data;
@@ -122,7 +122,7 @@ export class TimeTrackingTable extends Component {
 				if (
 					response.message === "Could not fetch project data at this time."
 				) {
-					console.log(response.message);
+					alert(response.message);
 				} else {
 					{
 						let responseArray = response.data;
