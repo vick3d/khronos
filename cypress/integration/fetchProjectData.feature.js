@@ -15,7 +15,7 @@ describe("User can fetch project data", () => {
 
 	it("User can fetch project data", () => {
 		cy.get(".customer > .dropdown").click();
-		cy.contains("Altenwerth PLC").click();
+		cy.contains("Beer and Sons").click();
 		cy.get(".project > .dropdown").click();
 		cy.contains("Assimilated coherent functionalities");
 		cy.contains("Cloned systematic groupware");

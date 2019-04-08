@@ -41,7 +41,7 @@ beforeEach(function () {
 	})
 	cy.route({
 		method: "GET",
-		url: "https://demo.kimai.org/api/projects",
+		url: "https://demo.kimai.org/api/projects?customer=8",
 		response: "fixture:fetchProjects.json",
 		headers: {
 			"X-AUTH-USER": "susan_super",
