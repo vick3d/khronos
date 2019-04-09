@@ -21,7 +21,16 @@ describe('Display dashboard on login', () => {
 			.find("img")
 			.should('be.visible');
 		cy.get('button[name="statistics"]')
-		.find("img")
-		.should('be.visible');
+			.find("img")
+			.should('be.visible');
+	})
+
+	it('user can navigate back to dashboard by clicking the logo', () => {
+		cy
+			.get('button[name="time_tracking"]').click()
+			.get('img[id="logo"]').click();
+		cy
+			.get('h1[name="header"]')
+			.should('contain','My Dashboard')
 	})
 })

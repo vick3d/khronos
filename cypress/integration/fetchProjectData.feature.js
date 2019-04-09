@@ -11,7 +11,7 @@ describe("User can fetch project data", () => {
 			.get("button")
 			.contains("Login")
 			.click()
-			.get('button'[name="time_tracking"])
+			.get('button[name="time_tracking"]')
 			.click();
 	});
 

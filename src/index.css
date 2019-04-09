@@ -57,7 +57,7 @@ code {
 	background-color: #00d82b;
 	color: white;
 	box-shadow: none;
-	line-height: 2.5em;
+	line-height: 1em;
 }
 
 .ui.grid>[class*="two column"].row>.column {

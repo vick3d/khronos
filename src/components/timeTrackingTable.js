@@ -198,7 +198,6 @@ export class TimeTrackingTable extends Component {
 					setTimeout(
 						function() {
 							getTimeData().then(response => {
-								debugger;
 								this.setState({
 									timeData: response
 								});
