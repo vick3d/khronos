@@ -9,7 +9,6 @@ describe('User can save time from navbar', () => {
 			.get(':nth-child(2) > .ui > input').type('api_kitten')
 			.get('button').contains('Login').click()
 			.get('button[name="time_tracking"]').click();
-
 	})
 
 	it('User can save time from navbar', () => {
