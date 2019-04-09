@@ -6,7 +6,7 @@ import Navbar from "./components/navbar";
 import LoginForm from "./components/loginForm";
 import Footer from "./components/footer";
 import { login } from "../src/modules/kimaiService";
-import Chart from "./components/chart";
+import Charts from "./components/charts";
 
 
 class App extends Component {
@@ -93,7 +93,7 @@ class App extends Component {
 				</Segment>
 			);
 		} else if (this.state.renderCharts) {
-			renderComponent = <Chart />;
+			renderComponent = <Charts />;
 		} else if (this.state.renderLoginForm) {
 			renderComponent = <LoginForm onLogin={this.authorizeUser.bind(this)} />;
 		} else {

@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { getTimeData } from "../modules/kimaiGetTimeData";
-import moment, { months } from 'moment';
-import { createSecureContext } from 'tls';
+import moment from 'moment';
 
 
-class Chart extends Component {
+class TotalMoneyChart extends Component {
 	state = {
 		timeData: [],
 	};
@@ -13,6 +12,7 @@ class Chart extends Component {
 	componentDidMount() {
 		getTimeData().then(
 			response => {
+				debugger
 				this.setState({
 					timeData: response
 				});
@@ -54,12 +54,10 @@ class Chart extends Component {
 				return array;
 			}, [])
 
-		const hoursPerMonth = result.map(monthEntries => {
+		const moneyPerMonth = result.map(monthEntries => {
 			return monthEntries.reduce((sum, entry) => {
-				const begin = moment(entry.begin)
-				const end = moment(entry.end)
-				const hours = moment.duration(end.diff(begin)).asHours()
-				return sum + hours
+				const money = entry.rate
+				return sum + money
 			}, 0)
 		});
 
@@ -79,15 +77,15 @@ class Chart extends Component {
 							yAxes: [{
 								scaleLabel: {
 									display: true,
-									labelString: 'Time(total)'
+									labelString: 'Money(total)'
 								}
 							}]
 						}
 					}}
-					data={{ datasets: [{ data: hoursPerMonth, label: "Total working time spent on projects per month (current year) " }], labels: monthNames }} />
+					data={{ datasets: [{ data: moneyPerMonth, label: "Total money earned from projects per month (current year)" }], labels: monthNames }} />
 			</>
 		)
 	}
 }
 
-export default Chart;
+export default TotalMoneyChart;
