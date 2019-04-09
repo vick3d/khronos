@@ -59,3 +59,7 @@ code {
 	box-shadow: none;
 	line-height: 2.5em;
 }
+
+.ui.grid>[class*="two column"].row>.column {
+	width: 20%!important;
+}
