@@ -3,7 +3,6 @@ import { Bar } from 'react-chartjs-2';
 import { getTimeData } from "../modules/kimaiGetTimeData";
 import moment from 'moment';
 
-
 class TotalTimeChart extends Component {
 	state = {
 		timeData: [],
@@ -23,7 +22,6 @@ class TotalTimeChart extends Component {
 	}
 
 	render() {
-
 		let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
 		let result = this.state.timeData.reduce(

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { getTimeData } from "../modules/kimaiGetTimeData";
-import moment from 'moment';
-
 
 class TotalMoneyChart extends Component {
 	state = {
@@ -12,7 +10,6 @@ class TotalMoneyChart extends Component {
 	componentDidMount() {
 		getTimeData().then(
 			response => {
-				debugger
 				this.setState({
 					timeData: response
 				});
@@ -24,14 +21,6 @@ class TotalMoneyChart extends Component {
 	}
 
 	render() {
-
-		// let projects = [
-		// 	{ name: "Project 1", begin: "2019-04-18 07:00", end: "2019-04-18 08:00" },
-		// 	{ name: "Project 2", begin: "2018-06-30 06:00", end: "2018-06-30 08:00" },
-		// 	{ name: "Another project", begin: "2018-04-03 8:00", end: "2018-04-03 9:00" },
-		// 	{ name: "Internal", begin: "2018-05-03" },
-		// 	{ name: "Late", begin: "2018-12-03" }]
-
 		let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
 		let result = this.state.timeData.reduce(
