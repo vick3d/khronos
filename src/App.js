@@ -34,6 +34,10 @@ class App extends Component {
 		this.setState({renderTimeTrackingtable: true})
 	}
 
+	dashboardHandler() {
+		this.setState({renderTimeTrackingtable: false})
+	}
+
 	checkIfUser() {
 		if (this.state.userName != null && this.state.userPassword != null) {
 			this.setState({
@@ -111,6 +115,7 @@ class App extends Component {
 					message={this.state.message}
 					renderLoginForm={this.renderLoginForm.bind(this)}
 					onStop={this.onStop.bind(this)}
+					dashboard={this.dashboardHandler.bind(this)}
 				/>
 				{renderComponent}
 				<Footer />
