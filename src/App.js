@@ -5,6 +5,7 @@ import LandingPage from "./components/landingPage";
 import Navbar from "./components/navbar";
 import LoginForm from "./components/loginForm";
 import Footer from "./components/footer";
+import Dashboard from "./components/dashboard";
 import { login } from "../src/modules/kimaiService";
 
 class App extends Component {
@@ -20,12 +21,21 @@ class App extends Component {
 			userPassword: userPassword,
 			message: userName && userPassword ? `Welcome, ${userName}!` : "",
 			begin: '',
-			end: ''
+			end: '',
+			renderTimeTrackingTable: false
 		};
 	}
 
 	componentDidMount() {
 		this.checkIfUser();
+	}
+
+	renderTimeTrackingTableHandler() {
+		this.setState({renderTimeTrackingtable: true})
+	}
+
+	dashboardHandler() {
+		this.setState({renderTimeTrackingtable: false})
 	}
 
 	checkIfUser() {
@@ -71,6 +81,7 @@ class App extends Component {
 		let renderComponent;
 
 		if (this.state.authorizedUser) {
+			if(this.state.renderTimeTrackingtable) {
 			renderComponent = (
 				<Segment name="timetracking">
 					<Header as="h1" textAlign="center">
@@ -82,6 +93,13 @@ class App extends Component {
 					/>
 				</Segment>
 			);
+			} else {
+				renderComponent = (
+					<Dashboard
+					timeTrackingHandler={this.renderTimeTrackingTableHandler.bind(this)}
+					/>
+				)
+			}
 		} else if (this.state.renderLoginForm) {
 			renderComponent = <LoginForm onLogin={this.authorizeUser.bind(this)} />;
 		} else {
@@ -97,6 +115,7 @@ class App extends Component {
 					message={this.state.message}
 					renderLoginForm={this.renderLoginForm.bind(this)}
 					onStop={this.onStop.bind(this)}
+					dashboard={this.dashboardHandler.bind(this)}
 				/>
 				{renderComponent}
 				<Footer />

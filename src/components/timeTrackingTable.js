@@ -61,6 +61,7 @@ export class TimeTrackingTable extends Component {
 			let aId = timeSheet.activity;
 			let aIndex = activities.findIndex(activity => activity.id == cId);
 			timeSheet.activity = activities[aIndex].name;
+			debugger;
 			return timeSheet;
 		});
 		this.setState({
