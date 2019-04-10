@@ -1,7 +1,10 @@
 import axios from 'axios'
 
-export const getTimeData = () => {
-	const apiUrl = 'https://demo.kimai.org/api/timesheets'
+export const getTimeData = (user) => {
+	let apiUrl = 'https://demo.kimai.org/api/timesheets'
+	if (user) {
+		apiUrl += `?user=${user}`
+	}
 
 	let headers = {
     "X-AUTH-USER":localStorage.getItem("Name"),

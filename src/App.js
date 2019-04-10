@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { TimeTrackingTable } from "./components/timeTrackingTable";
-import { Segment, Header } from "semantic-ui-react";
 import LandingPage from "./components/landingPage";
 import Navbar from "./components/navbar";
 import LoginForm from "./components/loginForm";
 import Footer from "./components/footer";
 import Dashboard from "./components/dashboard";
 import { login } from "../src/modules/kimaiService";
+import Charts from "./components/charts";
+
 
 class App extends Component {
 	constructor(props) {
@@ -16,6 +17,7 @@ class App extends Component {
 
 		this.state = {
 			renderLoginForm: false,
+			renderCharts: false,
 			authorizedUser: userName && userPassword,
 			userName: userName,
 			userPassword: userPassword,
@@ -31,11 +33,12 @@ class App extends Component {
 	}
 
 	renderTimeTrackingTableHandler() {
-		this.setState({renderTimeTrackingtable: true})
+		this.setState({ renderTimeTrackingtable: true })
 	}
 
 	dashboardHandler() {
-		this.setState({renderTimeTrackingtable: false})
+		this.setState({ renderTimeTrackingtable: false })
+		this.setState({ renderCharts: false })
 	}
 
 	checkIfUser() {
@@ -73,6 +76,12 @@ class App extends Component {
 		});
 	}
 
+	renderCharts() {
+		this.setState({
+			renderCharts: true
+		})
+	}
+
 	onStop(info) {
 		this.setState({ begin: info.begin, end: info.end })
 	}
@@ -81,27 +90,29 @@ class App extends Component {
 		let renderComponent;
 
 		if (this.state.authorizedUser) {
-			if(this.state.renderTimeTrackingtable) {
 			renderComponent = (
-				<Segment name="timetracking">
-					<Header as="h1" textAlign="center">
-						Time Tracking
-					</Header>
-					<TimeTrackingTable
-						begin={this.state.begin}
-						end={this.state.end}
-					/>
-				</Segment>
-			);
-			} else {
-				renderComponent = (
-					<Dashboard
+				<Dashboard
 					timeTrackingHandler={this.renderTimeTrackingTableHandler.bind(this)}
+					renderCharts={this.renderCharts.bind(this)}
+				/>
+			);
+
+			if (this.state.renderCharts) {
+				renderComponent = (
+					<Charts />
+				);
+			} else if (this.state.renderTimeTrackingtable) {
+				renderComponent = (
+					<TimeTrackingTable
+					 begin = {this.state.begin}
+					 end = {this.state.end}
 					/>
-				)
+				);
 			}
 		} else if (this.state.renderLoginForm) {
-			renderComponent = <LoginForm onLogin={this.authorizeUser.bind(this)} />;
+			renderComponent = (
+				<LoginForm onLogin={this.authorizeUser.bind(this)} />
+			);
 		} else {
 			renderComponent = (
 				<LandingPage renderLoginForm={this.renderLoginForm.bind(this)} />

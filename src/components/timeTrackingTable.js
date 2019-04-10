@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Table, Input, Dropdown, Button } from "semantic-ui-react";
+import { Table, Input, Dropdown, Button, Segment, Header } from "semantic-ui-react";
 import { saveData } from "../modules/kimaiSaveTimeData";
 import { getData } from "../modules/kimaiGetCustomerData";
 import { getProjectData } from "../modules/kimaiGetProjectData";
@@ -41,6 +41,12 @@ export class TimeTrackingTable extends Component {
 		);
 	}
 
+	componentDidUpdate(oldProps) {
+		if (oldProps.begin !== this.props.begin && oldProps.end !== this.props.end) {
+			this.setState({ begin: this.props.begin, end: this.props.end })
+		}
+	}
+
 	entryHandler(e) {
 		this.setState({ entrySaved: true });
 	}
@@ -57,12 +63,6 @@ export class TimeTrackingTable extends Component {
 
 	handleActivityChange(value) {
 		this.setState({ activity: value });
-	}
-
-	componentDidUpdate(oldProps) {
-		if(oldProps.begin !== this.props.begin && oldProps.end !== this.props.end) {
-			this.setState({begin: this.props.begin, end: this.props.end })
-		}
 	}
 
 	renderTimeSheet() {
@@ -196,7 +196,7 @@ export class TimeTrackingTable extends Component {
 				if (response.message === "Entry saved") {
 					this.entryHandler();
 					setTimeout(
-						function() {
+						function () {
 							getTimeData().then(response => {
 								this.setState({
 									timeData: response
@@ -239,90 +239,95 @@ export class TimeTrackingTable extends Component {
 
 		return (
 			<>
-				<Table celled>
-					<Table.Header name="tableHeader">
-						<Table.Row name="tableRow">
-							<Table.HeaderCell>Start Time</Table.HeaderCell>
-							<Table.HeaderCell>End Time</Table.HeaderCell>
-							<Table.HeaderCell>Rate</Table.HeaderCell>
-							<Table.HeaderCell>Customer</Table.HeaderCell>
-							<Table.HeaderCell>Project</Table.HeaderCell>
-							<Table.HeaderCell>Task</Table.HeaderCell>
-							<Table.HeaderCell> </Table.HeaderCell>
-						</Table.Row>
-					</Table.Header>
+				<Segment name="timetracking">
+					<Header as="h1" textAlign="center">
+						Time Tracking
+					</Header>
+					<Table celled>
+						<Table.Header name="tableHeader">
+							<Table.Row name="tableRow">
+								<Table.HeaderCell>Start Time</Table.HeaderCell>
+								<Table.HeaderCell>End Time</Table.HeaderCell>
+								<Table.HeaderCell>Rate</Table.HeaderCell>
+								<Table.HeaderCell>Customer</Table.HeaderCell>
+								<Table.HeaderCell>Project</Table.HeaderCell>
+								<Table.HeaderCell>Task</Table.HeaderCell>
+								<Table.HeaderCell> </Table.HeaderCell>
+							</Table.Row>
+						</Table.Header>
 
-					<Table.Body>
-						<Table.Row>
-							<Table.Cell>
-								<Input
-									id='begin'
-									placeholder='YYYY-MM-DD HH:MM'
-									onChange={(e) => this.setState({ begin: e.target.value, entrySaved: false })}
-									value={this.state.begin}
-								/>
-							</Table.Cell>
-							<Table.Cell>
-								<Input
-									id='end'
-									placeholder='YYYY-MM-DD HH:MM'
-									onChange={(e) => this.setState({ end: e.target.value, entrySaved: false })}
-									value={this.state.end}
-								/>
-							</Table.Cell>
-							<Table.Cell>
-								<Input
-									id="hourlyRate"
-									placeholder="$"
-									onChange={e =>
-										this.setState({
-											hourlyRate: e.target.value,
-											entrySaved: false
-										})
-									}
-								/>
-							</Table.Cell>
-							<Table.Cell>
-								<Dropdown
-									id="customer"
-									className="customer"
-									selection
-									defaultValue=""
-									options={customerOptions}
-									onChange={(e, { value }) => this.handleCustomerChange(value)}
-								/>
-							</Table.Cell>
-							<Table.Cell>
-								<Dropdown
-									id="project"
-									className="project"
-									selection
-									defaultValue=""
-									options={projectOptions}
-									onChange={(e, { value }) => this.handleProjectChange(value)}
-								/>
-							</Table.Cell>
-							<Table.Cell>
-								<Dropdown
-									id="activity"
-									className="activity"
-									selection
-									defaultValue=""
-									options={taskOptions}
-									onChange={(e, { value }) => this.handleActivityChange(value)}
-								/>
-							</Table.Cell>
-							<Table.Cell>{saveButton}</Table.Cell>
-						</Table.Row>
-						{listEntries}
-					</Table.Body>
+						<Table.Body>
+							<Table.Row>
+								<Table.Cell>
+									<Input
+										id='begin'
+										placeholder='YYYY-MM-DD HH:MM'
+										onChange={(e) => this.setState({ begin: e.target.value, entrySaved: false })}
+										value={this.state.begin}
+									/>
+								</Table.Cell>
+								<Table.Cell>
+									<Input
+										id='end'
+										placeholder='YYYY-MM-DD HH:MM'
+										onChange={(e) => this.setState({ end: e.target.value, entrySaved: false })}
+										value={this.state.end}
+									/>
+								</Table.Cell>
+								<Table.Cell>
+									<Input
+										id="hourlyRate"
+										placeholder="$"
+										onChange={e =>
+											this.setState({
+												hourlyRate: e.target.value,
+												entrySaved: false
+											})
+										}
+									/>
+								</Table.Cell>
+								<Table.Cell>
+									<Dropdown
+										id="customer"
+										className="customer"
+										selection
+										defaultValue=""
+										options={customerOptions}
+										onChange={(e, { value }) => this.handleCustomerChange(value)}
+									/>
+								</Table.Cell>
+								<Table.Cell>
+									<Dropdown
+										id="project"
+										className="project"
+										selection
+										defaultValue=""
+										options={projectOptions}
+										onChange={(e, { value }) => this.handleProjectChange(value)}
+									/>
+								</Table.Cell>
+								<Table.Cell>
+									<Dropdown
+										id="activity"
+										className="activity"
+										selection
+										defaultValue=""
+										options={taskOptions}
+										onChange={(e, { value }) => this.handleActivityChange(value)}
+									/>
+								</Table.Cell>
+								<Table.Cell>{saveButton}</Table.Cell>
+							</Table.Row>
+							{listEntries}
+						</Table.Body>
 
-					<Table.Footer>
-						<Table.Row>
-							<Table.HeaderCell textAlign="center" colSpan="7" />
-						</Table.Row>
-					</Table.Footer>
-				</Table>
+						<Table.Footer>
+							<Table.Row>
+								<Table.HeaderCell textAlign="center" colSpan="7" />
+							</Table.Row>
+						</Table.Footer>
+					</Table>
+				</Segment>
 			</>
 		);
 	}
