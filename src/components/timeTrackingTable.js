@@ -53,15 +53,14 @@ export class TimeTrackingTable extends Component {
 		let activities = this.state.fetchedAllActivities;
 		let newTimeData = timeData.filter(timeSheet => {
 			let pId = timeSheet.project;
-			let pIndex = projects.findIndex(project => project.id == pId);
-			timeSheet.project = projects[pIndex].name;
+			let pIndex = projects.findIndex(project => project.value == pId);
+			timeSheet.project = projects[pIndex].text;
 			let cId = projects[pIndex].customer;
-			let cIndex = customers.findIndex(customer => customer.id == cId);
-			timeSheet.customer = customers[cIndex].name;
+			let cIndex = customers.findIndex(customer => customer.value == cId);
+			timeSheet.customer = customers[cIndex].text;
 			let aId = timeSheet.activity;
-			let aIndex = activities.findIndex(activity => activity.id == cId);
-			timeSheet.activity = activities[aIndex].name;
-			debugger;
+			let aIndex = activities.findIndex(activity => activity.value == cId);
+			timeSheet.activity = activities[aIndex].text;
 			return timeSheet;
 		});
 		this.setState({
@@ -132,8 +131,14 @@ export class TimeTrackingTable extends Component {
 						let responseArray = response.data;
 						let activitiesArray = responseArray.map(activity => {
 							let rActivity = {};
-							rActivity["name"] = activity.name;
-							rActivity["id"] = activity.id;
+							rActivity["text"] = activity.name;
+							rActivity["value"] = activity.id;
+							rActivity["visible"] = activity.visible;
+							if (activity.project) {
+								rActivity["project"] = activity.project;
+							} else {
+								rActivity["project"] = null;
+							}
 							return rActivity;
 						});
 						this.setState({ fetchedAllActivities: activitiesArray });
@@ -155,9 +160,10 @@ export class TimeTrackingTable extends Component {
 						let responseArray = response.data;
 						let projectsArray = responseArray.map(project => {
 							let rProject = {};
-							rProject["name"] = project.name;
-							rProject["id"] = project.id;
+							rProject["text"] = project.name;
+							rProject["value"] = project.id;
 							rProject["customer"] = project.customer;
+							rProject["visible"] = project.visible;
 							return rProject;
 						});
 						this.setState({ fetchedAllProjects: projectsArray });
@@ -181,8 +187,9 @@ export class TimeTrackingTable extends Component {
 						let responseArray = response.data;
 						let companyArray = responseArray.map(company => {
 							let rCompany = {};
-							rCompany["name"] = company.name;
-							rCompany["id"] = company.id;
+							rCompany["text"] = company.name;
+							rCompany["value"] = company.id;
+							rCompany["visible"] = company.visible;
 							return rCompany;
 						});
 						this.setState({ fetchedCustomers: companyArray });
@@ -196,52 +203,31 @@ export class TimeTrackingTable extends Component {
 
 	async getCustomerProjects(value) {
 		const customerId = value;
-		try {
-			await getProjectData(customerId).then(response => {
-				if (response.message === "Could not fetch project data at this time.") {
-					alert(response.message);
-				} else {
-					{
-						let responseArray = response.data;
-						let projectsArray = responseArray.map(project => {
-							let rProject = {};
-							rProject["name"] = project.name;
-							rProject["id"] = project.id;
-							return rProject;
-						});
-						this.setState({ fetchedCustomerProjects: projectsArray });
-					}
-				}
-			});
-		} catch (error) {
-			console.log(error);
-		}
+		let customerProjects = this.state.fetchedAllProjects.filter(
+			project => project.customer == customerId && project.visible
+		);
+
+		let projectsArray = customerProjects.map(project => {
+			let rProject = {};
+			rProject["text"] = project.text;
+			rProject["value"] = project.value;
+			return rProject;
+		});
+		this.setState({ fetchedCustomerProjects: projectsArray });
 	}
 
 	async getActivities(value) {
 		const projectId = value;
-		try {
-			await getProjectActivities(projectId).then(response => {
-				if (
-					response.message === "Could not fetch activity data at this time."
-				) {
-					alert(response.message);
-				} else {
-					{
-						let responseArray = response.data;
-						let activitiesArray = responseArray.map(activity => {
-							let rActivity = {};
-							rActivity["name"] = activity.name;
-							rActivity["id"] = activity.id;
-							return rActivity;
-						});
-						this.setState({ fetchedActivities: activitiesArray });
-					}
-				}
-			});
-		} catch (error) {
-			console.log(error);
-		}
+		let projectActivities = this.state.fetchedAllActivities.filter(
+			activity => activity.project === projectId && activity.visible
+		);
+		let activitiesArray = projectActivities.map(activity => {
+			let rActivity = {};
+			rActivity["text"] = activity.text;
+			rActivity["value"] = activity.value;
+			return rActivity;
+		});
+		this.setState({ fetchedActivities: activitiesArray });
 	}
 
 	updateTimeDataHandler(data) {
@@ -290,7 +276,9 @@ export class TimeTrackingTable extends Component {
 	render() {
 		let saveButton;
 
-		const customerOptions = this.state.fetchedCustomers;
+		const customerOptions = this.state.fetchedCustomers.filter(
+			customer => customer.visible === true
+		);
 		const projectOptions = this.state.fetchedCustomerProjects;
 		const taskOptions = this.state.fetchedActivities;
 

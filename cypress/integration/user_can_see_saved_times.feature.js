@@ -16,26 +16,8 @@ describe("User can see saved times", () => {
 	it("User can see saved times", () => {
 		cy.route({
 			method: "GET",
-			url: "https://demo.kimai.org/api/timesheets?visible=3",
+			url: "https://demo.kimai.org/api/timesheets",
 			response: "fixture:get_data_plus.json",
-			headers: {
-				"X-AUTH-USER": "susan_super",
-				"X-AUTH-TOKEN": "api_kitten"
-			}
-		});
-		cy.route({
-			method: "GET",
-			url: "https://demo.kimai.org/api/projects?visible=3",
-			response: "fixture:get_data_projects.json",
-			headers: {
-				"X-AUTH-USER": "susan_super",
-				"X-AUTH-TOKEN": "api_kitten"
-			}
-		});
-		cy.route({
-			method: "GET",
-			url: "https://demo.kimai.org/api/activities?visible=3",
-			response: "fixture:get_data_activities.json",
 			headers: {
 				"X-AUTH-USER": "susan_super",
 				"X-AUTH-TOKEN": "api_kitten"
