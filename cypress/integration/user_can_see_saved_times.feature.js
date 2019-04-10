@@ -39,15 +39,15 @@ describe("User can see saved times", () => {
 		cy.get(":nth-child(2) > #endSave").should("contain", "2019-03-28 13:00");
 		cy.get("tbody > :nth-child(2) > :nth-child(4)").should(
 			"contain",
-			"Bruen, Tromp and Powlowski"
+			"Beer and Sons"
 		);
 		cy.get("tbody > :nth-child(2) > :nth-child(5)").should(
 			"contain",
-			"Horizontal explicit methodology"
+			"Compatible 24hour throughput"
 		);
 		cy.get("tbody > :nth-child(2) > :nth-child(6)").should(
 			"contain",
-			"embrace killer channels"
+			"matrix leading-edge communities"
 		);
 	});
 });

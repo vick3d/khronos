@@ -30,24 +30,24 @@ export class TimeTrackingTable extends Component {
 	}
 
 	async componentDidMount() {
+		await this.updateAllData()
+	}
+
+	async updateAllData() {
 		await this.getCustomerData();
 		await this.getAllProjects();
 		await this.getAllActivities();
 		await getTimeData().then(
 			response => {
-				this.setState({
-					timeData: response
-				});
+				this.updateTimeData(response)
 			},
 			reason => {
 				console.log("something went wrong");
 			}
 		);
-		this.updateTimeData();
 	}
 
-	updateTimeData() {
-		let timeData = this.state.timeData;
+	updateTimeData(timeData) {
 		let projects = this.state.fetchedAllProjects;
 		let customers = this.state.fetchedCustomers;
 		let activities = this.state.fetchedAllActivities;
@@ -59,7 +59,7 @@ export class TimeTrackingTable extends Component {
 			let cIndex = customers.findIndex(customer => customer.value == cId);
 			timeSheet.customer = customers[cIndex].text;
 			let aId = timeSheet.activity;
-			let aIndex = activities.findIndex(activity => activity.value == cId);
+			let aIndex = activities.findIndex(activity => activity.value == aId);
 			timeSheet.activity = activities[aIndex].text;
 			return timeSheet;
 		});
@@ -254,16 +254,7 @@ export class TimeTrackingTable extends Component {
 			await saveData(values).then(response => {
 				if (response.message === "Entry saved") {
 					this.entryHandler();
-					setTimeout(
-						function() {
-							getTimeData().then(response => {
-								this.setState({
-									timeData: response
-								});
-							});
-						}.bind(this),
-						1000
-					);
+					setTimeout(this.updateAllData.bind(this), 1000);
 				} else {
 					alert(response.message);
 				}

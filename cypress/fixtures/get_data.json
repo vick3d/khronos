@@ -9,7 +9,7 @@
       "fixed_rate": 0,
       "hourly_rate": 0,
       "exported": true,
-      "activity": 1,
+      "activity": 8,
       "project": 1,
       "user": 6
   },
@@ -23,7 +23,7 @@
       "fixed_rate": 0,
       "hourly_rate": 0,
       "exported": true,
-      "activity": 1,
+      "activity": 8,
       "project": 1,
       "user": 6
   }
