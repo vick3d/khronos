@@ -4,8 +4,6 @@ import { Image, Icon, Menu, Divider, Message } from 'semantic-ui-react'
 import moment from "moment-timezone"
 
 class Navbar extends Component {
-
-
 	start = () => {
 		const begin = moment().tz("Europe/Stockholm").format('YYYY-MM-DD HH:mm')
 		localStorage.setItem('begin', begin)
