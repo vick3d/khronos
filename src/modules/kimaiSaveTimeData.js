@@ -2,8 +2,8 @@ import axios from "axios";
 
 const saveData = values => {
 	const apiUrl = "https://demo.kimai.org/api/";
-	const username = "susan_super";
-	const password = "api_kitten";
+	const username = localStorage.getItem("Name");
+	const password = localStorage.getItem("Password");
 	const {
 		begin,
 		end,
