@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { TimeTrackingTable } from "./components/timeTrackingTable";
-import { Segment, Header } from "semantic-ui-react";
+import { Segment } from "semantic-ui-react";
 import LandingPage from "./components/landingPage";
 import Navbar from "./components/navbar";
 import LoginForm from "./components/loginForm";
 import Footer from "./components/footer";
+import Dashboard from "./components/dashboard";
 import { login } from "../src/modules/kimaiService";
 import Charts from "./components/charts";
 
@@ -23,12 +24,22 @@ class App extends Component {
 			userPassword: userPassword,
 			message: userName && userPassword ? `Welcome, ${userName}!` : "",
 			begin: '',
-			end: ''
+			end: '',
+			renderTimeTrackingTable: false
 		};
 	}
 
 	componentDidMount() {
 		this.checkIfUser();
+	}
+
+	renderTimeTrackingTableHandler() {
+		this.setState({ renderTimeTrackingtable: true })
+	}
+
+	dashboardHandler() {
+		this.setState({ renderTimeTrackingtable: false })
+		// this.setState({ renderCharts: false })
 	}
 
 	checkIfUser() {
@@ -82,18 +93,19 @@ class App extends Component {
 		if (this.state.authorizedUser && this.state.renderCharts === false) {
 			renderComponent = (
 				<Segment name="timetracking">
-					<Header as="h1" textAlign="center">
-						Time Tracking
-					</Header>
-					<TimeTrackingTable
-						begin={this.state.begin}
-						end={this.state.end}
+					<Dashboard
+						timeTrackingHandler={this.renderTimeTrackingTableHandler.bind(this)}
 						renderCharts={this.renderCharts.bind(this)}
 					/>
+					{/* <TimeTrackingTable
+							begin={this.state.begin}
+							end={this.state.end}
+						/> */}
 				</Segment>
 			);
 		} else if (this.state.renderCharts) {
 			renderComponent = <Charts />;
+
 		} else if (this.state.renderLoginForm) {
 			renderComponent = <LoginForm onLogin={this.authorizeUser.bind(this)} />;
 		} else {
@@ -109,6 +121,7 @@ class App extends Component {
 					message={this.state.message}
 					renderLoginForm={this.renderLoginForm.bind(this)}
 					onStop={this.onStop.bind(this)}
+					dashboard={this.dashboardHandler.bind(this)}
 				/>
 				{renderComponent}
 				<Footer />

@@ -239,7 +239,9 @@ export class TimeTrackingTable extends Component {
 
 		return (
 			<>
-				<Button onClick={this.props.renderCharts}>Show Charts</Button>
+				<Header as="h1" textAlign="center">
+					Time Tracking
+				</Header>
 				<Table celled>
 					<Table.Header name="tableHeader">
 						<Table.Row name="tableRow">

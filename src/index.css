@@ -83,4 +83,9 @@ code {
 .info-box-content-r {
 	padding: 5px 10px;
 	margin-right: 90px;
+	line-height: 1em;
+}
+
+.ui.grid>[class*="two column"].row>.column {
+	width: 20%!important;
 }
