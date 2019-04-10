@@ -1,7 +1,7 @@
-import './commands'
+import "./commands";
 
-beforeEach(function () {
-	cy.visit('http://localhost:3000/')
+beforeEach(function() {
+	cy.visit("http://localhost:3000/");
 	cy.server();
 	cy.route({
 		method: "GET",
@@ -11,25 +11,25 @@ beforeEach(function () {
 			"X-AUTH-USER": "susan_super",
 			"X-AUTH-TOKEN": "api_kitten"
 		}
-	})
+	});
 	cy.route({
-		method: 'POST',
-		url: 'https://demo.kimai.org/api/timesheets',
-		response: 'fixture:save_data.json',
+		method: "POST",
+		url: "https://demo.kimai.org/api/timesheets",
+		response: "fixture:save_data.json",
 		headers: {
 			"X-AUTH-USER": "susan_super",
 			"X-AUTH-TOKEN": "api_kitten"
 		}
-	})
+	});
 	cy.route({
 		method: "GET",
-		url: "https://demo.kimai.org/api/customers",
+		url: "https://demo.kimai.org/api/customers?visible=3",
 		response: "fixture:fetchCustomers.json",
 		headers: {
 			"X-AUTH-USER": "susan_super",
 			"X-AUTH-TOKEN": "api_kitten"
 		}
-	})
+	});
 	cy.route({
 		method: "GET",
 		url: "https://demo.kimai.org/api/timesheets",
@@ -38,23 +38,23 @@ beforeEach(function () {
 			"X-AUTH-USER": "susan_super",
 			"X-AUTH-TOKEN": "api_kitten"
 		}
-	})
+	});
 	cy.route({
 		method: "GET",
-		url: "https://demo.kimai.org/api/projects?customer=8",
+		url: "https://demo.kimai.org/api/projects?visible=3",
 		response: "fixture:fetchProjects.json",
 		headers: {
 			"X-AUTH-USER": "susan_super",
 			"X-AUTH-TOKEN": "api_kitten"
 		}
-	})
+	});
 	cy.route({
 		method: "GET",
-		url: "https://demo.kimai.org/api/activities?project=28",
+		url: "https://demo.kimai.org/api/activities?visible=3",
 		response: "fixture:fetchActivities.json",
 		headers: {
 			"X-AUTH-USER": "susan_super",
 			"X-AUTH-TOKEN": "api_kitten"
 		}
-	})
-})
+	});
+});

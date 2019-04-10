@@ -1,8 +1,13 @@
 import axios from "axios";
 
-const getProjectData = (customerId) => {
+const getProjectData = customerId => {
 	const apiUrl = "https://demo.kimai.org/api";
-	const customer = customerId;
+	let projectUrl;
+	if (customerId === "all") {
+		projectUrl = apiUrl + "/projects?visible=3";
+	} else {
+		projectUrl = apiUrl + "/projects?customer=" + customerId;
+	}
 	const username = localStorage.getItem("Name");
 	const password = localStorage.getItem("Password");
 	const headers = {
@@ -12,7 +17,7 @@ const getProjectData = (customerId) => {
 
 	return new Promise((resolve, reject) => {
 		axios
-			.get(apiUrl + "/projects?customer=" + customer, {
+			.get(projectUrl, {
 				headers: headers
 			})
 			.then(response => {
