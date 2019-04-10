@@ -30,7 +30,7 @@ class Navbar extends Component {
 		if (this.props.isLoggedIn) {
 			return (
 				<Menu>
-					<Menu.Item link name='logo'>
+					<Menu.Item link name='logo' onClick={ () => this.props.dashboard()} >
 						<Image src={logo} id='logo' size='small' />
 					</Menu.Item>
 					<Menu.Item >

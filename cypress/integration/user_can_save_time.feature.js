@@ -5,6 +5,7 @@ describe('User can save time', () => {
 			.get(':nth-child(1) > .ui > input').type('susan_super')
 			.get(':nth-child(2) > .ui > input').type('api_kitten')
 			.get('button').contains('Login').click()
+			.get('button[name="time_tracking"]').click();
 	})
 
 	it('when user visits the page and logs in', () => {
