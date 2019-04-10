@@ -22,14 +22,16 @@ export class TimeTrackingTable extends Component {
 			entrySaved: false,
 			fetchedCustomers: [],
 			timeData: [],
-			fetchedProjects: [],
+			fetchedCustomerProjects: [],
+			fetchedAllProjects: [],
 			fetchedActivities: []
 		};
 	}
 
-	componentDidMount() {
-		this.getCustomerData();
-		getTimeData().then(
+	async componentDidMount() {
+		await this.getCustomerData();
+		await this.getAllProjects();
+		await getTimeData().then(
 			response => {
 				this.setState({
 					timeData: response
@@ -39,6 +41,27 @@ export class TimeTrackingTable extends Component {
 				console.log("something went wrong");
 			}
 		);
+		this.updateTimeData();
+	}
+
+	updateTimeData() {
+		let timeData = this.state.timeData;
+		let projects = this.state.fetchedAllProjects;
+		let customers = this.state.fetchedCustomers;
+
+		let newTimeData = timeData.filter(timeSheet => {
+			let pId = timeSheet.project;
+			let pIndex = projects.findIndex(project => project.id == pId);
+			timeSheet.project = projects[pIndex].name;
+			let cId = projects[pIndex].customer;
+			let cIndex = customers.findIndex(customer => customer.id == cId);
+			timeSheet.customer = customers[cIndex].name;
+
+			return timeSheet;
+		});
+		this.setState({
+			timeData: newTimeData
+		});
 	}
 
 	entryHandler(e) {
@@ -47,7 +70,7 @@ export class TimeTrackingTable extends Component {
 
 	handleCustomerChange(value) {
 		this.setState({ customer: value });
-		this.getProjects(value)
+		this.getCustomerProjects(value);
 	}
 
 	handleProjectChange(value) {
@@ -60,37 +83,60 @@ export class TimeTrackingTable extends Component {
 	}
 
 	componentDidUpdate(oldProps) {
-		if(oldProps.begin !== this.props.begin && oldProps.end !== this.props.end) {
-			this.setState({begin: this.props.begin, end: this.props.end })
+		if (
+			oldProps.begin !== this.props.begin &&
+			oldProps.end !== this.props.end
+		) {
+			this.setState({ begin: this.props.begin, end: this.props.end });
 		}
 	}
 
 	renderTimeSheet() {
 		const timeData = this.state.timeData;
-		return timeData.map((entry) => {
+		return timeData.map(entry => {
 			return (
 				<Table.Row>
-					<Table.Cell id='beginSave'>
-						{moment(entry.begin).tz("Europe/Stockholm").format('YYYY-MM-DD HH:mm')}
+					<Table.Cell id="beginSave">
+						{moment(entry.begin)
+							.tz("Europe/Stockholm")
+							.format("YYYY-MM-DD HH:mm")}
 					</Table.Cell>
-					<Table.Cell id='endSave'>
-						{moment(entry.end).tz("Europe/Stockholm").format('YYYY-MM-DD HH:mm')}
+					<Table.Cell id="endSave">
+						{moment(entry.end)
+							.tz("Europe/Stockholm")
+							.format("YYYY-MM-DD HH:mm")}
 					</Table.Cell>
-					<Table.Cell>
-						{entry.rate}
-					</Table.Cell>
-					<Table.Cell>
-						{entry.customer}
-					</Table.Cell>
-					<Table.Cell>
-						{entry.project}
-					</Table.Cell>
-					<Table.Cell>
-						{entry.activity}
-					</Table.Cell>
+					<Table.Cell>{entry.rate}</Table.Cell>
+					<Table.Cell>{entry.customer}</Table.Cell>
+					<Table.Cell>{entry.project}</Table.Cell>
+					<Table.Cell>{entry.activity}</Table.Cell>
 				</Table.Row>
-			)
-		})
+			);
+		});
+	}
+
+	async getAllProjects() {
+		try {
+			await getProjectData("all").then(response => {
+				if (response.message === "Could not fetch project data at this time.") {
+					alert(response.message);
+				} else {
+					{
+						let responseArray = response.data;
+						let projectsArray = responseArray.map(project => {
+							let rProject = {};
+							rProject["name"] = project.name;
+							rProject["id"] = project.id;
+							rProject["customer"] = project.customer;
+							return rProject;
+						});
+						this.setState({ fetchedAllProjects: projectsArray });
+					}
+				}
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	async getCustomerData() {
@@ -105,8 +151,8 @@ export class TimeTrackingTable extends Component {
 						let responseArray = response.data;
 						let companyArray = responseArray.map(company => {
 							let rCompany = {};
-							rCompany["text"] = company.name;
-							rCompany["value"] = company.id;
+							rCompany["name"] = company.name;
+							rCompany["id"] = company.id;
 							return rCompany;
 						});
 						this.setState({ fetchedCustomers: companyArray });
@@ -118,24 +164,22 @@ export class TimeTrackingTable extends Component {
 		}
 	}
 
-	async getProjects(value) {
-		const customerId = value
+	async getCustomerProjects(value) {
+		const customerId = value;
 		try {
 			await getProjectData(customerId).then(response => {
-				if (
-					response.message === "Could not fetch project data at this time."
-				) {
+				if (response.message === "Could not fetch project data at this time.") {
 					alert(response.message);
 				} else {
 					{
 						let responseArray = response.data;
 						let projectsArray = responseArray.map(project => {
 							let rProject = {};
-							rProject["text"] = project.name;
-							rProject["value"] = project.id;
+							rProject["name"] = project.name;
+							rProject["id"] = project.id;
 							return rProject;
 						});
-						this.setState({ fetchedProjects: projectsArray });
+						this.setState({ fetchedCustomerProjects: projectsArray });
 					}
 				}
 			});
@@ -145,7 +189,7 @@ export class TimeTrackingTable extends Component {
 	}
 
 	async getActivities(value) {
-		const projectId = value
+		const projectId = value;
 		try {
 			await getProjectActivities(projectId).then(response => {
 				if (
@@ -157,8 +201,8 @@ export class TimeTrackingTable extends Component {
 						let responseArray = response.data;
 						let activitiesArray = responseArray.map(activity => {
 							let rActivity = {};
-							rActivity["text"] = activity.name;
-							rActivity["value"] = activity.id;
+							rActivity["name"] = activity.name;
+							rActivity["id"] = activity.id;
 							return rActivity;
 						});
 						this.setState({ fetchedActivities: activitiesArray });
@@ -169,7 +213,6 @@ export class TimeTrackingTable extends Component {
 			console.log(error);
 		}
 	}
-
 
 	updateTimeDataHandler(data) {
 		let timeData = this.state.timeData;
@@ -198,7 +241,6 @@ export class TimeTrackingTable extends Component {
 					setTimeout(
 						function() {
 							getTimeData().then(response => {
-								debugger;
 								this.setState({
 									timeData: response
 								});
@@ -219,7 +261,7 @@ export class TimeTrackingTable extends Component {
 		let saveButton;
 
 		const customerOptions = this.state.fetchedCustomers;
-		const projectOptions = this.state.fetchedProjects;
+		const projectOptions = this.state.fetchedCustomerProjects;
 		const taskOptions = this.state.fetchedActivities;
 
 		if (this.state.entrySaved === false) {
@@ -257,17 +299,21 @@ export class TimeTrackingTable extends Component {
 						<Table.Row>
 							<Table.Cell>
 								<Input
-									id='begin'
-									placeholder='YYYY-MM-DD HH:MM'
-									onChange={(e) => this.setState({ begin: e.target.value, entrySaved: false })}
+									id="begin"
+									placeholder="YYYY-MM-DD HH:MM"
+									onChange={e =>
+										this.setState({ begin: e.target.value, entrySaved: false })
+									}
 									value={this.state.begin}
 								/>
 							</Table.Cell>
 							<Table.Cell>
 								<Input
-									id='end'
-									placeholder='YYYY-MM-DD HH:MM'
-									onChange={(e) => this.setState({ end: e.target.value, entrySaved: false })}
+									id="end"
+									placeholder="YYYY-MM-DD HH:MM"
+									onChange={e =>
+										this.setState({ end: e.target.value, entrySaved: false })
+									}
 									value={this.state.end}
 								/>
 							</Table.Cell>

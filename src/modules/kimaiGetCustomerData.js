@@ -11,7 +11,7 @@ const getData = () => {
 
 	return new Promise((resolve, reject) => {
 		axios
-			.get(apiUrl + "/customers", {
+			.get(apiUrl + "/customers?visible=3", {
 				headers: headers
 			})
 			.then(response => {
