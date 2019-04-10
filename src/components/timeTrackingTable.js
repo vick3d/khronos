@@ -242,7 +242,7 @@ export class TimeTrackingTable extends Component {
 				<Segment name="timetracking">
 					<Header as="h1" textAlign="center">
 						Time Tracking
-				</Header>
+					</Header>
 					<Table celled>
 						<Table.Header name="tableHeader">
 							<Table.Row name="tableRow">
