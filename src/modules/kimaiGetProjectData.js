@@ -3,8 +3,8 @@ import axios from "axios";
 const getProjectData = (customerId) => {
 	const apiUrl = "https://demo.kimai.org/api";
 	const customer = customerId;
-	const username = "susan_super";
-	const password = "api_kitten";
+	const username = localStorage.getItem("Name");
+	const password = localStorage.getItem("Password");
 	const headers = {
 		"X-AUTH-USER": username,
 		"X-AUTH-TOKEN": password
