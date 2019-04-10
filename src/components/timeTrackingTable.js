@@ -24,13 +24,15 @@ export class TimeTrackingTable extends Component {
 			timeData: [],
 			fetchedCustomerProjects: [],
 			fetchedAllProjects: [],
-			fetchedActivities: []
+			fetchedActivities: [],
+			fetchedAllActivities: []
 		};
 	}
 
 	async componentDidMount() {
 		await this.getCustomerData();
 		await this.getAllProjects();
+		await this.getAllActivities();
 		await getTimeData().then(
 			response => {
 				this.setState({
@@ -48,7 +50,7 @@ export class TimeTrackingTable extends Component {
 		let timeData = this.state.timeData;
 		let projects = this.state.fetchedAllProjects;
 		let customers = this.state.fetchedCustomers;
-
+		let activities = this.state.fetchedAllActivities;
 		let newTimeData = timeData.filter(timeSheet => {
 			let pId = timeSheet.project;
 			let pIndex = projects.findIndex(project => project.id == pId);
@@ -56,7 +58,9 @@ export class TimeTrackingTable extends Component {
 			let cId = projects[pIndex].customer;
 			let cIndex = customers.findIndex(customer => customer.id == cId);
 			timeSheet.customer = customers[cIndex].name;
-
+			let aId = timeSheet.activity;
+			let aIndex = activities.findIndex(activity => activity.id == cId);
+			timeSheet.activity = activities[aIndex].name;
 			return timeSheet;
 		});
 		this.setState({
@@ -113,6 +117,31 @@ export class TimeTrackingTable extends Component {
 				</Table.Row>
 			);
 		});
+	}
+
+	async getAllActivities() {
+		try {
+			await getProjectActivities("all").then(response => {
+				if (
+					response.message === "Could not fetch activity data at this time."
+				) {
+					alert(response.message);
+				} else {
+					{
+						let responseArray = response.data;
+						let activitiesArray = responseArray.map(activity => {
+							let rActivity = {};
+							rActivity["name"] = activity.name;
+							rActivity["id"] = activity.id;
+							return rActivity;
+						});
+						this.setState({ fetchedAllActivities: activitiesArray });
+					}
+				}
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	async getAllProjects() {

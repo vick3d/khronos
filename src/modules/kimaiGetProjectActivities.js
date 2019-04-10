@@ -1,8 +1,13 @@
 import axios from "axios";
 
-const getProjectActivities = (projectId) => {
+const getProjectActivities = projectId => {
 	const apiUrl = "https://demo.kimai.org/api";
-	const project = projectId;
+	let activityUrl;
+	if (projectId == "all") {
+		activityUrl = apiUrl + "/activities?visible=3";
+	} else {
+		activityUrl = apiUrl + "/activities?project=" + projectId;
+	}
 	const username = "susan_super";
 	const password = "api_kitten";
 	const headers = {
@@ -12,7 +17,7 @@ const getProjectActivities = (projectId) => {
 
 	return new Promise((resolve, reject) => {
 		axios
-			.get(apiUrl + "/activities?project=" + project, {
+			.get(activityUrl, {
 				headers: headers
 			})
 			.then(response => {
