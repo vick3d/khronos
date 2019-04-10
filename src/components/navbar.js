@@ -17,6 +17,13 @@ class Navbar extends Component {
 		alert("Stopped recording.\nPlease add work details before submission.")
 	}
 
+	logout = () => {
+		localStorage.removeItem("Name")
+		localStorage.removeItem("Password")
+		alert("Logged out")
+		window.location.reload()
+	}
+
 	render() {
 		if (this.props.isLoggedIn) {
 			return (
@@ -25,7 +32,7 @@ class Navbar extends Component {
 						<Image src={logo} id='logo' size='small' />
 					</Menu.Item>
 					<Menu.Item >
-						<Icon link inverted color='white' name='sign-out' size='big' />
+						<Icon link inverted color='white' name='sign-out' size='big' onClick={() => this.logout()} />
 					</Menu.Item>
 					<Menu.Item >
 						<Icon link inverted color='white' name='play' id='play' size='big' onClick={() => this.start()} />
