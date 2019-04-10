@@ -10,6 +10,8 @@ describe("User can fetch project activities data", () => {
 			.type("api_kitten")
 			.get("button")
 			.contains("Login")
+			.click()
+			.get('button[name="time_tracking"]')
 			.click();
 	});
 
