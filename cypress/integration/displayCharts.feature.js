@@ -8,9 +8,11 @@ describe('Display charts', () => {
 	})
 
   it('User can see saved times', () => {
-
-  cy
-  .get('button').contains('Charts').click()
-  .get('div[id="chart"]').contains('chart')
+	cy
+	.get('.two > :nth-child(2) > .white').click()
+	.get('.info-box-number-l').contains('Working Hours (Today)')
+	.get('.info-box-number-r').contains('Revenue (Today)')
+	.get(':nth-child(1) > .chartjs-render-monitor')
+	.get(':nth-child(2) > .chartjs-render-monitor')
   })
 })

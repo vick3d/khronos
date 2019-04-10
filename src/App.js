@@ -39,7 +39,7 @@ class App extends Component {
 
 	dashboardHandler() {
 		this.setState({ renderTimeTrackingtable: false })
-		// this.setState({ renderCharts: false })
+		this.setState({ renderCharts: false })
 	}
 
 	checkIfUser() {
@@ -90,24 +90,30 @@ class App extends Component {
 	render() {
 		let renderComponent;
 
-		if (this.state.authorizedUser && this.state.renderCharts === false) {
+		if (this.state.authorizedUser) {
 			renderComponent = (
-				<Segment name="timetracking">
-					<Dashboard
-						timeTrackingHandler={this.renderTimeTrackingTableHandler.bind(this)}
-						renderCharts={this.renderCharts.bind(this)}
-					/>
-					{/* <TimeTrackingTable
-							begin={this.state.begin}
-							end={this.state.end}
-						/> */}
-				</Segment>
+				<Dashboard
+					timeTrackingHandler={this.renderTimeTrackingTableHandler.bind(this)}
+					renderCharts={this.renderCharts.bind(this)}
+				/>
 			);
-		} else if (this.state.renderCharts) {
-			renderComponent = <Charts />;
 
+			if (this.state.renderCharts) {
+				renderComponent = (
+					<Charts />
+				);
+			} else if (this.state.renderTimeTrackingtable) {
+				renderComponent = (
+					<TimeTrackingTable
+					 begin = {this.state.begin}
+					 end = {this.state.end}
+					/>
+				);
+			}
 		} else if (this.state.renderLoginForm) {
-			renderComponent = <LoginForm onLogin={this.authorizeUser.bind(this)} />;
+			renderComponent = (
+				<LoginForm onLogin={this.authorizeUser.bind(this)} />
+			);
 		} else {
 			renderComponent = (
 				<LandingPage renderLoginForm={this.renderLoginForm.bind(this)} />
