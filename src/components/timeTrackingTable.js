@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Table, Input, Dropdown, Button } from "semantic-ui-react";
+import { Table, Input, Dropdown, Button, Segment, Header } from "semantic-ui-react";
 import { saveData } from "../modules/kimaiSaveTimeData";
 import { getData } from "../modules/kimaiGetCustomerData";
 import { getProjectData } from "../modules/kimaiGetProjectData";
@@ -67,6 +67,12 @@ export class TimeTrackingTable extends Component {
 			timeData: newTimeData
 		});
 	}
+
+	// componentDidUpdate(oldProps) {
+	// 	if (oldProps.begin !== this.props.begin && oldProps.end !== this.props.end) {
+	// 		this.setState({ begin: this.props.begin, end: this.props.end })
+	// 	}
+	// }
 
 	entryHandler(e) {
 		this.setState({ entrySaved: true });
@@ -291,18 +297,22 @@ export class TimeTrackingTable extends Component {
 
 		return (
 			<>
-				<Table celled>
-					<Table.Header name="tableHeader">
-						<Table.Row name="tableRow">
-							<Table.HeaderCell>Start Time</Table.HeaderCell>
-							<Table.HeaderCell>End Time</Table.HeaderCell>
-							<Table.HeaderCell>Rate</Table.HeaderCell>
-							<Table.HeaderCell>Customer</Table.HeaderCell>
-							<Table.HeaderCell>Project</Table.HeaderCell>
-							<Table.HeaderCell>Task</Table.HeaderCell>
-							<Table.HeaderCell> </Table.HeaderCell>
-						</Table.Row>
-					</Table.Header>
+				<Segment name="timetracking">
+					<Header as="h1" textAlign="center">
+						Time Tracking
+					</Header>
+					<Table celled>
+						<Table.Header name="tableHeader">
+							<Table.Row name="tableRow">
+								<Table.HeaderCell>Start Time</Table.HeaderCell>
+								<Table.HeaderCell>End Time</Table.HeaderCell>
+								<Table.HeaderCell>Rate</Table.HeaderCell>
+								<Table.HeaderCell>Customer</Table.HeaderCell>
+								<Table.HeaderCell>Project</Table.HeaderCell>
+								<Table.HeaderCell>Task</Table.HeaderCell>
+								<Table.HeaderCell> </Table.HeaderCell>
+							</Table.Row>
+						</Table.Header>
 
 					<Table.Body>
 						<Table.Row>
@@ -373,12 +383,13 @@ export class TimeTrackingTable extends Component {
 						{listEntries}
 					</Table.Body>
 
-					<Table.Footer>
-						<Table.Row>
-							<Table.HeaderCell textAlign="center" colSpan="7" />
-						</Table.Row>
-					</Table.Footer>
-				</Table>
+						<Table.Footer>
+							<Table.Row>
+								<Table.HeaderCell textAlign="center" colSpan="7" />
+							</Table.Row>
+						</Table.Footer>
+					</Table>
+				</Segment>
 			</>
 		);
 	}
