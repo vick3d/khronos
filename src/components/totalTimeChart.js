@@ -56,11 +56,9 @@ class TotalTimeChart extends Component {
 		return (
 			<>
 				<Bar
-					width={100}
-					height={50}
 					options={{
 						responsive: true,
-						maintainAspectRatio: false,
+						maintainAspectRatio: true,
 						legend: {
 							display: true,
 							position: 'bottom'

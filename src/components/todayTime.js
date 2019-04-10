@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Bar } from 'react-chartjs-2';
 import { getTimeData } from "../modules/kimaiGetTimeData";
 import moment from 'moment';
 
@@ -47,7 +46,7 @@ class TodayTime extends Component {
 
 		return (
 			<>
-				{hoursPerDay}
+				{hoursPerDay.toFixed(2)} h
 			</>
 		)
 	}

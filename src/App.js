@@ -111,7 +111,7 @@ class App extends Component {
 					onStop={this.onStop.bind(this)}
 				/>
 				{renderComponent}
-				{/* <Footer /> */}
+				<Footer />
 			</div>
 		);
 	}

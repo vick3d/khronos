@@ -41,7 +41,7 @@ class TodayMoney extends Component {
 
 		return (
 			<>
-				{moneyPerDay}
+				{moneyPerDay} SEK
 			</>
 		)
 	}
