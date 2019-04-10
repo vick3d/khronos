@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { getTimeData } from "../modules/kimaiGetTimeData";
 import TotalTimeChart from './totalTimeChart';
 import TotalMoneyChart from './totalMoneyChart';
-import { Header, Container, Grid, Table } from 'semantic-ui-react'
+import { Header, Table } from 'semantic-ui-react'
 import TodayTime from './todayTime';
 import TodayMoney from './todayMoney';
 

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { TimeTrackingTable } from "./components/timeTrackingTable";
-import { Segment } from "semantic-ui-react";
 import LandingPage from "./components/landingPage";
 import Navbar from "./components/navbar";
 import LoginForm from "./components/loginForm";
