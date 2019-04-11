@@ -13,8 +13,8 @@ export class TimeTrackingTable extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			begin: new Date(),
-			end: new Date(),
+			begin: "",
+			end: "",
 			customer: "",
 			project: "",
 			activity: "",
@@ -334,7 +334,7 @@ export class TimeTrackingTable extends Component {
 										showTimeSelect
 										timeFormat="HH:mm"
 										timeIntervals={15}
-										dateFormat="yyyy-MM-dd hh:mm"
+										dateFormat="yyyy-MM-dd HH:mm"
 										timeCaption="time"
 									/>
 								</Table.Cell>
@@ -346,7 +346,7 @@ export class TimeTrackingTable extends Component {
 										showTimeSelect
 										timeFormat="HH:mm"
 										timeIntervals={15}
-										dateFormat="yyyy-MM-dd hh:mm"
+										dateFormat="yyyy-MM-dd HH:mm"
 										timeCaption="time"
 									/>
 								</Table.Cell>
