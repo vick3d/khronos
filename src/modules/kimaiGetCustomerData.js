@@ -2,8 +2,8 @@ import axios from "axios";
 
 const getData = () => {
 	const apiUrl = "https://demo.kimai.org/api";
-	const username = "susan_super";
-	const password = "api_kitten";
+	const username = localStorage.getItem("Name");
+	const password = localStorage.getItem("Password");
 	const headers = {
 		"X-AUTH-USER": username,
 		"X-AUTH-TOKEN": password
@@ -11,7 +11,7 @@ const getData = () => {
 
 	return new Promise((resolve, reject) => {
 		axios
-			.get(apiUrl + "/customers", {
+			.get(apiUrl + "/customers?visible=3", {
 				headers: headers
 			})
 			.then(response => {

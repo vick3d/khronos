@@ -21,7 +21,7 @@ class Dashboard extends Component {
 								<Header as="h4">Time Tracking</Header>
 							</Grid.Column>
 							<Grid.Column textAlign="center">
-								<Button name="statistics" inverted color="white"><Image centered src={statistics}/></Button>
+								<Button name="statistics" inverted color="white" onClick={this.props.renderCharts}><Image centered src={statistics}/></Button>
 								<Header as="h4">Statistics</Header>
 							</Grid.Column>
 							<Grid.Column textAlign="center">

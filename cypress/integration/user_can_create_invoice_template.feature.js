@@ -5,17 +5,19 @@ describe('User can create invoice template', () => {
 			.get(':nth-child(1) > .ui > input').type('susan_super')
 			.get(':nth-child(2) > .ui > input').type('api_kitten')
 			.get('button').contains('Login').click()
-			.get('button[name="invoices"]').click();
+			.get('button[name="invoicing"]').click();
 	})
 
-	it('user can add time to invoiceline', () => {
-		cy.get('input[id="project"]').type('project-name');
-		cy.get('input[id="activity"]').type('activity');
-		cy.get('input[id="duration"]').type('4h');
-		cy.get('input[id="rate"]').type('rate')
-		cy.get('total')
-		cy.contains("483 SEK")
-		cy.get('button[name="create_invoice').click();
+	it('user can add times to invoice', () => {
+		cy.get(".customer > .dropdown").click()
+			.contains("Beer and Sons").click()
+		cy.get('thead[name="tableHeader"').within(() => {
+			cy.get('tr').within(() => {
+				cy.get('th')
+					.should('have.length', 7)
+					.get('td')
+					.should('contain)
+			})
+		})
 	})
-
 })

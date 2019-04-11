@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { TimeTrackingTable } from "./components/timeTrackingTable";
-import { Segment, Header } from "semantic-ui-react";
 import LandingPage from "./components/landingPage";
 import Navbar from "./components/navbar";
 import LoginForm from "./components/loginForm";
@@ -8,6 +7,8 @@ import Footer from "./components/footer";
 import Dashboard from "./components/dashboard";
 import Invoicing from "./components/invoicing";
 import { login } from "../src/modules/kimaiService";
+import Charts from "./components/charts";
+
 
 class App extends Component {
 	constructor(props) {
@@ -17,6 +18,7 @@ class App extends Component {
 
 		this.state = {
 			renderLoginForm: false,
+			renderCharts: false,
 			authorizedUser: userName && userPassword,
 			userName: userName,
 			userPassword: userPassword,
@@ -24,7 +26,8 @@ class App extends Component {
 			begin: '',
 			end: '',
 			renderTimeTrackingTable: false,
-			renderInvoicing: false
+			renderInvoicing: false,
+			fetchAllCustomers: []
 		};
 	}
 
@@ -33,7 +36,7 @@ class App extends Component {
 	}
 
 	renderTimeTrackingTableHandler() {
-		this.setState({renderTimeTrackingtable: true})
+		this.setState({ renderTimeTrackingtable: true })
 	}
 
 	renderInvoicingHandler() {
@@ -41,7 +44,7 @@ class App extends Component {
 	}
 
 	dashboardHandler() {
-		this.setState({renderTimeTrackingtable: false, renderInvoicing: false})
+		this.setState({renderTimeTrackingtable: false, renderInvoicing: false, renderCharts: false})
 	}
 
 	checkIfUser() {
@@ -79,6 +82,12 @@ class App extends Component {
 		});
 	}
 
+	renderCharts() {
+		this.setState({
+			renderCharts: true
+		})
+	}
+
 	onStop(info) {
 		this.setState({ begin: info.begin, end: info.end })
 	}
@@ -87,32 +96,32 @@ class App extends Component {
 		let renderComponent;
 
 		if (this.state.authorizedUser) {
-			if(this.state.renderTimeTrackingtable) {
-			renderComponent = (
-				<Segment name="timetracking">
-					<Header as="h1" textAlign="center">
-						Time Tracking
-					</Header>
-					<TimeTrackingTable
-						begin={this.state.begin}
-						end={this.state.end}
-					/>
-				</Segment>
-			);
-			} else if(this.state.renderInvoicing) {
+			if (this.state.renderCharts) {
+				renderComponent = (
+					<Charts />
+				);
+			} else if (this.state.renderInvoicing) {
 				renderComponent = (
 					<Invoicing />
 				);
-			}	else {
+			} else if (this.state.renderTimeTrackingtable) {
 				renderComponent = (
-					<Dashboard
-					timeTrackingHandler={this.renderTimeTrackingTableHandler.bind(this)}
-					invoicingHandler={this.renderInvoicingHandler.bind(this)}
+					<TimeTrackingTable
+						begin = {this.state.begin}
+						end = {this.state.end}
 					/>
-				)
-			}
+				);
+			} else renderComponent = (
+				<Dashboard
+					timeTrackingHandler={this.renderTimeTrackingTableHandler.bind(this)}
+					renderCharts={this.renderCharts.bind(this)}
+					invoicingHandler={this.renderInvoicingHandler.bind(this)}
+				/>
+			);
 		} else if (this.state.renderLoginForm) {
-			renderComponent = <LoginForm onLogin={this.authorizeUser.bind(this)} />;
+			renderComponent = (
+				<LoginForm onLogin={this.authorizeUser.bind(this)} />
+			);
 		} else {
 			renderComponent = (
 				<LandingPage renderLoginForm={this.renderLoginForm.bind(this)} />
