@@ -6,6 +6,7 @@ import Navbar from "./components/navbar";
 import LoginForm from "./components/loginForm";
 import Footer from "./components/footer";
 import Dashboard from "./components/dashboard";
+import Invoicing from "./components/invoicing";
 import { login } from "../src/modules/kimaiService";
 
 class App extends Component {
@@ -22,7 +23,8 @@ class App extends Component {
 			message: userName && userPassword ? `Welcome, ${userName}!` : "",
 			begin: '',
 			end: '',
-			renderTimeTrackingTable: false
+			renderTimeTrackingTable: false,
+			renderInvoicing: false
 		};
 	}
 
@@ -34,8 +36,12 @@ class App extends Component {
 		this.setState({renderTimeTrackingtable: true})
 	}
 
+	renderInvoicingHandler() {
+		this.setState({renderInvoicing: true})
+	}
+
 	dashboardHandler() {
-		this.setState({renderTimeTrackingtable: false})
+		this.setState({renderTimeTrackingtable: false, renderInvoicing: false})
 	}
 
 	checkIfUser() {
@@ -93,10 +99,15 @@ class App extends Component {
 					/>
 				</Segment>
 			);
-			} else {
+			} else if(this.state.renderInvoicing) {
+				renderComponent = (
+					<Invoicing />
+				);
+			}	else {
 				renderComponent = (
 					<Dashboard
 					timeTrackingHandler={this.renderTimeTrackingTableHandler.bind(this)}
+					invoicingHandler={this.renderInvoicingHandler.bind(this)}
 					/>
 				)
 			}
