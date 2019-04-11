@@ -13,8 +13,8 @@ export class TimeTrackingTable extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			begin: "",
-			end: "",
+			begin: new Date(),
+			end: new Date(),
 			customer: "",
 			project: "",
 			activity: "",
@@ -29,6 +29,8 @@ export class TimeTrackingTable extends Component {
 			fetchedActivities: [],
 			fetchedAllActivities: []
 		};
+		this.handleChangeBegin = this.handleChangeBegin.bind(this);
+		this.handleChangeEnd = this.handleChangeEnd.bind(this);
 	}
 
 	async componentDidMount() {
@@ -96,6 +98,18 @@ export class TimeTrackingTable extends Component {
 			this.setState({ begin: this.props.begin, end: this.props.end });
 		}
 	}
+
+	handleChangeBegin(date) {
+    this.setState({
+			begin: moment(date).tz("Europe/Stockholm").format("YYYY-MM-DD HH:mm")
+    });
+	}
+
+	handleChangeEnd(date) {
+    this.setState({
+			end: moment(date).tz("Europe/Stockholm").format("YYYY-MM-DD HH:mm")
+    });
+  }
 
 	renderTimeSheet() {
 		const timeData = this.state.timeData;
@@ -315,28 +329,24 @@ export class TimeTrackingTable extends Component {
 								<Table.Cell>
 									<DatePicker
 										id="begin"
+										onChange={this.handleChangeBegin}
 										selected={this.state.begin}
 										showTimeSelect
-										onChange={e =>
-											this.setState({ begin: e.target.selected, entrySaved: false })
-										}
 										timeFormat="HH:mm"
 										timeIntervals={15}
-										dateFormat="YYYY-MM-DD h:mm aa"
+										dateFormat="yyyy-MM-dd hh:mm"
 										timeCaption="time"
 									/>
 								</Table.Cell>
 								<Table.Cell>
 									<DatePicker
 										id="end"
+										onChange={this.handleChangeEnd}
 										selected={this.state.end}
 										showTimeSelect
-										onChange={e =>
-											this.setState({ end: e.target.selected, entrySaved: false })
-										}
 										timeFormat="HH:mm"
 										timeIntervals={15}
-										dateFormat="YYYY-MM-DD h:mm aa"
+										dateFormat="yyyy-MM-dd hh:mm"
 										timeCaption="time"
 									/>
 								</Table.Cell>
