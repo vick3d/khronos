@@ -6,6 +6,8 @@ import { getProjectData } from "../modules/kimaiGetProjectData";
 import { getProjectActivities } from "../modules/kimaiGetProjectActivities";
 import { getTimeData } from "../modules/kimaiGetTimeData";
 import moment from "moment-timezone";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export class TimeTrackingTable extends Component {
 	constructor(props) {
@@ -67,12 +69,6 @@ export class TimeTrackingTable extends Component {
 			timeData: newTimeData
 		});
 	}
-
-	// componentDidUpdate(oldProps) {
-	// 	if (oldProps.begin !== this.props.begin && oldProps.end !== this.props.end) {
-	// 		this.setState({ begin: this.props.begin, end: this.props.end })
-	// 	}
-	// }
 
 	entryHandler(e) {
 		this.setState({ entrySaved: true });
@@ -314,74 +310,82 @@ export class TimeTrackingTable extends Component {
 							</Table.Row>
 						</Table.Header>
 
-					<Table.Body>
-						<Table.Row>
-							<Table.Cell>
-								<Input
-									id="begin"
-									placeholder="YYYY-MM-DD HH:MM"
-									onChange={e =>
-										this.setState({ begin: e.target.value, entrySaved: false })
-									}
-									value={this.state.begin}
-								/>
-							</Table.Cell>
-							<Table.Cell>
-								<Input
-									id="end"
-									placeholder="YYYY-MM-DD HH:MM"
-									onChange={e =>
-										this.setState({ end: e.target.value, entrySaved: false })
-									}
-									value={this.state.end}
-								/>
-							</Table.Cell>
-							<Table.Cell>
-								<Input
-									id="hourlyRate"
-									placeholder="$"
-									onChange={e =>
-										this.setState({
-											hourlyRate: e.target.value,
-											entrySaved: false
-										})
-									}
-								/>
-							</Table.Cell>
-							<Table.Cell>
-								<Dropdown
-									id="customer"
-									className="customer"
-									selection
-									defaultValue=""
-									options={customerOptions}
-									onChange={(e, { value }) => this.handleCustomerChange(value)}
-								/>
-							</Table.Cell>
-							<Table.Cell>
-								<Dropdown
-									id="project"
-									className="project"
-									selection
-									defaultValue=""
-									options={projectOptions}
-									onChange={(e, { value }) => this.handleProjectChange(value)}
-								/>
-							</Table.Cell>
-							<Table.Cell>
-								<Dropdown
-									id="activity"
-									className="activity"
-									selection
-									defaultValue=""
-									options={taskOptions}
-									onChange={(e, { value }) => this.handleActivityChange(value)}
-								/>
-							</Table.Cell>
-							<Table.Cell>{saveButton}</Table.Cell>
-						</Table.Row>
-						{listEntries}
-					</Table.Body>
+						<Table.Body>
+							<Table.Row>
+								<Table.Cell>
+									<DatePicker
+										id="begin"
+										selected={this.state.begin}
+										showTimeSelect
+										onChange={e =>
+											this.setState({ begin: e.target.selected, entrySaved: false })
+										}
+										timeFormat="HH:mm"
+										timeIntervals={15}
+										dateFormat="YYYY-MM-DD h:mm aa"
+										timeCaption="time"
+									/>
+								</Table.Cell>
+								<Table.Cell>
+									<DatePicker
+										id="end"
+										selected={this.state.end}
+										showTimeSelect
+										onChange={e =>
+											this.setState({ end: e.target.selected, entrySaved: false })
+										}
+										timeFormat="HH:mm"
+										timeIntervals={15}
+										dateFormat="YYYY-MM-DD h:mm aa"
+										timeCaption="time"
+									/>
+								</Table.Cell>
+								<Table.Cell>
+									<Input
+										id="hourlyRate"
+										placeholder="$"
+										onChange={e =>
+											this.setState({
+												hourlyRate: e.target.value,
+												entrySaved: false
+											})
+										}
+									/>
+								</Table.Cell>
+								<Table.Cell>
+									<Dropdown
+										id="customer"
+										className="customer"
+										selection
+										defaultValue=""
+										options={customerOptions}
+										onChange={(e, { value }) => this.handleCustomerChange(value)}
+									/>
+								</Table.Cell>
+								<Table.Cell>
+									<Dropdown
+										id="project"
+										className="project"
+										selection
+										defaultValue=""
+										options={projectOptions}
+										onChange={(e, { value }) => this.handleProjectChange(value)}
+									/>
+								</Table.Cell>
+								<Table.Cell>
+									<Dropdown
+										id="activity"
+										className="activity"
+										selection
+										defaultValue=""
+										options={taskOptions}
+										onChange={(e, { value }) => this.handleActivityChange(value)}
+									/>
+								</Table.Cell>
+								<Table.Cell>{saveButton}</Table.Cell>
+							</Table.Row>
+							{listEntries}
+						</Table.Body>
 
 						<Table.Footer>
 							<Table.Row>
