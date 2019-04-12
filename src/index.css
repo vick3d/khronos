@@ -13,6 +13,11 @@ code {
 		monospace;
 }
 
+.content {
+	min-height: 88vh;
+	margin-bottom: 17px;
+}
+
 .ui.menu {
 	background-color: #00d82b;
 	height: 12vh;
@@ -20,8 +25,6 @@ code {
 
 .ui.vertical.segment {
 	background-color: #00d82b;
-	position: fixed;
-	bottom: 0px;
 	width: 100%;
 	height: 100px;
 }
@@ -70,7 +73,7 @@ code {
 	min-height: 90px;
 	background: #fff;
 	width: 100%;
-	box-shadow: 0 1px 1px rgba(0,0,0,.1);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 	border-radius: 2px;
 	margin-bottom: 15px;
 }
@@ -86,6 +89,6 @@ code {
 	line-height: 1em;
 }
 
-.ui.grid>[class*="two column"].row>.column {
-	width: 20%!important;
+.ui.grid > [class*="two column"].row > .column {
+	width: 20% !important;
 }

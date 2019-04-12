@@ -8,12 +8,11 @@ import Dashboard from "./components/dashboard";
 import { login } from "../src/modules/kimaiService";
 import Charts from "./components/charts";
 
-
 class App extends Component {
 	constructor(props) {
 		super(props);
-		const userName = localStorage.getItem("Name")
-		const userPassword = localStorage.getItem("Password")
+		const userName = localStorage.getItem("Name");
+		const userPassword = localStorage.getItem("Password");
 
 		this.state = {
 			renderLoginForm: false,
@@ -22,8 +21,8 @@ class App extends Component {
 			userName: userName,
 			userPassword: userPassword,
 			message: userName && userPassword ? `Welcome, ${userName}!` : "",
-			begin: '',
-			end: '',
+			begin: "",
+			end: "",
 			renderTimeTrackingTable: false
 		};
 	}
@@ -33,12 +32,12 @@ class App extends Component {
 	}
 
 	renderTimeTrackingTableHandler() {
-		this.setState({ renderTimeTrackingtable: true })
+		this.setState({ renderTimeTrackingtable: true });
 	}
 
 	dashboardHandler() {
-		this.setState({ renderTimeTrackingtable: false })
-		this.setState({ renderCharts: false })
+		this.setState({ renderTimeTrackingtable: false });
+		this.setState({ renderCharts: false });
 	}
 
 	checkIfUser() {
@@ -79,11 +78,11 @@ class App extends Component {
 	renderCharts() {
 		this.setState({
 			renderCharts: true
-		})
+		});
 	}
 
 	onStop(info) {
-		this.setState({ begin: info.begin, end: info.end })
+		this.setState({ begin: info.begin, end: info.end });
 	}
 
 	render() {
@@ -98,21 +97,14 @@ class App extends Component {
 			);
 
 			if (this.state.renderCharts) {
-				renderComponent = (
-					<Charts />
-				);
+				renderComponent = <Charts />;
 			} else if (this.state.renderTimeTrackingtable) {
 				renderComponent = (
-					<TimeTrackingTable
-					 begin = {this.state.begin}
-					 end = {this.state.end}
-					/>
+					<TimeTrackingTable begin={this.state.begin} end={this.state.end} />
 				);
 			}
 		} else if (this.state.renderLoginForm) {
-			renderComponent = (
-				<LoginForm onLogin={this.authorizeUser.bind(this)} />
-			);
+			renderComponent = <LoginForm onLogin={this.authorizeUser.bind(this)} />;
 		} else {
 			renderComponent = (
 				<LandingPage renderLoginForm={this.renderLoginForm.bind(this)} />
@@ -121,14 +113,16 @@ class App extends Component {
 
 		return (
 			<div className="App">
-				<Navbar
-					isLoggedIn={this.state.authorizedUser}
-					message={this.state.message}
-					renderLoginForm={this.renderLoginForm.bind(this)}
-					onStop={this.onStop.bind(this)}
-					dashboard={this.dashboardHandler.bind(this)}
-				/>
-				{renderComponent}
+				<div className="content">
+					<Navbar
+						isLoggedIn={this.state.authorizedUser}
+						message={this.state.message}
+						renderLoginForm={this.renderLoginForm.bind(this)}
+						onStop={this.onStop.bind(this)}
+						dashboard={this.dashboardHandler.bind(this)}
+					/>
+					{renderComponent}
+				</div>
 				<Footer />
 			</div>
 		);
