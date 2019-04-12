@@ -90,18 +90,6 @@ class Navbar extends Component {
 					<Message background="green" size="big">
 						{this.props.message}
 					</Message>
-					<Menu.Item position="right">
-						<Icon link inverted color="white" name="help" size="big" />
-						<Divider vertical />
-
-						<Icon
-							link
-							inverted
-							color="white"
-							name="calendar alternate outline"
-							size="big"
-						/>
-					</Menu.Item>
 				</Menu>)
 		} else if (this.props.isLoggedIn) {
 				return (
@@ -113,11 +101,6 @@ class Navbar extends Component {
 							<Icon link inverted color='white' name='sign-out' size='big' onClick={() => this.logout()} />
 						</Menu.Item>
 						<Message background='green' size='big'>{this.props.message}</Message>
-						<Menu.Item position='right'>
-							<Icon link inverted color='white' name='help' size='big' />
-							<Divider vertical />
-							<Icon link inverted color='white' name='calendar alternate outline' size='big' />
-						</Menu.Item>
 					</Menu>)
 		} else {
 			return (
@@ -140,9 +123,6 @@ class Navbar extends Component {
 							content="Log In"
 							style={{ height: "50px" }}
 						/>
-					</Menu.Item>
-					<Menu.Item position="right">
-						<Icon link inverted color="white" name="help" size="big" />
 					</Menu.Item>
 				</Menu>
 			);
