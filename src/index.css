@@ -13,6 +13,21 @@ code {
 		monospace;
 }
 
+.content {
+	min-height: 88vh;
+	margin-bottom: 17px;
+}
+
+.dashboard {
+	padding-top: 100px;
+}
+
+.ui.center.aligned.header,
+.ui.centered.header {
+	margin-bottom: 80px;
+	font-size: 50px;
+}
+
 .ui.menu {
 	background-color: #00d82b;
 	height: 12vh;
@@ -69,7 +84,7 @@ code {
 	min-height: 90px;
 	background: #fff;
 	width: 100%;
-	box-shadow: 0 1px 1px rgba(0,0,0,.1);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 	border-radius: 2px;
 	margin-bottom: 15px;
 }
@@ -198,4 +213,7 @@ code {
 
 .rtl table tr td:nth-child(2) {
 	text-align: left;
+}
+.ui.grid > [class*="two column"].row > .column {
+	width: 20% !important;
 }

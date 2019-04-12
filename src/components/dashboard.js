@@ -6,22 +6,37 @@ import invoicing from '../img/invoicing.png'
 
 class Dashboard extends Component {
 	render() {
-    return (
-			<>
+		return (
+			<div className="dashboard">
 				<Container>
-				<Header as="h1" textAlign="center"  name="header">
-					My Dashboard
-				</Header>
+					<Header as="h1" textAlign="center" name="header">
+						My Dashboard
+					</Header>
 				</Container>
 				<Container name="images">
 					<Grid>
 						<Grid.Row centered columns={3}>
 							<Grid.Column textAlign="center">
-								<Button name="time_tracking" padding="0px" inverted color="white" onClick={ () => this.props.timeTrackingHandler()}><Image centered src={clock}/></Button>
+								<Button
+									name="time_tracking"
+									padding="0px"
+									inverted
+									color="white"
+									onClick={() => this.props.timeTrackingHandler()}
+								>
+									<Image centered src={clock} />
+								</Button>
 								<Header as="h4">Time Tracking</Header>
 							</Grid.Column>
 							<Grid.Column textAlign="center">
-								<Button name="statistics" inverted color="white" onClick={this.props.renderCharts}><Image centered src={statistics}/></Button>
+								<Button
+									name="statistics"
+									inverted
+									color="white"
+									onClick={this.props.renderCharts}
+								>
+									<Image centered src={statistics} />
+								</Button>
 								<Header as="h4">Statistics</Header>
 							</Grid.Column>
 							<Grid.Column textAlign="center">
@@ -33,8 +48,9 @@ class Dashboard extends Component {
 				</Container>
 
 				<Divider hidden />
-			</>
-		)}
+			</div>
+		);
+	}
 }
 
 export default Dashboard;

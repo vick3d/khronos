@@ -31,6 +31,7 @@ class Invoicing extends Component {
 			aggregatedDuration: "",
 			aggregatedEarnings: "",
 			renderInvoice: false,
+			invoiceMessage: ''
 		}
 	}
 
@@ -38,7 +39,9 @@ class Invoicing extends Component {
 		this.updateAllData();
 	}
 
-
+	hello(e) {
+		debugger;
+	}
 	invoiceToggle(entry) {
 		const timeData = this.state.timeData;
 		const entryIndex = timeData.findIndex(savedEntry => savedEntry.id == entry.currentTarget.parentElement.parentElement.id)
@@ -73,7 +76,7 @@ class Invoicing extends Component {
 		let humanizedTime = '' + hours + ' hours ' + minutes + ' minutes.'
 
 		this.setState({aggregatedDuration: humanizedTime})
-		this.setState({aggregatedEarnings: earnings})
+		this.setState({aggregatedEarnings: Math.floor(earnings)})
 		this.setState({invoiceLines: invoiceLines})
 	}
 
@@ -82,7 +85,7 @@ class Invoicing extends Component {
 	}
 
 	invoiceHandler() {
-		this.setState({renderInvoice: false, invoiceLines: [], aggregatedDuration: '', aggregatedEarnings: '',})
+		this.setState({renderInvoice: false, invoiceLines: [], aggregatedDuration: '', aggregatedEarnings: '', invoiceMessage: ''})
 	}
 
 	handleCustomerChange(value) {
@@ -278,7 +281,7 @@ class Invoicing extends Component {
 					<Table.Cell>{entry.customer}</Table.Cell>
 					<Table.Cell>{entry.project}</Table.Cell>
 					<Table.Cell>{entry.activity}</Table.Cell>
-					<Table.Cell><Radio toggle onChange={this.invoiceToggle.bind(this)}/></Table.Cell>
+					<Table.Cell><Radio toggle className="toggle" onChange={this.invoiceToggle.bind(this)}/></Table.Cell>
 				</Table.Row>
 			);
 		});
@@ -288,8 +291,9 @@ class Invoicing extends Component {
 
 
   render() {
-		const aggregatedDuration = this.state.aggregatedDuration
-		const aggregatedEarnings = this.state.aggregatedEarnings
+		const aggregatedDuration = this.state.aggregatedDuration;
+		const aggregatedEarnings = this.state.aggregatedEarnings;
+		const invoiceMessage = this.state.invoiceMessage;
 		const customerOptions = this.state.fetchedCustomers;
 		const projectOptions = this.state.fetchedCustomerProjects;
 		const taskOptions = this.state.fetchedActivities;
@@ -313,8 +317,8 @@ class Invoicing extends Component {
 															</td>
 															<td>
 																	Invoice #: 123<br></br>
-																	Created: <br></br>
-																	Due: February 1, 2015<br></br>
+																	Created: April 13, 2019<br></br>
+																	Due: April 23, 2019<br></br>
 															</td>
 													</tr>
 											</table>
@@ -326,13 +330,13 @@ class Invoicing extends Component {
 											<table>
 													<tr>
 															<td>
-																	Sparksuite, Inc.<br></br>
-																	12345 Sunny Road<br></br>
-																	Sunnyville, CA 12345<br></br>
+																	Khronos Inc.<br></br>
+																	Open Labs<br></br>
+																	11428 STOCKHOLM<br></br>
 															</td>
 
 															<td>
-																	Acme Corp.<br></br>
+																	Customer<br></br>
 																	John Doe<br></br>
 																	john@example.com<br></br>
 															</td>
@@ -369,12 +373,12 @@ class Invoicing extends Component {
 										 <p> {aggregatedDuration}</p>
 									</td>
 									<td>
-											{aggregatedEarnings}
+											 {aggregatedEarnings}
 									</td>
 							</tr>
 
 							<tr className="total">
-									<td></td>
+									<td>{invoiceMessage}</td>
 									<td>
 										 Total: ${aggregatedEarnings}
 									</td>
@@ -391,6 +395,7 @@ class Invoicing extends Component {
 							<Form.Select
 								fluid
 								label='Customer'
+								className="customer"
 								options={customerOptions}
 								placeholder='Customer name'
 								onChange={(e, { value }) => this.handleCustomerChange(value)}
@@ -398,6 +403,7 @@ class Invoicing extends Component {
 							<Form.Select
 								fluid
 								label='Project'
+								className="project"
 								options={projectOptions}
 								placeholder='Project name'
 								onChange={(e, { value }) => this.handleProjectChange(value)}
@@ -405,6 +411,7 @@ class Invoicing extends Component {
 							<Form.Select
 								fluid
 								label='Task'
+								className="task"
 								options={taskOptions}
 								placeholder='Task name'
 								onChange={(e, { value }) => this.handleActivityChange( value)}
@@ -414,8 +421,12 @@ class Invoicing extends Component {
 							<Form.Field><label>Duration</label><p>{aggregatedDuration}</p></Form.Field>
 							<Form.Field><label>Total Earnings</label><p>{aggregatedEarnings}</p></Form.Field>
 						</Form.Group>
-						<Form.TextArea label='Free text' placeholder='If you need to have some free text write it here' />
-						<Form.Button inverted color='green' onClick={this.createInvoice.bind(this)}>Create Invoice</Form.Button>
+						<Form.TextArea
+							label='Free text'
+							placeholder='If you need to have some free text write it here'
+							onChange={e => this.setState({invoiceMessage: e.currentTarget.value})}
+							/>
+						<Form.Button inverted color='green' name="create_invoice" onClick={this.createInvoice.bind(this)}>Create Invoice</Form.Button>
 					</Form>
 				</Container>
 				<Container>
