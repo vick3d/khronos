@@ -11,13 +11,5 @@ describe('User can create invoice template', () => {
 	it('user can add times to invoice', () => {
 		cy.get(".customer > .dropdown").click()
 			.contains("Beer and Sons").click()
-		cy.get('thead[name="tableHeader"').within(() => {
-			cy.get('tr').within(() => {
-				cy.get('th')
-					.should('have.length', 7)
-					.get('td')
-					.should('contain)
-			})
-		})
 	})
 })

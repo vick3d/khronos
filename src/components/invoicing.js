@@ -3,30 +3,35 @@ import { getTimeData } from '../modules/kimaiGetTimeData'
 import { getData } from "../modules/kimaiGetCustomerData";
 import { getProjectData } from "../modules/kimaiGetProjectData";
 import { getProjectActivities } from "../modules/kimaiGetProjectActivities";
-import { Table, Form, Container, Header, Radio } from 'semantic-ui-react'
+import { Button, Table, Form, Container, Header, Radio } from 'semantic-ui-react'
 import moment from "moment-timezone";
 
 
 
 class Invoicing extends Component {
-  state = {
-		begin: "",
-		end: "",
-		customer: {},
-		project: "",
-		activity: "",
-		description: "",
-		fixedRate: "",
-		hourlyRate: "",
-		fetchedCustomers: [],
-		timeData: [],
-		fetchedCustomerProjects: [],
-		fetchedAllProjects: [],
-		fetchedActivities: [],
-		fetchedAllActivities: [],
-		invoiceLines: [],
-		aggregatedDuration: '',
-		aggregatedEarnings: '',
+	constructor(props) {
+		super(props);
+		this.state = {
+			begin: "",
+			end: "",
+			customer: {},
+			customerName: "",
+			project: "",
+			activity: "",
+			description: "",
+			fixedRate: "",
+			hourlyRate: "",
+			fetchedCustomers: [],
+			timeData: [],
+			fetchedCustomerProjects: [],
+			fetchedAllProjects: [],
+			fetchedActivities: [],
+			fetchedAllActivities: [],
+			invoiceLines: [],
+			aggregatedDuration: "",
+			aggregatedEarnings: "",
+			renderInvoice: false,
+		}
 	}
 
 	componentDidMount() {
@@ -70,6 +75,14 @@ class Invoicing extends Component {
 		this.setState({aggregatedDuration: humanizedTime})
 		this.setState({aggregatedEarnings: earnings})
 		this.setState({invoiceLines: invoiceLines})
+	}
+
+	createInvoice() {
+		this.setState({renderInvoice: true})
+	}
+
+	invoiceHandler() {
+		this.setState({renderInvoice: false, invoiceLines: [], aggregatedDuration: '', aggregatedEarnings: '',})
 	}
 
 	handleCustomerChange(value) {
@@ -271,20 +284,107 @@ class Invoicing extends Component {
 		});
 	}
 
+
+
+
   render() {
 		const aggregatedDuration = this.state.aggregatedDuration
 		const aggregatedEarnings = this.state.aggregatedEarnings
 		const customerOptions = this.state.fetchedCustomers;
 		const projectOptions = this.state.fetchedCustomerProjects;
 		const taskOptions = this.state.fetchedActivities;
+
+		let render;
 		let timeSheet = this.renderTimeSheet(this.state.customer, this.state.project, this.state.activity);
-    return (
-			<>
-				<Container>
-				<Header as="h1" textAlign="center"  name="header">
-					Invoicing
-				</Header>
-				</Container>
+
+			if (this.state.renderInvoice) {
+				render = (
+					<>
+					<Container textAlign="left">
+					<Button inverted color='green' onClick={this.invoiceHandler.bind(this)}>Back</Button>
+					</Container>
+					<div className="invoice-box">
+					<table cellpadding="0" cellspacing="0">
+							<tr className="top">
+									<td colspan="2">
+											<table>
+													<tr>
+															<td className="title">
+															</td>
+															<td>
+																	Invoice #: 123<br></br>
+																	Created: <br></br>
+																	Due: February 1, 2015<br></br>
+															</td>
+													</tr>
+											</table>
+									</td>
+							</tr>
+
+							<tr className="information">
+									<td colspan="2">
+											<table>
+													<tr>
+															<td>
+																	Sparksuite, Inc.<br></br>
+																	12345 Sunny Road<br></br>
+																	Sunnyville, CA 12345<br></br>
+															</td>
+
+															<td>
+																	Acme Corp.<br></br>
+																	John Doe<br></br>
+																	john@example.com<br></br>
+															</td>
+													</tr>
+											</table>
+									</td>
+							</tr>
+							<tr className="heading">
+									<td>
+											Payment Method
+									</td>
+									<td>
+											BankGiro #
+									</td>
+							</tr>
+							<tr className="details">
+									<td>
+										BankGiro
+									</td>
+									<td>
+											1337-1337
+									</td>
+							</tr>
+							<tr className="heading">
+									<td>
+											Total Working Hours
+									</td>
+									<td>
+											Price
+									</td>
+							</tr>
+							<tr className="item">
+									<td>
+										 <p> {aggregatedDuration}</p>
+									</td>
+									<td>
+											{aggregatedEarnings}
+									</td>
+							</tr>
+
+							<tr className="total">
+									<td></td>
+									<td>
+										 Total: ${aggregatedEarnings}
+									</td>
+							</tr>
+					</table>
+			</div>
+			</>
+		)} else {
+			render = (
+				<>
 				<Container>
 					<Form>
 						<Form.Group widths='equal'>
@@ -307,7 +407,7 @@ class Invoicing extends Component {
 								label='Task'
 								options={taskOptions}
 								placeholder='Task name'
-								onChange={(e, { value }) => this.handleActivityChange(value)}
+								onChange={(e, { value }) => this.handleActivityChange( value)}
 							/>
 						</Form.Group>
 						<Form.Group widths='equal'>
@@ -315,7 +415,7 @@ class Invoicing extends Component {
 							<Form.Field><label>Total Earnings</label><p>{aggregatedEarnings}</p></Form.Field>
 						</Form.Group>
 						<Form.TextArea label='Free text' placeholder='If you need to have some free text write it here' />
-						<Form.Button inverted color='green'>Create Invoice</Form.Button>
+						<Form.Button inverted color='green' onClick={this.createInvoice.bind(this)}>Create Invoice</Form.Button>
 					</Form>
 				</Container>
 				<Container>
@@ -336,6 +436,17 @@ class Invoicing extends Component {
 					</Table.Body>
 				</Table>
 				</Container>
+			</>
+			)}
+
+    return (
+			<>
+			<Container>
+			<Header as="h1" textAlign="center"  name="header">
+				Invoicing
+			</Header>
+			</Container>
+			{render}
 			</>
 		)
   }

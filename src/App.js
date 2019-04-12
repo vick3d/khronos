@@ -102,7 +102,8 @@ class App extends Component {
 				);
 			} else if (this.state.renderInvoicing) {
 				renderComponent = (
-					<Invoicing />
+					<Invoicing
+					/>
 				);
 			} else if (this.state.renderTimeTrackingtable) {
 				renderComponent = (
