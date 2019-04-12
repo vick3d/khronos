@@ -5,8 +5,6 @@ describe("Display Navbar", () => {
 		cy.get(".sign-out").should("not.be.visible");
 		cy.get(".play").should("not.be.visible");
 		cy.get(".stop").should("not.be.visible");
-		cy.get(".help").should("be.visible");
-		cy.get(".calendar").should("not.be.visible");
 	});
 
 	it("when user logs in", () => {
@@ -20,7 +18,5 @@ describe("Display Navbar", () => {
 			.get(".sign-in").should("not.be.visible")
 			.get(".sign-out").should("be.visible")
 			.get('.message').should("be.visible").contains("Welcome, susan_super!")
-			.get(".help").should("be.visible")
-			.get(".calendar").should("be.visible");
 	})
 });
