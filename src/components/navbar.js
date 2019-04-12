@@ -29,7 +29,7 @@ class Navbar extends Component {
 	};
 
 	render() {
-		if (this.props.isLoggedIn) {
+		if (this.props.renderedTimes) {
 			return (
 				<Menu>
 					<Menu.Item link name="logo" onClick={() => this.props.dashboard()}>
@@ -90,20 +90,18 @@ class Navbar extends Component {
 					<Message background="green" size="big">
 						{this.props.message}
 					</Message>
-					<Menu.Item position="right">
-						<Icon link inverted color="white" name="help" size="big" />
-						<Divider vertical />
-
-						<Icon
-							link
-							inverted
-							color="white"
-							name="calendar alternate outline"
-							size="big"
-						/>
-					</Menu.Item>
-				</Menu>
-			);
+				</Menu>)
+		} else if (this.props.isLoggedIn) {
+				return (
+					<Menu>
+						<Menu.Item link name='logo' onClick={ () => this.props.dashboard()} >
+							<Image src={logo} id='logo' size='small' />
+						</Menu.Item>
+						<Menu.Item >
+							<Icon link inverted color='white' name='sign-out' size='big' onClick={() => this.logout()} />
+						</Menu.Item>
+						<Message background='green' size='big'>{this.props.message}</Message>
+					</Menu>)
 		} else {
 			return (
 				<Menu>
@@ -125,9 +123,6 @@ class Navbar extends Component {
 							content="Log In"
 							style={{ height: "50px" }}
 						/>
-					</Menu.Item>
-					<Menu.Item position="right">
-						<Icon link inverted color="white" name="help" size="big" />
 					</Menu.Item>
 				</Menu>
 			);

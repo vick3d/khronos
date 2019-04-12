@@ -120,6 +120,7 @@ class App extends Component {
 						renderLoginForm={this.renderLoginForm.bind(this)}
 						onStop={this.onStop.bind(this)}
 						dashboard={this.dashboardHandler.bind(this)}
+						renderedTimes={this.state.renderTimeTrackingtable}
 					/>
 					{renderComponent}
 				</div>
