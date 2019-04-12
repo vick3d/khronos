@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const getTimeData = user => {
-	let apiUrl = "https://demo.kimai.org/api/timesheets?size=500";
+	let apiUrl = "https://demo.kimai.org/api/timesheets";
 	if (user) {
 		apiUrl += `?user=${user}`;
 	}
