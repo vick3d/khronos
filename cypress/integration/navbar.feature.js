@@ -19,8 +19,6 @@ describe("Display Navbar", () => {
 			.get("#logo").should("be.visible")
 			.get(".sign-in").should("not.be.visible")
 			.get(".sign-out").should("be.visible")
-			.get(".play").should("be.visible")
-			.get(".stop").should("be.visible")
 			.get('.message').should("be.visible").contains("Welcome, susan_super!")
 			.get(".help").should("be.visible")
 			.get(".calendar").should("be.visible");
