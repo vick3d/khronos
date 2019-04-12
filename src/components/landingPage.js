@@ -4,8 +4,6 @@ import dashboard from '../img/dashboard.png'
 import graphs from '../img/graphs.png'
 import times from '../img/times.png'
 
-
-
 class LandingPage extends Component {
 
 	render() {
