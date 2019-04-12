@@ -5,7 +5,6 @@ import { getProjectData } from "../modules/kimaiGetProjectData";
 import { getProjectActivities } from "../modules/kimaiGetProjectActivities";
 import { Table, Form, Container, Header, Radio } from 'semantic-ui-react'
 import moment from "moment-timezone";
-import { ENETUNREACH } from 'constants';
 
 
 
@@ -25,23 +24,62 @@ class Invoicing extends Component {
 		fetchedAllProjects: [],
 		fetchedActivities: [],
 		fetchedAllActivities: [],
+		invoiceLines: [],
+		aggregatedDuration: '',
+		aggregatedEarnings: '',
 	}
 
 	componentDidMount() {
 		this.updateAllData();
 	}
 
+
+	invoiceToggle(entry) {
+		const timeData = this.state.timeData;
+		const entryIndex = timeData.findIndex(savedEntry => savedEntry.id == entry.currentTarget.parentElement.parentElement.id)
+		const item = timeData[entryIndex]
+		let invoiceLines = this.state.invoiceLines
+		if(invoiceLines.includes(item)) {
+			const itemIndex = invoiceLines.findIndex(savedEntry => savedEntry.id === item.id)
+			invoiceLines.splice(itemIndex, 1)
+		} else {
+			invoiceLines.push(item)
+		}
+
+		let duration;
+		let earnings;
+
+		if(invoiceLines.length === 0) {
+			duration = 0
+			earnings = 0
+
+		} else {
+			duration = invoiceLines.reduce((acc, currV) => {
+					return acc + currV.duration;
+			}, 0);
+			earnings = invoiceLines.reduce((acc, currV) => {
+				return acc + currV.rate;
+		}, 0);
+		}
+
+		let rawTime = moment.duration(duration*1000)
+		let hours = rawTime.hours();
+		let minutes = rawTime.minutes();
+		let humanizedTime = '' + hours + ' hours ' + minutes + ' minutes.'
+
+		this.setState({aggregatedDuration: humanizedTime})
+		this.setState({aggregatedEarnings: earnings})
+		this.setState({invoiceLines: invoiceLines})
+	}
+
 	handleCustomerChange(value) {
-		this.setState({ customer: value });
-		this.setState({ project: null})
-		this.setState({	activity: null})
+		this.setState({ customer: value, project: null, activity: null });
 		this.getCustomerProjects(value);
 		this.getActivities();
 	}
 
 	handleProjectChange(value) {
-		this.setState({ project: value });
-		this.setState({ activity: null})
+		this.setState({ project: value, activity: null });
 		this.getActivities(value);
 	}
 
@@ -50,7 +88,6 @@ class Invoicing extends Component {
 	}
 
 	async updateAllData(value) {
-		debugger;
 		await this.getCustomerData(value);
 		await this.getAllProjects(value);
 		await this.getAllActivities(value);
@@ -213,7 +250,7 @@ class Invoicing extends Component {
 		}
 		return customerData.map(entry => {
 			return (
-				<Table.Row>
+				<Table.Row id={entry.id}>
 					<Table.Cell id="beginSave">
 						{moment(entry.begin)
 							.tz("Europe/Stockholm")
@@ -228,13 +265,15 @@ class Invoicing extends Component {
 					<Table.Cell>{entry.customer}</Table.Cell>
 					<Table.Cell>{entry.project}</Table.Cell>
 					<Table.Cell>{entry.activity}</Table.Cell>
-					<Table.Cell><Radio toggle/></Table.Cell>
+					<Table.Cell><Radio toggle onChange={this.invoiceToggle.bind(this)}/></Table.Cell>
 				</Table.Row>
 			);
 		});
 	}
 
   render() {
+		const aggregatedDuration = this.state.aggregatedDuration
+		const aggregatedEarnings = this.state.aggregatedEarnings
 		const customerOptions = this.state.fetchedCustomers;
 		const projectOptions = this.state.fetchedCustomerProjects;
 		const taskOptions = this.state.fetchedActivities;
@@ -272,9 +311,8 @@ class Invoicing extends Component {
 							/>
 						</Form.Group>
 						<Form.Group widths='equal'>
-							<Form.Input fluid label='Duration' placeholder='Duration' />
-							<Form.Input fluid label='Rate' placeholder='Rate' />
-							<Form.Field textAligned="right" fluid label='Total' value="Total amount"/>
+							<Form.Field><label>Duration</label><p>{aggregatedDuration}</p></Form.Field>
+							<Form.Field><label>Total Earnings</label><p>{aggregatedEarnings}</p></Form.Field>
 						</Form.Group>
 						<Form.TextArea label='Free text' placeholder='If you need to have some free text write it here' />
 						<Form.Button inverted color='green'>Create Invoice</Form.Button>
