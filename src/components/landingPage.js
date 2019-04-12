@@ -50,10 +50,10 @@ class LandingPage extends Component {
 					<Grid divided>
 						<Grid.Row centered columns={3}>
 							<Grid.Column stretched>
-								<Image src={dashboard} />
+								<Image src={times} />
 							</Grid.Column>
 							<Grid.Column stretched>
-								<Image src={times} />
+								<Image src={dashboard} />
 							</Grid.Column>
 							<Grid.Column stretched>
 								<Image src={graphs} />
