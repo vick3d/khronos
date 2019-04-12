@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Button, Container, Grid, Image, Divider } from 'semantic-ui-react'
-import dummy from '../img/dummy_image.jpg'
+import dashboard from '../img/dashboard.png'
+import graphs from '../img/graphs.png'
+import times from '../img/times.png'
+
+
 
 class LandingPage extends Component {
 
@@ -42,17 +46,17 @@ class LandingPage extends Component {
 
 				<Divider section />
 
-				<Container name="images">
-					<Grid>
+				<Container fluid name="images" >
+					<Grid divided>
 						<Grid.Row centered columns={3}>
-							<Grid.Column>
-								<Image src={dummy} />
+							<Grid.Column stretched>
+								<Image src={dashboard} />
 							</Grid.Column>
-							<Grid.Column>
-								<Image src={dummy} />
+							<Grid.Column stretched>
+								<Image src={times} />
 							</Grid.Column>
-							<Grid.Column>
-								<Image src={dummy} />
+							<Grid.Column stretched>
+								<Image src={graphs} />
 							</Grid.Column>
 						</Grid.Row>
 					</Grid>
