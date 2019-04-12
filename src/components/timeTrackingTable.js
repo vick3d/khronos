@@ -323,7 +323,6 @@ export class TimeTrackingTable extends Component {
 								<Table.HeaderCell> </Table.HeaderCell>
 							</Table.Row>
 						</Table.Header>
-
 						<Table.Body>
 							<Table.Row>
 								<Table.Cell>
@@ -396,7 +395,6 @@ export class TimeTrackingTable extends Component {
 							</Table.Row>
 							{listEntries}
 						</Table.Body>
-
 						<Table.Footer>
 							<Table.Row>
 								<Table.HeaderCell textAlign="center" colSpan="7" />
