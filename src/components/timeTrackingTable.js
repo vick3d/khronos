@@ -6,6 +6,8 @@ import { getProjectData } from "../modules/kimaiGetProjectData";
 import { getProjectActivities } from "../modules/kimaiGetProjectActivities";
 import { getTimeData } from "../modules/kimaiGetTimeData";
 import moment from "moment-timezone";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export class TimeTrackingTable extends Component {
 	constructor(props) {
@@ -27,6 +29,8 @@ export class TimeTrackingTable extends Component {
 			fetchedActivities: [],
 			fetchedAllActivities: []
 		};
+		this.handleChangeBegin = this.handleChangeBegin.bind(this);
+		this.handleChangeEnd = this.handleChangeEnd.bind(this);
 	}
 
 	async componentDidMount() {
@@ -68,12 +72,6 @@ export class TimeTrackingTable extends Component {
 		});
 	}
 
-	// componentDidUpdate(oldProps) {
-	// 	if (oldProps.begin !== this.props.begin && oldProps.end !== this.props.end) {
-	// 		this.setState({ begin: this.props.begin, end: this.props.end })
-	// 	}
-	// }
-
 	entryHandler(e) {
 		this.setState({ entrySaved: true });
 	}
@@ -100,6 +98,18 @@ export class TimeTrackingTable extends Component {
 			this.setState({ begin: this.props.begin, end: this.props.end });
 		}
 	}
+
+	handleChangeBegin(date) {
+    this.setState({
+			begin: moment(date).tz("Europe/Stockholm").format("YYYY-MM-DD HH:mm")
+    });
+	}
+
+	handleChangeEnd(date) {
+    this.setState({
+			end: moment(date).tz("Europe/Stockholm").format("YYYY-MM-DD HH:mm")
+    });
+  }
 
 	renderTimeSheet() {
 		const timeData = this.state.timeData;
@@ -313,76 +323,78 @@ export class TimeTrackingTable extends Component {
 								<Table.HeaderCell> </Table.HeaderCell>
 							</Table.Row>
 						</Table.Header>
-
-					<Table.Body>
-						<Table.Row>
-							<Table.Cell>
-								<Input
-									id="begin"
-									placeholder="YYYY-MM-DD HH:MM"
-									onChange={e =>
-										this.setState({ begin: e.target.value, entrySaved: false })
-									}
-									value={this.state.begin}
-								/>
-							</Table.Cell>
-							<Table.Cell>
-								<Input
-									id="end"
-									placeholder="YYYY-MM-DD HH:MM"
-									onChange={e =>
-										this.setState({ end: e.target.value, entrySaved: false })
-									}
-									value={this.state.end}
-								/>
-							</Table.Cell>
-							<Table.Cell>
-								<Input
-									id="hourlyRate"
-									placeholder="$"
-									onChange={e =>
-										this.setState({
-											hourlyRate: e.target.value,
-											entrySaved: false
-										})
-									}
-								/>
-							</Table.Cell>
-							<Table.Cell>
-								<Dropdown
-									id="customer"
-									className="customer"
-									selection
-									defaultValue=""
-									options={customerOptions}
-									onChange={(e, { value }) => this.handleCustomerChange(value)}
-								/>
-							</Table.Cell>
-							<Table.Cell>
-								<Dropdown
-									id="project"
-									className="project"
-									selection
-									defaultValue=""
-									options={projectOptions}
-									onChange={(e, { value }) => this.handleProjectChange(value)}
-								/>
-							</Table.Cell>
-							<Table.Cell>
-								<Dropdown
-									id="activity"
-									className="activity"
-									selection
-									defaultValue=""
-									options={taskOptions}
-									onChange={(e, { value }) => this.handleActivityChange(value)}
-								/>
-							</Table.Cell>
-							<Table.Cell>{saveButton}</Table.Cell>
-						</Table.Row>
-						{listEntries}
-					</Table.Body>
-
+						<Table.Body>
+							<Table.Row>
+								<Table.Cell>
+									<DatePicker
+										id="begin"
+										onChange={this.handleChangeBegin}
+										selected={this.state.begin}
+										showTimeSelect
+										timeFormat="HH:mm"
+										timeIntervals={15}
+										dateFormat="yyyy-MM-dd HH:mm"
+										timeCaption="time"
+									/>
+								</Table.Cell>
+								<Table.Cell>
+									<DatePicker
+										id="end"
+										onChange={this.handleChangeEnd}
+										selected={this.state.end}
+										showTimeSelect
+										timeFormat="HH:mm"
+										timeIntervals={15}
+										dateFormat="yyyy-MM-dd HH:mm"
+										timeCaption="time"
+									/>
+								</Table.Cell>
+								<Table.Cell>
+									<Input
+										id="hourlyRate"
+										placeholder="$"
+										onChange={e =>
+											this.setState({
+												hourlyRate: e.target.value,
+												entrySaved: false
+											})
+										}
+									/>
+								</Table.Cell>
+								<Table.Cell>
+									<Dropdown
+										id="customer"
+										className="customer"
+										selection
+										defaultValue=""
+										options={customerOptions}
+										onChange={(e, { value }) => this.handleCustomerChange(value)}
+									/>
+								</Table.Cell>
+								<Table.Cell>
+									<Dropdown
+										id="project"
+										className="project"
+										selection
+										defaultValue=""
+										options={projectOptions}
+										onChange={(e, { value }) => this.handleProjectChange(value)}
+									/>
+								</Table.Cell>
+								<Table.Cell>
+									<Dropdown
+										id="activity"
+										className="activity"
+										selection
+										defaultValue=""
+										options={taskOptions}
+										onChange={(e, { value }) => this.handleActivityChange(value)}
+									/>
+								</Table.Cell>
+								<Table.Cell>{saveButton}</Table.Cell>
+							</Table.Row>
+							{listEntries}
+						</Table.Body>
 						<Table.Footer>
 							<Table.Row>
 								<Table.HeaderCell textAlign="center" colSpan="7" />
