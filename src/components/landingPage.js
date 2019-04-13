@@ -32,6 +32,7 @@ class LandingPage extends Component {
 					<h3>Are you looking for an easy way to keep your projects organised?</h3>
 					<h3>Are you looking for an easy platform for invoicing your customers?</h3>
 					<h2>Then you are in the right place!</h2>
+					<h3>Please contact us via e-mail about registration inqueries.</h3>
 				</Container>
 
 				<Divider hidden />
