@@ -72,7 +72,13 @@ class TotalTimeChart extends Component {
 							}]
 						}
 					}}
-					data={{ datasets: [{ data: hoursPerMonth, label: "Total working time spent on projects per month (current year)" }], labels: monthNames }} />
+					data={{ datasets: [{ data: hoursPerMonth, backgroundColor: [
+            '#42f474',
+            '#2dff68',
+            '#50c972',
+            '#11d849',
+            '#0cff50',
+          ], label: "Total working time spent on projects per month (current year)" }], labels: monthNames }} />
 			</>
 		)
 	}

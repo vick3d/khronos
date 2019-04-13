@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { getTimeData } from "../modules/kimaiGetTimeData";
+import { red } from 'ansi-colors';
 
 class TotalMoneyChart extends Component {
 	state = {
@@ -58,18 +59,24 @@ class TotalMoneyChart extends Component {
 						maintainAspectRatio: true,
 						legend: {
 							display: true,
-							position: 'bottom'
+							position: 'bottom',
 						},
 						scales: {
 							yAxes: [{
 								scaleLabel: {
 									display: true,
-									labelString: 'Money(total)'
+									labelString: 'Money(total)',
 								}
 							}]
 						}
 					}}
-					data={{ datasets: [{ data: moneyPerMonth, label: "Total money earned from projects per month (current year)" }], labels: monthNames }} />
+					data={{ datasets: [{ data: moneyPerMonth,   backgroundColor: [
+            '#42f474',
+            '#2dff68',
+            '#50c972',
+            '#11d849',
+            '#0cff50',
+          ], label: "Total money earned from projects per month (current year)" }], labels: monthNames }} />
 			</>
 		)
 	}
