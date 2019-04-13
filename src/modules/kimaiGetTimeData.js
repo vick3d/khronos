@@ -20,7 +20,7 @@ export const getTimeData = user => {
 				resolve(response.data);
 			})
 			.catch(error => {
-				reject(error.response.data);
+				resolve(error.response.data);
 			});
 	});
 };
